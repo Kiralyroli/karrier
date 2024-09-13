@@ -7,14 +7,18 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "symfony/asset": "7.1.*",
+        "symfony/asset-mapper": "7.1.*",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
         "symfony/runtime": "7.1.*",
-        "symfony/yaml": "7.1.*"
-    },
-    "require-dev": {
+        "symfony/twig-bundle": "7.1.*",
+        "symfony/yaml": "7.1.*",
+        "symfonycasts/sass-bundle": "^0.7.0",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -47,7 +51,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
