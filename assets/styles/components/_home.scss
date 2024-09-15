@@ -1,0 +1,55 @@
+#home-page {
+  #title {
+    color: $base-color-dark;
+    font-size: 65px;
+    font-weight: bold;
+    margin-bottom: 150px;
+  }
+
+  #sub-title {
+    color: $base-color-light;
+    background-color: #e0f6f5;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 45px;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  #description {
+    background-color: $base-color-light;
+    color: white;
+    border-radius: 15px;
+    padding: 40px 50px;
+
+    #description-content {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    #description-buttons {
+      font-size: 20px;
+
+      a {
+        text-decoration: none;
+        color: $base-color-dark;
+        background-color: white;
+        border-radius: 20px;
+        padding: 10px 15px;
+        font-weight: bold;
+        margin-right: 50px;
+
+        &:hover {
+          color: $base-color-light;
+        }
+      }
+    }
+
+    #doc-image {
+      height: 300px;
+      margin-left: 100px;
+      margin-top: -250px;
+      transform: rotate(10deg);
+    }
+  }
+}

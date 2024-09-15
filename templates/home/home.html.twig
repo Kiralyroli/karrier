@@ -2,7 +2,26 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Blog</h1>
+    <div id="home-page">
+        <h2 id="sub-title">Karrier Manufaktúra</h2>
+        <h1 id="title">Emelkedj ki a tömegből</h1>
+        <div id="description">
+            <div class="row">
+                <div class="col-7">
+                    <div id="description-content">
+                        Szerezd meg az állást, amit megérdemelsz,
+                        egy személyre szabott, tapasztalt HR
+                        szakértők által elkészített professzionális
+                        önéletrajzzal.
+                    </div>
+                    <div id="description-buttons"><a href="#">Önéletrajz készítése</a><a href="#">Tudj meg többet</a></div>
+                </div>
+                <div class="col-5">
+                    <img id="doc-image" src="{{ asset('images/home_doc.png') }}" alt="Document">
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% block page_contents %}{% endblock %}
 {% endblock %}
