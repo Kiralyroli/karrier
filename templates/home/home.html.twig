@@ -1,4 +1,4 @@
-{# templates/blog/layout.html.twig #}
+{# templates/home/home.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block content %}
@@ -17,11 +17,9 @@
                     <div id="description-buttons"><a href="#">Önéletrajz készítése</a><a href="#">Tudj meg többet</a></div>
                 </div>
                 <div class="col-5">
-                    <img id="doc-image" src="{{ asset('images/home_doc.png') }}" alt="Document">
+                    <img id="doc-image" src="{{ asset('images/home/doc.png') }}" alt="Document">
                 </div>
             </div>
         </div>
     </div>
-
-    {% block page_contents %}{% endblock %}
 {% endblock %}
