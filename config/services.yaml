@@ -25,3 +25,8 @@ services:
     App\Model\Email\EmailSender:
         arguments:
             $fromEmail: '%env(string:MAILER_FROM_EMAIL)%'
+
+    App\Model\Logger\FileLogger:
+        arguments:
+            $filePath: '%kernel.logs_dir%'
+            $maxFileCount: '%env(string:LOG_MAX_FILE_COUNT)%'
