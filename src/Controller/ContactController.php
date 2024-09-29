@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Captcha\ReCaptchaService;
 use App\Model\Email\EmailSender;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact_page')]
-    public function index(EmailSender $emailSender): Response
+    public function index(EmailSender $emailSender, ReCaptchaService $reCaptchaService): Response
     {
         $validations = [];
         $successMessage = null;
@@ -56,6 +57,13 @@ class ContactController extends AbstractController
                 $isFormValid = false;
             } else {
                 $validations['message'] = 'is-valid';
+            }
+
+            if ($reCaptchaService->isSuccessVerify($_POST['g-recaptcha-response'])) {
+                $validations['recaptcha'] = 'is-valid';
+            } else {
+                $validations['recaptcha'] = 'is-invalid';
+                $isFormValid = false;
             }
 
             $values = [
