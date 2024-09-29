@@ -1,0 +1,62 @@
+#contact-page {
+  .alert-success {
+    background-color: #d1e7dd6b;
+  }
+
+  #contact-form {
+    label {
+      font-size: 1.25rem;
+    }
+
+    input, textarea {
+      border-radius: 0.5rem;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .invalid-feedback {
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      margin-top: 2rem;
+      background-color: $base-color-dark;
+      color: white;
+      border-radius: 30px;
+      padding: 0.4rem 1.4rem;
+      font-size: 1.3rem;
+    }
+  }
+
+  #description {
+    padding-left: 80px;
+    font-size: 1.25rem;
+
+    h1 {
+      color: $base-color-dark;
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 60px;
+    }
+
+    .content {
+      margin-bottom: 50px;
+    }
+
+    #contact-phone {
+      margin-bottom: 20px;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+
+    i {
+      margin-right: 30px;
+      background-color: $base-color-light;
+      color: white;
+      border-radius: 25px;
+      padding: 15px;
+    }
+  }
+}

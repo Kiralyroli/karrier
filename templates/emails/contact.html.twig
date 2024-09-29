@@ -1,0 +1,19 @@
+{# templates/emails/contact.html.twig #}
+
+<!DOCTYPE html>
+<html lang="HU">
+<head>
+    <meta charset="UTF-8">
+    <title>Kapcsolatfelvételi Email</title>
+</head>
+<body>
+<h2>Új kapcsolatfelvételi üzenet érkezett!</h2>
+
+<p><strong>Teljes név:</strong> {{ name }}</p>
+<p><strong>Email:</strong> {{ userEmail }}</p>
+<p><strong>Telefonszám:</strong> {{ phone }}</p>
+<p><strong>Üzenet:</strong> {{ message }}</p>
+
+<p>Kérjük, lépjen kapcsolatba az üzenetküldővel a megadott elérhetőségek egyikén!</p>
+</body>
+</html>
