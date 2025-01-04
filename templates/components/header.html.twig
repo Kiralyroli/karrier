@@ -2,18 +2,25 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{ path('home_page') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo">
+                <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+                <div class="brand-title">
+                    <div class="brand-title-1">Karrier</div>
+                    <div class="brand-title-2">Manufaktúra</div>
+                </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
-                    <li class="nav-item m-auto">
-                        <a class="nav-link" href="{{ path('contact_page') }}">Kapcsolat</a>
-                    </li>
-                    <li class="nav-item m-auto">
-                        <a class="nav-link" href="{{ path('prices_page') }}">Árak</a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav mb-lg-0 w-50">
+                    <li class="nav-item dropdown m-auto">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Szolgáltatások
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Önéletrajz készítés</a></li>
+                            <li><a class="dropdown-item" href="#">Önéletrajz elemzés</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item m-auto">
                         <a class="nav-link" href="{{ path('about_page') }}">Rólunk</a>
@@ -21,8 +28,8 @@
                     <li class="nav-item m-auto">
                         <a class="nav-link" href="#">Blog</a>
                     </li>
-                    <li id="nav_start" class="nav-item m-auto">
-                        <a class="nav-link" href="#">{{ 'Kezdés'|upper }}</a>
+                    <li class="nav-item m-auto">
+                        <a class="nav-link" href="{{ path('prices_page') }}">Kapcsolat</a>
                     </li>
                 </ul>
             </div>

@@ -1,14 +1,10 @@
 @font-face {
-  font-family: 'Holla';
-  src: url('../fonts/Holla.ttf');
+  font-family: 'Outfit-Regular';
+  src: url('../fonts/Outfit-Regular.ttf');
 }
 
 body, html {
   height: 100%;
-  background-image:
-          radial-gradient(circle at 10% 30%, $background-color, transparent 25%),
-          radial-gradient(circle at 95% 30%, $background-color, transparent 25%),
-          radial-gradient(circle at 30% 90%, $background-color, transparent 25%),
-          radial-gradient(circle at 60% 10%, $background-color, transparent 25%);
-  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
+  font-family: 'Outfit-Regular', sans-serif;
 }

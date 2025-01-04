@@ -2,22 +2,56 @@ header {
   margin-bottom: 15px;
 
   .navbar .container {
-    .navbar-brand img {
-      height: 80px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    padding: 10px 20px;
+
+    .navbar-brand {
+      display: flex;
+
+      img {
+        height: 50px;
+        padding-left: 20px;
+        padding-right: 10px;
+      }
+
+      .brand-title {
+        font-size: 25px;
+        line-height: 25px;
+
+        .brand-title-1 {
+          color: $base-color-light;
+        }
+        .brand-title-2 {
+          color: $base-color-dark;
+        }
+      }
     }
 
     .navbar-nav {
       a {
-        color: $base-color-dark;
-        font-size: 25px;
+        color: $base-color-light;
+        font-size: 18px;
+
+        &:hover {
+          color: $base-color-dark;
+        }
       }
 
-      #nav_start a {
-        background-color: $base-color-light;
-        color: white;
-        border-radius: 30px;
-        padding-left: 20px;
-        padding-right: 20px;
+      .dropdown {
+        &:hover>.dropdown-menu {
+          display: block;
+        }
+
+        .dropdown-menu {
+          .dropdown-item {
+            padding: 10px 30px;
+
+            &:active {
+              background-color: #e9ecef;
+            }
+          }
+        }
       }
     }
   }
