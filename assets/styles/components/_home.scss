@@ -1,41 +1,67 @@
 #home-page {
-  #main-title {
-    color: $base-color-dark;
-    margin-top: 150px;
-    margin-bottom: 30px;
-    text-shadow: 0 0 10px rgba($base-color-dark, 0.5);
-
-    h2 {
-      font-size: 50px;
-    }
-  }
-
-  #main-buttons {
-    font-size: 20px;
-
-    a {
-      text-decoration: none;
+  #main {
+    #main-title {
       color: $base-color-dark;
-      background-color: white;
-      border-radius: 20px;
-      padding: 15px 20px;
-      margin-right: 35px;
-      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+      margin-top: 150px;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba($base-color-dark, 0.5);
 
-      &:hover {
-        color: white;
-        background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
+      h2 {
+        font-size: 50px;
       }
+    }
 
-      &:first-of-type {
-        background-color: $base-color-dark;
-        color: white;
+    #main-buttons {
+      font-size: 20px;
+
+      a {
+        text-decoration: none;
+        color: $base-color-dark;
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px 20px;
+        margin-right: 35px;
+        box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+
+        &:hover {
+          color: white;
+          background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
+        }
+
+        &:first-of-type {
+          background-color: $base-color-dark;
+          color: white;
+        }
       }
+    }
+
+    #cv-image {
+      height: 600px;
+      margin-left: -30px;
     }
   }
 
-  #cv-image {
-    height: 600px;
-    margin-left: -30px;
+  #benefits {
+    background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .benefit-card {
+      background-color: rgba($base-color-light, 0.5);
+      border-radius: 20px;
+      padding: 10px;
+      color: $base-color-dark;
+      font-weight: bold;
+      width: 90%;
+
+      .percentage {
+        font-size: 65px;
+        text-align: right;
+        padding-right: 0;
+      }
+      .text {
+        font-size: 20px;
+      }
+    }
   }
 }
