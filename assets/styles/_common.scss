@@ -8,3 +8,14 @@ body, html {
   background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
   font-family: 'Outfit-Regular', sans-serif;
 }
+
+.dark-text-shadow {
+  text-shadow: 0 0 10px rgba($base-color-dark, 0.5);
+}
+
+.button-hover {
+  &:hover {
+    color: white;
+    background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
+  }
+}

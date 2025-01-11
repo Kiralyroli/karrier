@@ -6,7 +6,6 @@
       color: $base-color-dark;
       margin-top: 150px;
       margin-bottom: 30px;
-      text-shadow: 0 0 10px rgba($base-color-dark, 0.5);
 
       h2 {
         font-size: 50px;
@@ -24,11 +23,6 @@
         padding: 15px 20px;
         margin-right: 35px;
         box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
-
-        &:hover {
-          color: white;
-          background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
-        }
 
         &:first-of-type {
           background-color: $base-color-dark;
@@ -63,6 +57,72 @@
       }
       .text {
         font-size: 20px;
+      }
+    }
+  }
+
+  #features {
+    margin-top: 40px;
+    color: $base-color-dark;
+
+    h3 {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .features-desc {
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 25px;
+    }
+
+    #features-buttons {
+      text-align: center;
+      margin-bottom: 100px;
+
+      a {
+        text-decoration: none;
+        color: $base-color-dark;
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px 20px;
+        margin-right: 35px;
+        box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+
+        &:first-of-type {
+          background-color: $base-color-dark;
+          color: white;
+        }
+      }
+    }
+
+    .feature-card {
+      background-color: rgba(white, 0.5);
+      border-radius: 20px;
+      padding: 10px;
+      color: $base-color-dark;
+      width: 90%;
+      margin-bottom: 25px;
+
+      .feature-card-icon {
+        display: flex;
+        justify-content: center;
+
+        img {
+          align-self: center;
+          height: 90px;
+        }
+      }
+
+      .feature-card-title {
+        font-size: 25px;
+        font-weight: bold;
+      }
+
+      .feature-card-text {
+        font-size: 18px;
+        line-height: 21px;
       }
     }
   }
