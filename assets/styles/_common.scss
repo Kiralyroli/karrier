@@ -13,6 +13,10 @@ body, html {
   text-shadow: 0 0 10px rgba($base-color-dark, 0.5);
 }
 
+.white-text-shadow {
+  text-shadow: 0 0 10px rgba(white, 0.5);
+}
+
 .button-hover {
   &:hover {
     color: white;
