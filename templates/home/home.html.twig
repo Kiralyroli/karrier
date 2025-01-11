@@ -3,23 +3,6 @@
 
 {% block content %}
     <div id="home-page">
-        <h2 id="sub-title">Karrier Manufaktúra</h2>
-        <h1 id="title">Emelkedj ki a tömegből</h1>
-        <div id="description">
-            <div class="row">
-                <div class="col-7">
-                    <div id="description-content">
-                        Szerezd meg az állást, amit megérdemelsz,
-                        egy személyre szabott, tapasztalt HR
-                        szakértők által elkészített professzionális
-                        önéletrajzzal.
-                    </div>
-                    <div id="description-buttons"><a href="#">Önéletrajz készítése</a><a href="#">Tudj meg többet</a></div>
-                </div>
-                <div class="col-5">
-                    <img id="doc-image" src="{{ asset('images/home/doc.png') }}" alt="Document">
-                </div>
-            </div>
-        </div>
+        {% include 'home/main.html.twig' %}
     </div>
 {% endblock %}
