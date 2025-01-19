@@ -18,14 +18,16 @@ header {
       }
 
       .brand-title {
-        font-size: 25px;
-        line-height: 25px;
+        font-size: 33px;
 
         .brand-title-1 {
           color: $base-color-light;
+          display: inline;
+          margin-right: -7px;
         }
         .brand-title-2 {
           color: $base-color-dark;
+          display: inline;
         }
       }
     }
