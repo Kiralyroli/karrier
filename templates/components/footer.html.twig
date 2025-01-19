@@ -1,0 +1,52 @@
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Szolgáltatások</h4>
+                <div>Önéletrajz készítés</div>
+                <div>Önéletrajz elemzés</div>
+            </div>
+            <div class="col-md-4">
+                <h4>Cégünk</h4>
+                <a href="#">Rólunk</a>
+                <a href="#">Kapcsolat</a>
+                <a href="#">Árak</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="col-md-4">
+                <h4>Támogatás</h4>
+                <a href="/#faq">Gyakori kérdések</a>
+                <a href="#">ÁSZF</a>
+                <a href="#">Adatvédelmi tájékoztató</a>
+            </div>
+        </div>
+        <hr class="hr" />
+        <div class="row">
+            <div class="col-md-4">
+                <a class="footer-brand" href="{{ path('home_page') }}">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+                    <div class="brand-title">
+                        <div class="brand-title-1">prime</div>
+                        <div class="brand-title-2">cv</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 social-icons">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+                <a href="#"><i class="bi bi-youtube"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+            </div>
+            <div class="col-md-4">
+                <p id="copyright"></p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    $(document).ready(function() {
+        const d = new Date();
+        const y = d.getFullYear();
+        document.getElementById("copyright").innerHTML = '&copy; ' + y + ' primeCV';
+    })
+</script>

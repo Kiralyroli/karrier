@@ -1,0 +1,62 @@
+footer {
+  margin-top: 150px;
+  text-align: center;
+  color: $base-color-dark;
+  line-height: 50px;
+
+  h4 {
+    font-weight: bold;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: $base-color-dark;
+
+    &:hover {
+      color: $base-color-dark;
+    }
+  }
+
+  hr {
+    color: white;
+    height: 3px;
+    opacity: 1;
+  }
+
+  .footer-brand {
+    display: flex;
+
+    img {
+      height: 50px;
+      padding-left: 20px;
+      padding-right: 10px;
+    }
+
+    .brand-title {
+      font-size: 33px;
+
+      .brand-title-1 {
+        color: $base-color-light;
+        display: inline;
+        margin-right: -7px;
+      }
+      .brand-title-2 {
+        color: $base-color-dark;
+        display: inline;
+      }
+    }
+  }
+
+  .social-icons a {
+    display: inline;
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  #copyright {
+    font-weight: bold;
+  }
+}
