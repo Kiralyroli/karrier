@@ -1,0 +1,73 @@
+<div id="faq" class="container">
+    <h3 class="dark-text-shadow">Gyakran Ismételt Kérdések</h3>
+    <div class="faq">
+        <div class="question">
+            Miért a primecv a legjobb választás önéletrajzod elkészítéséhez?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">A primecv azért kiemelkedő, mert mi nem csak sablonokat kínálunk, hanem tapasztalt HR-szakértők által teljesen személyre szabott önéletrajzot készítünk. Minden dokumentumot úgy állítunk össze, hogy az megfeleljen a legfrissebb munkaerőpiaci trendeknek, és kiemelje az erősségeidet. A folyamat gyors és egyszerű: csak töltsd ki az űrlapot, és mi gondoskodunk a professzionális végeredményről.  Mert a sikered számunkra is fontos!</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Miért érdemes fizetni azért, hogy valaki más írja meg az önéletrajzomat?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">Egy HR szakértő körülbelül 8-15 másodperc alatt dönt arról, hogy az önéletrajzát kiválasztják-e egy adott pozícióra vagy sem. Ehhez jön még az a tény, hogy átlagosan egyetlen vállalati álláslehetőségre körülbelül 300 önéletrajz érkezik. Az álláspiac egyre inkább versenyhelyzetbe kerül, és az önéletrajzának ki kell tűnnie a többi közül, és kifejezetten az adott iparágra és pozícióra kell szabottnak lennie. Ha olyan szakember írja meg, aki tisztában van azzal, hogy mit keresnek a toborzók, hogyan optimalizálhatja kulcsszavakra az önéletrajzát, és milyen formátum segít legyőzni az ATS rendszereket, jelentősen megnöveli az esélyeit arra, hogy megkapja álmai állását.</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Hogyan készül el az önéletrajzom?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">Az önéletrajz elkészítéséhez először ki kell töltened egy egyszerű online adatlapot, ahol megadhatod a szükséges adatokat, mint a személyes információid, szakmai tapasztalataid, tanulmányaid és készségeid. Ezt követően tapasztalt HR-szakértőink részletesen elemzik az általad megadott információkat, és egy modern, figyelemfelkeltő önéletrajzot készítenek, amely teljes mértékben a te igényeidhez és a megpályázni kívánt pozícióhoz igazodik. Az elkészült dokumentumot PDF formátumban e-mailben kapod meg, készen arra, hogy benyújtsd a jelentkezésed. Ez a folyamat biztosítja, hogy az önéletrajzod professzionális és kiemelkedő legyen.</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Mi az az ATS-barát önéletrajz?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">Az ATS (Applicant Tracking System) olyan automatikus szűrőrendszer, amelyet a munkáltatók használnak a jelentkezések szűrésére. Az általunk készített önéletrajzok ATS-optimalizáltak, így garantáltan átjutnak ezen a szűrőn, és eljutnak a HR-esek kezébe.</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Mennyi idő alatt készül el az önéletrajzom?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">Az önéletrajzod a kitöltött űrlap és a szükséges információk beérkezése után 2-3 munkanapon belül elkészül. Gyorsított szolgáltatás is elérhető, ha sürgősen szükséged van rá.</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Mit tartalmaz pontosan a konzultáció?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">A konzultáció során feltöltöd az önéletrajzod, és szakértőinktől 2-3 célzott tanácsot kapsz annak javítására. Emellett lehetőséged van 2-3 kérdést is feltenni, hogy választ kapj a karriereddel vagy pályázati stratégiáddal kapcsolatos legfontosabb kérdéseidre.</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Hogyan kapom meg az elkészült önéletrajzot?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">Az elkészült önéletrajzot e-mailben küldjük el neked, letölthető PDF formátumban, mivel ez a legprofesszionálisabb és legelterjedtebb. Kérésre Word formátumban is biztosítjuk.</div>
+    </div>
+    <div class="faq">
+        <div class="question">
+            Hogyan kérhetek módosítást az elkészült önéletrajzon?
+            <div class="symbol">+</div>
+        </div>
+        <div class="answer">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.question').click(function () {
+            if (!$(this).closest('.faq').hasClass('active')) {
+                $(this).closest('.faq').addClass('active');
+                $(this).next('.answer').slideDown(500);
+            } else {
+                $(this).closest('.faq').removeClass('active');
+                $(this).next('.answer').slideUp(500);
+            }
+        });
+    });
+</script>
