@@ -1,0 +1,69 @@
+<div id="making_process" class="container">
+    <h3 class="dark-text-shadow">Önéletrajz készítés folyamata</h3>
+    <div class="row">
+        <div class="col-md-5">
+            <div id="step_1" class="btn step active">
+                <div class="step-number">1</div>
+                Csomagválasztás
+                <div class="symbol">&gt;</div>
+            </div>
+            <div id="step_2" class="btn step">
+                <div class="step-number">2</div>
+                Sablon kiválasztás
+                <div class="symbol">&gt;</div>
+            </div>
+            <div id="step_3" class="btn step">
+                <div class="step-number">3</div>
+                Adatlap kitöltése
+                <div class="symbol">&gt;</div>
+            </div>
+            <div id="step_4" class="btn step">
+                <div class="step-number">4</div>
+                Önéletrajz kézbesítése
+                <div class="symbol">&gt;</div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="image-container">
+                <img id="step_1_image" class="active-image" src="{{ asset('images/home/making_process/step1.png') }}" alt="step1">
+                <div id="step_1_description" class="img-description active-description">
+                    Válaszd ki a számodra megfelelő csomagot! Akár az alap önéletrajz-készítést kéred, akár a prémium csomagot LinkedIn-optimalizálással, biztosan megtalálod a neked valót. Ha kérdésed van, írj nekünk és segítünk.
+                </div>
+                <img id="step_2_image" src="{{ asset('images/home/making_process/step2.png') }}" alt="step2">
+                <div id="step_2_description" class="img-description">
+                    Add meg a szükséges információkat az online adatlapunkon – eddigi tapasztalatok, készségek és karriercélok –, hogy teljesen személyre szabott önéletrajzot készíthessünk.
+                </div>
+                <img id="step_3_image" src="{{ asset('images/home/making_process/step3.png') }}" alt="step3">
+                <div id="step_3_description" class="img-description">
+                    Válassz az előre elkészített, professzionális sablonjaink közül, amelyek modern, letisztult és ATS-kompatibilis kialakítást biztosítanak. Minden sablon célzottan kiemeli a legfontosabb információkat, hogy önéletrajzod azonnal megragadja a toborzók figyelmét.
+                </div>
+                <img id="step_4_image" src="{{ asset('images/home/making_process/step4.png') }}" alt="step4">
+                <div id="step_4_description" class="img-description">
+                    Az általad választott csomagtól függően 1-5 munkanapon belül elkészítjük a tökéletes önéletrajzodat, amelyet e-mailben PDF formátumban küldünk el. Szükség esetén további módosításokat is kérhetsz, hogy minden részlet tökéletes legyen!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#step_1_image').show();
+        $('#step_1_description').show();
+
+        $('.step').click(function () {
+            $('.step').removeClass('active');
+            $(this).addClass('active');
+
+            $('.image-container img').fadeOut();
+            $('.img-description').fadeOut();
+
+
+            let stepId = $(this).attr('id');
+            let stepNumber = stepId.split('_')[1];
+
+            $(`#step_${stepNumber}_image`).fadeIn();
+            $(`#step_${stepNumber}_description`).fadeIn();
+        });
+    });
+</script>
