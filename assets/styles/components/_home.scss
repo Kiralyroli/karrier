@@ -49,7 +49,7 @@
     padding-bottom: 40px;
 
     .benefit-card {
-      background-color: rgba($base-color-light, 0.5);
+      background-color: rgba(white, 0.75);
       border-radius: 20px;
       padding: 10px;
       color: $base-color-dark;
@@ -76,6 +76,7 @@
       text-align: center;
       font-size: 40px;
       margin-bottom: 10px;
+      font-weight: bold;
     }
 
     .features-desc {
@@ -86,7 +87,7 @@
 
     #features-buttons {
       text-align: center;
-      margin-bottom: 100px;
+      margin-bottom: 50px;
 
       a {
         text-decoration: none;
@@ -105,31 +106,48 @@
     }
 
     .feature-card {
-      background-color: rgba(white, 0.5);
+      background-color: $base-color-dark;
       border-radius: 20px;
-      padding: 10px;
-      color: $base-color-dark;
+      padding: 20px;
+      color: white;
       width: 90%;
+      height: 190px;
       margin-bottom: 25px;
 
       .feature-card-icon {
         display: flex;
         justify-content: center;
+        transform: translate(0%, 30%);
 
         img {
           align-self: center;
-          height: 90px;
+          height: 60px;
         }
       }
 
       .feature-card-title {
         font-size: 25px;
-        font-weight: bold;
+        text-align: center;
+        transform: translate(0%, 75%);
       }
 
-      .feature-card-text {
+      .feature-card-description {
         font-size: 18px;
-        line-height: 21px;
+        display: none;
+        height: 100%;
+
+        .text {
+          align-self: center;
+        }
+
+        .image {
+          display: flex;
+
+          img {
+            height: 30px;
+            align-self: end;
+          }
+        }
       }
     }
   }
