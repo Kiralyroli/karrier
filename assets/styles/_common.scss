@@ -19,7 +19,7 @@ body, html {
 
 .button-hover {
   &:hover {
-    color: white;
-    background: linear-gradient(90deg, $background-color-dark 0%, $background-color-light 100%);
+    color: white !important;
+    background-color: $background-color-dark !important;
   }
 }
