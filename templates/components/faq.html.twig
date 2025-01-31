@@ -1,0 +1,26 @@
+<div id="faq" class="container">
+    <h3 class="dark-text-shadow">Gyakran Ismételt Kérdések</h3>
+    {% for faq in faqs %}
+        <div class="faq">
+            <div class="question">
+                {{ faq.question }}
+                <div class="symbol">+</div>
+            </div>
+            <div class="answer">{{ faq.answer }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.question').click(function () {
+            if (!$(this).closest('.faq').hasClass('active')) {
+                $(this).closest('.faq').addClass('active');
+                $(this).next('.answer').slideDown(500);
+            } else {
+                $(this).closest('.faq').removeClass('active');
+                $(this).next('.answer').slideUp(500);
+            }
+        });
+    });
+</script>

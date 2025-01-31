@@ -11,15 +11,19 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home_page')]
     public function index(): Response
     {
-        $filePath = $this->getParameter('kernel.project_dir') . '/data/testimonials.json';
+        return $this->render('home/home.html.twig', [
+            'testimonials' => $this->getJsonData('testimonials.json'),
+            'faqs' => $this->getJsonData('home_faqs.json'),
+        ]);
+    }
+
+    private function getJsonData(string $jsonFile): array
+    {
+        $filePath = $this->getParameter('kernel.project_dir') . '/data/' . $jsonFile;
         if (!file_exists($filePath)) {
-            throw $this->createNotFoundException('A testimonials.json fájl nem található!');
+            throw $this->createNotFoundException('A ' . $jsonFile . ' fájl nem található!');
         }
         $jsonData = file_get_contents($filePath);
-        $testimonials = json_decode($jsonData, true);
-
-        return $this->render('home/home.html.twig', [
-            'testimonials' => $testimonials,
-        ]);
+        return json_decode($jsonData, true);
     }
 }
