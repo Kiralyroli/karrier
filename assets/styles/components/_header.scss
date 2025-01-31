@@ -1,60 +1,95 @@
+$navbar-bg: rgba(255, 255, 255, 0.5);
+$navbar-blur: 4px;
+$nav-link-color: $base-color-light;
+$nav-link-hover-color: $base-color-dark;
+$nav-active-bg: $base-color-light;
+$nav-active-text: white;
+
 header {
   margin-bottom: 15px;
 
+  .navbar {
+    .container {
+      background-color: $navbar-bg;
+      border-radius: 10px;
+      padding: 10px 20px;
+      backdrop-filter: blur($navbar-blur);
+      -webkit-backdrop-filter: blur($navbar-blur);
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+          height: 50px;
+          padding-left: 20px;
+        }
+
+        .brand-title {
+          font-size: 33px;
+
+          .brand-title-1 {
+            color: $base-color-light;
+            display: inline;
+            margin-right: -7px;
+          }
+
+          .brand-title-2 {
+            color: $base-color-dark;
+            display: inline;
+          }
+        }
+      }
+
+      .navbar-nav {
+        width: auto;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .nav-item {
+          a {
+            color: $nav-link-color;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+
+            &:hover {
+              color: $nav-link-hover-color;
+            }
+          }
+        }
+
+        .nav-item:last-of-type {
+          a {
+            background-color: $nav-active-bg;
+            color: $nav-active-text;
+            border-radius: 15px;
+            padding: 10px 15px;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+
+            &:hover {
+              background-color: white;
+              color: $nav-active-bg;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
   .navbar .container {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    padding: 10px 20px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    flex-direction: column;
+  }
 
-    .navbar-brand {
-      display: flex;
+  .navbar-nav {
+    width: 100%;
+    text-align: center;
+  }
 
-      img {
-        height: 50px;
-        padding-left: 20px;
-        padding-right: 10px;
-      }
-
-      .brand-title {
-        font-size: 33px;
-
-        .brand-title-1 {
-          color: $base-color-light;
-          display: inline;
-          margin-right: -7px;
-        }
-        .brand-title-2 {
-          color: $base-color-dark;
-          display: inline;
-        }
-      }
-    }
-
-    .navbar-nav {
-      width: 40%;
-
-      a {
-        color: $base-color-light;
-        font-size: 18px;
-
-        &:hover {
-          color: $base-color-dark;
-        }
-      }
-
-      .nav-item:last-of-type a {
-        background-color: $base-color-light;
-        color: white;
-        border-radius: 15px;
-        padding: 15px;
-        
-        &:hover {
-          background-color: white;
-          color: $base-color-light;
-        }
-      }
-    }
+  .nav-item {
+    margin: 5px 0;
   }
 }
