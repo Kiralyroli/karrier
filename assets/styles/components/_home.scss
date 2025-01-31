@@ -187,70 +187,45 @@
 
   #making_process {
     padding-top: 40px;
+    color: $base-color-dark;
 
-    h3 {
+    h2 {
       text-align: center;
       font-size: 40px;
       margin-bottom: 30px;
+      font-weight: bold;
     }
 
-    .step {
-      font-size: 20px;
-      border-radius: 15px;
-      color: white;
+    .making-process-card {
+      background-color: rgba(white, 0.75);
+      border-radius: 20px;
+      padding: 20px;
+      color: $base-color-dark;
       width: 90%;
-      padding: 25px 10px;
+      height: 190px;
       margin-bottom: 25px;
       display: flex;
-      align-items: center;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
 
-      &.active {
-        background-color: rgba($base-color-light, 0.3);
-      }
-
-      &:hover {
-        background-color: rgba($base-color-light, 0.3);
-      }
-
-      .step-number {
-        background-color: rgba($base-color-light, 0.6);
-        padding: 5px 15px;
-        margin-right: 10px;
-        border-radius: 10px;
-      }
-
-      .symbol {
-        margin-left: auto;
-        margin-right: 15px;
-      }
-    }
-
-    .image-container {
-      background-color: rgba(white, 0.4);
-      border-radius: 20px;
-      position: relative;
-      overflow: hidden;
-      height: 500px;
-
-      img {
-        display: none;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 3%);
-      }
-
-      .img-description {
-        color: $base-color-light;
-        position: absolute;
-        bottom: 0;
-        margin-left: 35px;
-        margin-right: 35px;
-        padding-bottom: 20px;
-        line-height: 20px;
-        display: none;
+      .making-process-card-title {
+        font-size: 25px;
+        align-self: center;
         text-align: center;
+        width: 100%;
+      }
+
+      .making-process-card-description {
+        font-size: 18px;
+        display: none;
+        align-self: center;
+      }
+
+      .making-process-card-icon {
+        display: flex;
+
+        img {
+          height: 30px;
+          transition: align-self 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
       }
     }
   }
