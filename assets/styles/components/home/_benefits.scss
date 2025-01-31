@@ -1,0 +1,31 @@
+#benefits {
+  background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
+  padding: 60px 0;
+
+  .benefit-card {
+    background-color: rgba(white, 0.85);
+    border-radius: 20px;
+    padding: 20px;
+    color: $base-color-dark;
+    font-weight: bold;
+    max-width: 450px;
+    width: 100%;
+    margin: 15px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+
+    .percentage {
+      font-size: clamp(40px, 5vw, 65px);
+      font-weight: 700;
+      flex-shrink: 0;
+      color: $base-color-dark;
+    }
+
+    .text {
+      font-size: clamp(16px, 1.2vw, 20px);
+      line-height: 1.4;
+    }
+  }
+}
