@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Zsófia S.",
+    "position": "Senior Marketing Manager",
+    "feedback": "Egy hét alatt interjúmeghívást kaptam!",
+    "rating": 5
+  },
+  {
+    "name": "Norbert K.",
+    "position": "Projektvezető",
+    "feedback": "Professzionális és gyors munka!",
+    "rating": 5
+  },
+  {
+    "name": "Anna Sz.",
+    "position": "Könyvelő",
+    "feedback": "Minden részletre figyeltek!",
+    "rating": 4
+  },
+  {
+    "name": "Anna Sz.",
+    "position": "Építésvezető",
+    "feedback": "Több mint 5 éve nem frissítettem az önéletrajzomat...",
+    "rating": 4
+  }
+]

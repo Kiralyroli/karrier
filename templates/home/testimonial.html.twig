@@ -1,0 +1,53 @@
+<div id="testimonial" class="container-fluid">
+    <div class="container">
+        <div class="testimonial-section">
+            <h2>Ügyfeleink visszajelzései</h2>
+            <div class="testimonial-slider">
+                {% for testimonial in testimonials %}
+                    <div class="testimonial-card">
+                        <div class="name">{{ testimonial.name }}</div>
+                        <div class="position">{{ testimonial.position }}</div>
+                        <div class="feedback">{{ testimonial.feedback }}</div>
+                        <div class="rating">
+                            {% for i in 1..5 %}
+                                {% if i <= testimonial.rating %}
+                                    ★
+                                {% else %}
+                                    ☆
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const slider = $(".testimonial-slider");
+        let isDown = false;
+        let startX, scrollLeft;
+
+        slider.on("mousedown touchstart", function (e) {
+            isDown = true;
+            slider.addClass("active");
+            startX = e.pageX || e.originalEvent.touches[0].pageX;
+            scrollLeft = slider.scrollLeft();
+            e.preventDefault();
+        });
+
+        slider.on("mousemove touchmove", function (e) {
+            if (!isDown) return;
+            let x = e.pageX || e.originalEvent.touches[0].pageX;
+            let walk = (startX - x) * 1.5;
+            slider.scrollLeft(scrollLeft + walk);
+        });
+
+        slider.on("mouseup mouseleave touchend", function () {
+            isDown = false;
+            slider.removeClass("active");
+        });
+    });
+</script>
