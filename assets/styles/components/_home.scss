@@ -1,47 +1,7 @@
 #home-page {
   padding-top: 80px;
 
-  #main {
-    #main-title {
-      color: $base-color-dark;
-      margin-top: 150px;
-      margin-bottom: 30px;
-
-      h2 {
-        font-size: 50px;
-      }
-    }
-
-    #main-buttons {
-      font-size: 20px;
-
-      a {
-        text-decoration: none;
-        color: $base-color-dark;
-        background-color: white;
-        border-radius: 20px;
-        padding: 15px 20px;
-        margin-right: 35px;
-        box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
-
-        &:first-of-type {
-          background-color: $base-color-dark;
-          color: white;
-        }
-      }
-    }
-
-    #main-description {
-      color: $base-color-dark;
-      margin-top: 30px;
-      font-size: 28px;
-    }
-
-    #cv-image {
-      height: 600px;
-      margin-left: -30px;
-    }
-  }
+  @import "home/main";
 
   #benefits {
     background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
