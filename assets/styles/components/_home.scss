@@ -6,73 +6,7 @@
   @import "home/features";
   @import "home/template";
   @import "home/making_process";
-
-  #testimonial {
-    background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
-
-    .testimonial-section {
-      text-align: center;
-      padding: 40px;
-      color: white;
-
-      h2 {
-        font-size: 40px;
-        margin-bottom: 20px;
-      }
-    }
-
-    .testimonial-slider {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding: 20px 0;
-      cursor: pointer;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-
-    .testimonial-card {
-      flex: 0 0 auto;
-      width: 400px;
-      background: rgba(white, 0.5);
-      border-radius: 15px;
-      padding: 20px;
-      text-align: left;
-      position: relative;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-      min-height: 250px;
-
-      .name {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 0;
-      }
-
-      .position {
-        font-size: 16px;
-        color: rgba(white, 0.8);
-        margin-bottom: 30px;
-      }
-
-      .feedback {
-        color: $base-color-dark;
-        text-align: center;
-        font-size: 22px;
-        margin-bottom: 10px;
-      }
-
-      .rating {
-        font-size: 18px;
-        color: gold;
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-      }
-    }
-  }
+  @import "home/testimonial";
 
   #faq {
     padding-top: 40px;

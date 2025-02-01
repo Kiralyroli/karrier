@@ -5,15 +5,15 @@
             <div class="testimonial-slider">
                 {% for testimonial in testimonials %}
                     <div class="testimonial-card">
-                        <div class="name">{{ testimonial.name }}</div>
+                        <strong class="name">{{ testimonial.name }}</strong>
                         <div class="position">{{ testimonial.position }}</div>
-                        <div class="feedback">{{ testimonial.feedback }}</div>
-                        <div class="rating">
+                        <blockquote class="feedback">"{{ testimonial.feedback }}"</blockquote>
+                        <div class="rating" aria-hidden="true">
                             {% for i in 1..5 %}
                                 {% if i <= testimonial.rating %}
-                                    ★
+                                    <span>★</span>
                                 {% else %}
-                                    ☆
+                                    <span>☆</span>
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -27,27 +27,33 @@
 <script>
     $(document).ready(function () {
         const slider = $(".testimonial-slider");
-        let isDown = false;
+        let isDragging = false;
         let startX, scrollLeft;
 
         slider.on("mousedown touchstart", function (e) {
-            isDown = true;
-            slider.addClass("active");
+            isDragging = true;
+            slider.addClass("grabbing");
             startX = e.pageX || e.originalEvent.touches[0].pageX;
             scrollLeft = slider.scrollLeft();
             e.preventDefault();
         });
 
-        slider.on("mousemove touchmove", function (e) {
-            if (!isDown) return;
+        $(document).on("mousemove touchmove", function (e) {
+            if (!isDragging) return;
             let x = e.pageX || e.originalEvent.touches[0].pageX;
-            let walk = (startX - x) * 1.5;
+            let walk = startX - x;
             slider.scrollLeft(scrollLeft + walk);
         });
 
-        slider.on("mouseup mouseleave touchend", function () {
-            isDown = false;
-            slider.removeClass("active");
+        $(document).on("mouseup touchend", function () {
+            isDragging = false;
+            slider.removeClass("grabbing");
+        });
+
+        // Egérgörgővel való görgetés (blokk az oldal görgetése ellen)
+        slider.on("wheel", function (e) {
+            e.preventDefault();
+            slider.stop().animate({ scrollLeft: `+=${e.originalEvent.deltaY * 2}` }, 100);
         });
     });
 </script>
