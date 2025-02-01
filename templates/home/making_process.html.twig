@@ -1,82 +1,77 @@
 <div id="making_process" class="container">
     <h2>Önéletrajz készítés folyamata</h2>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4 card-container">
             <div class="making-process-card">
                 <div class="making-process-card-title">
                     <span>1</span>
                     <p>Csomagválasztás</p>
                 </div>
                 <div class="making-process-card-description">
-                    Válaszd ki a számodra megfelelő csomagot! Akár az alap önéletrajz-készítést kéred, akár a prémium
-                    csomagot, biztosan megtalálod a neked valót.
+                    Válaszd ki a számodra megfelelő csomagot! Akár az alap önéletrajz-készítést kéred, akár a prémium csomagot, biztosan megtalálod a neked valót.
                     Ha kérdésed van, írj nekünk és segítünk.
                 </div>
                 <div class="making-process-card-icon">
-                    <img src="{{ asset('images/home/making_process/step1.svg') }}" alt="icon1">
+                    <img src="{{ asset('images/home/making_process/step1.svg') }}" alt="Csomagválasztás ikon" loading="lazy">
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4 card-container">
             <div class="making-process-card">
                 <div class="making-process-card-title">
                     <span>2</span>
                     <p>Sablon kiválasztás</p>
                 </div>
                 <div class="making-process-card-description">
-                    Válassz az előre elkészített, professzionális sablonjaink közül, amelyek modern, letisztult és
-                    ATS-kompatibilis kialakítást biztosítanak.
+                    Válassz az előre elkészített, professzionális sablonjaink közül, amelyek modern, letisztult és ATS-kompatibilis kialakítást biztosítanak.
                 </div>
                 <div class="making-process-card-icon">
-                    <img src="{{ asset('images/home/making_process/step2.svg') }}" alt="icon1">
+                    <img src="{{ asset('images/home/making_process/step2.svg') }}" alt="Sablon kiválasztás ikon" loading="lazy">
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4 card-container">
             <div class="making-process-card">
                 <div class="making-process-card-title">
                     <span>3</span>
                     <p>Adatlap kitöltés</p>
                 </div>
                 <div class="making-process-card-description">
-                    Add meg a szükséges információkat az online adatlapunkon – eddigi tapasztalatok, készségek és
-                    karriercélok –, hogy teljesen személyre szabott önéletrajzot készíthessünk.
+                    Add meg a szükséges információkat az online adatlapunkon – eddigi tapasztalatok, készségek és karriercélok –, hogy teljesen személyre szabott önéletrajzot készíthessünk.
                 </div>
                 <div class="making-process-card-icon">
-                    <img src="{{ asset('images/home/making_process/step3.svg') }}" alt="icon1">
+                    <img src="{{ asset('images/home/making_process/step3.svg') }}" alt="Adatlap kitöltés ikon" loading="lazy">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-4 card-container">
             <div class="making-process-card">
                 <div class="making-process-card-title">
                     <span>4</span>
                     <p>Online konzultáció</p>
                 </div>
                 <div class="making-process-card-description">
-                    Az ideális önéletrajzod elkészítéséhez célzott kérdésekkel gyűjtjük össze a legfontosabb
-                    információkat, miközben értékes tippeket adunk, hogy a legjobb oldaladat mutathasd meg!
+                    Az ideális önéletrajzod elkészítéséhez célzott kérdésekkel gyűjtjük össze a legfontosabb információkat, miközben értékes tippeket adunk, hogy a legjobb oldaladat mutathasd meg!
                 </div>
                 <div class="making-process-card-icon">
-                    <img src="{{ asset('images/home/making_process/step4.svg') }}" alt="icon1">
+                    <img src="{{ asset('images/home/making_process/step4.svg') }}" alt="Online konzultáció ikon" loading="lazy">
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4 card-container">
             <div class="making-process-card">
                 <div class="making-process-card-title">
                     <span>5</span>
                     <p>Önéletrajz kézbesítés</p>
                 </div>
                 <div class="making-process-card-description">
-                    Az általad választott csomagtól függően 2-5 munkanapon belül elkészítjük a tökéletes önéletrajzodat,
-                    amelyet e-mailben PDF formátumban küldünk el.
+                    Az általad választott csomagtól függően 2-5 munkanapon belül elkészítjük a tökéletes önéletrajzodat, amelyet e-mailben PDF formátumban küldünk el.
                 </div>
                 <div class="making-process-card-icon">
-                    <img src="{{ asset('images/home/making_process/step5.svg') }}" alt="icon1">
+                    <img src="{{ asset('images/home/making_process/step5.svg') }}" alt="Önéletrajz kézbesítés ikon" loading="lazy">
                 </div>
             </div>
         </div>
@@ -85,26 +80,38 @@
 
 <script>
     $(document).ready(function () {
-        $('.making-process-card').hover(
+        const processCard = $('.making-process-card');
+        processCard.hover(
             function () {
-                let icon = $(this).find('.making-process-card-icon img');
-                let parentHeight = $(this).find('.making-process-card-icon').height();
+                if ($(window).width() > 768) {
+                    let card = $(this);
+                    let icon = card.find('.making-process-card-icon img');
+                    let parentHeight = card.find('.making-process-card-icon').height();
 
-                $(this).find('.making-process-card-title').hide();
-                $(this).find('.making-process-card-description').stop(true, true).slideDown();
-                $(this).find('.making-process-card-icon img').css({
-                    'transform': `translateY(${parentHeight - icon.height()}px)`,
-                });
+                    card.find('.making-process-card-title').hide();
+                    card.find('.making-process-card-description').stop(true, true).slideDown();
+                    icon.css('transform', `translateY(${parentHeight - icon.height()}px)`);
+                }
             },
             function () {
                 let card = $(this);
                 card.find('.making-process-card-description').stop(true, true).slideUp(function () {
                     card.find('.making-process-card-title').show();
                 });
-                card.find('.making-process-card-icon img').css({
-                    'transform': 'translateY(0)'
-                });
+                card.find('.making-process-card-icon img').css('transform', 'translateY(0)');
             }
         );
+
+        processCard.on('click', function () {
+            if ($(window).width() <= 768) {
+                let card = $(this);
+                let icon = card.find('.making-process-card-icon img');
+                let parentHeight = card.find('.making-process-card-icon').height();
+
+                card.find('.making-process-card-title').hide();
+                card.find('.making-process-card-description').stop(true, true).slideDown();
+                icon.css('transform', `translateY(${parentHeight - icon.height()}px)`);
+            }
+        });
     });
 </script>

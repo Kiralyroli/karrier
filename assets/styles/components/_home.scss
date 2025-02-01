@@ -5,51 +5,7 @@
   @import "home/benefits";
   @import "home/features";
   @import "home/template";
-
-  #making_process {
-    padding-top: 40px;
-    color: $base-color-dark;
-
-    h2 {
-      text-align: center;
-      font-size: 40px;
-      margin-bottom: 30px;
-      font-weight: bold;
-    }
-
-    .making-process-card {
-      background-color: rgba(white, 0.75);
-      border-radius: 20px;
-      padding: 20px;
-      color: $base-color-dark;
-      width: 90%;
-      height: 190px;
-      margin-bottom: 25px;
-      display: flex;
-
-      .making-process-card-title {
-        font-size: 25px;
-        align-self: center;
-        text-align: center;
-        width: 100%;
-      }
-
-      .making-process-card-description {
-        font-size: 18px;
-        display: none;
-        align-self: center;
-      }
-
-      .making-process-card-icon {
-        display: flex;
-
-        img {
-          height: 30px;
-          transition: align-self 0.5s ease-in-out, transform 0.5s ease-in-out;
-        }
-      }
-    }
-  }
+  @import "home/making_process";
 
   #testimonial {
     background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);

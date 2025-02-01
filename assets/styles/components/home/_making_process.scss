@@ -1,0 +1,64 @@
+#making_process {
+  padding-top: 40px;
+  color: $base-color-dark;
+
+  h2 {
+    text-align: center;
+    font-size: clamp(30px, 5vw, 40px);
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+
+    .making-process-card {
+      background-color: rgba(white, 0.75);
+      border-radius: 20px;
+      padding: 20px;
+      color: $base-color-dark;
+      width: 90%;
+      height: 190px;
+      margin-bottom: 25px;
+      display: flex;
+
+      &:hover {
+        background-color: rgba(white, 0.9);
+        box-shadow: 0 5px 10px rgba($base-color-dark, 0.1);
+      }
+
+      .making-process-card-title {
+        font-size: 25px;
+        align-self: center;
+        text-align: center;
+        width: 100%;
+        transition: opacity 0.3s ease;
+      }
+
+      .making-process-card-description {
+        font-size: 18px;
+        display: none;
+        align-self: center;
+
+        @media (max-width: 1199px) {
+          font-size: 15px;
+        }
+
+        @media (max-width: 991px) {
+          font-size: 18px;
+        }
+      }
+
+      .making-process-card-icon {
+        display: flex;
+        justify-content: start;
+
+        img {
+          height: 30px;
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+  }
+}
