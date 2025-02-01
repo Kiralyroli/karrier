@@ -3,20 +3,36 @@ footer {
   padding-top: 50px;
   text-align: center;
   color: white;
-  line-height: 50px;
   background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
 
-  h4 {
+  h3 {
+    font-size: clamp(20px, 2vw, 24px);
     font-weight: bold;
+  }
+
+  p {
+    font-size: clamp(16px, 1.8vw, 18px);
   }
 
   a {
     display: block;
     text-decoration: none;
     color: white;
+    font-size: clamp(16px, 1.8vw, 18px);
+    transition: color 0.3s ease;
 
     &:hover {
-      color: white;
+      color: rgba(white, 0.7);
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 15px 0;
     }
   }
 
@@ -26,40 +42,54 @@ footer {
     opacity: 1;
   }
 
-  .footer-brand {
-    display: flex;
-    justify-content: center;
+  .footer-bottom {
+    padding-bottom: 20px;
 
-    img {
-      height: 50px;
-      padding-left: 20px;
-      padding-right: 10px;
-    }
+    .footer-brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
 
-    .brand-title {
-      font-size: 33px;
-
-      .brand-title-1 {
-        color: $base-color-light;
-        display: inline;
-        margin-right: -7px;
+      img {
+        height: 50px;
+        padding-left: 20px;
+        padding-right: 10px;
       }
-      .brand-title-2 {
-        color: $base-color-dark;
-        display: inline;
+
+      .brand-title {
+        font-size: clamp(28px, 3vw, 33px);
+        display: flex;
+
+        .brand-title-1 {
+          color: $base-color-light;
+        }
+
+        .brand-title-2 {
+          color: $base-color-dark;
+        }
       }
     }
-  }
 
-  .social-icons a {
-    display: inline;
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
 
-    i {
-      margin-right: 15px;
+      a {
+        font-size: 24px;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
     }
-  }
 
-  #copyright {
-    font-weight: bold;
+    #copyright {
+      font-weight: bold;
+      font-size: clamp(14px, 1.6vw, 16px);
+      margin-top: 10px;
+    }
   }
 }

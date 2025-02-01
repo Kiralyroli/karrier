@@ -1,37 +1,43 @@
 <footer class="container-fluid">
     <div class="container">
-        <div class="row">
+        <div class="row footer-nav">
             <div class="col-md-4">
-                <h4>primecv.hu</h4>
-                <div>Önéletrajz készítés</div>
+                <h3>primecv.hu</h3>
+                <ul>
+                    <li><a href="#">Önéletrajz készítés</a></li>
+                </ul>
             </div>
-            <div class="col-md-4">
-                <h4>primecv.hu</h4>
-                <a href="#">Kapcsolat</a>
-                <a href="#">Blog</a>
-            </div>
-            <div class="col-md-4">
-                <h4>Támogatás</h4>
-                <a href="#">ÁSZF</a>
-                <a href="#">Adatvédelmi tájékoztató</a>
-            </div>
+            <nav class="col-md-4">
+                <h3>primecv.hu</h3>
+                <ul>
+                    <li><a href="#">Kapcsolat</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </nav>
+            <nav class="col-md-4">
+                <h3>Támogatás</h3>
+                <ul>
+                    <li><a href="#">ÁSZF</a></li>
+                    <li><a href="#">Adatvédelmi tájékoztató</a></li>
+                </ul>
+            </nav>
         </div>
         <hr class="hr" />
-        <div class="row">
+        <div class="row footer-bottom">
             <div class="col-md-4">
                 <a class="footer-brand" href="{{ path('home_page') }}">
-                    <img src="{{ asset('images/logo.svg') }}" alt="Logo">
+                    <img src="{{ asset('images/logo.svg') }}" alt="primeCV logó">
                     <div class="brand-title">
-                        <div class="brand-title-1">prime</div>
-                        <div class="brand-title-2">cv</div>
+                        <span class="brand-title-1">prime</span>
+                        <span class="brand-title-2">cv</span>
                     </div>
                 </a>
             </div>
             <div class="col-md-4 social-icons">
-                <a href="#"><i class="bi bi-linkedin"></i></a>
-                <a href="#"><i class="bi bi-youtube"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
             </div>
             <div class="col-md-4">
                 <p id="copyright"></p>
@@ -39,10 +45,10 @@
         </div>
     </div>
 </footer>
+
 <script>
     $(document).ready(function() {
-        const d = new Date();
-        const y = d.getFullYear();
-        document.getElementById("copyright").innerHTML = '&copy; ' + y + ' primeCV';
-    })
+        const y = new Date().getFullYear();
+        $("#copyright").html(`&copy; ${y} primeCV`);
+    });
 </script>
