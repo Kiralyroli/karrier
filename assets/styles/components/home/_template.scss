@@ -1,0 +1,38 @@
+#template {
+  padding: 40px 0;
+  color: white;
+  background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
+
+  .template-title {
+    font-size: clamp(30px, 5vw, 60px);
+    padding-bottom: 20px;
+  }
+
+  .template-description {
+    font-size: clamp(16px, 3vw, 25px);
+  }
+
+  .template-button {
+    padding-top: 20px;
+
+    a {
+      text-decoration: none;
+      color: white;
+      background-color: $base-color-light;
+      border-radius: 20px;
+      padding: 15px 20px;
+      display: inline-block;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  #template-image {
+    max-width: 100%;
+    height: auto;
+  }
+}

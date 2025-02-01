@@ -4,39 +4,7 @@
   @import "home/main";
   @import "home/benefits";
   @import "home/features";
-
-  #template {
-    padding-top: 40px;
-    color: white;
-    background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
-
-    #template-title {
-      font-size: 60px;
-      padding-bottom: 30px;
-    }
-
-    #template-description {
-      font-size: 25px;
-    }
-
-    #template-button {
-      padding-top: 30px;
-
-      a {
-        text-decoration: none;
-        color: white;
-        background-color: $base-color-light;
-        border-radius: 20px;
-        padding: 15px 20px;
-        margin-right: 35px;
-        box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
-      }
-    }
-
-    #template-image {
-      height: 750px;
-    }
-  }
+  @import "home/template";
 
   #making_process {
     padding-top: 40px;
