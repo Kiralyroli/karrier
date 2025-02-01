@@ -15,6 +15,13 @@ header {
       padding: 10px 20px;
       backdrop-filter: blur($navbar-blur);
       -webkit-backdrop-filter: blur($navbar-blur);
+      transition: background 0.3s ease-in-out;
+
+      .d-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
       .navbar-brand {
         display: flex;
@@ -28,22 +35,30 @@ header {
 
         .brand-title {
           font-size: 33px;
+          display: flex;
 
           .brand-title-1 {
             color: $base-color-light;
-            display: inline;
-            margin-right: -7px;
           }
 
           .brand-title-2 {
             color: $base-color-dark;
-            display: inline;
           }
         }
       }
 
+      .navbar-toggler {
+        border: none;
+        outline: none;
+        padding: 8px 12px;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+
       .navbar-nav {
-        width: auto;
         display: flex;
         align-items: center;
         gap: 15px;
@@ -52,25 +67,20 @@ header {
           a {
             color: $nav-link-color;
             font-size: 18px;
-            transition: color 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+            padding: 8px 12px;
+            border-radius: 10px;
 
             &:hover {
               color: $nav-link-hover-color;
+              background: rgba(white, 0.2);
             }
-          }
-        }
 
-        .nav-item:last-of-type {
-          a {
-            background-color: $nav-active-bg;
-            color: $nav-active-text;
-            border-radius: 15px;
-            padding: 10px 15px;
-            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-
-            &:hover {
-              background-color: white;
-              color: $nav-active-bg;
+            &.active {
+              background-color: $nav-active-bg;
+              color: $nav-active-text;
+              border-radius: 15px;
+              padding: 10px 15px;
             }
           }
         }
@@ -80,16 +90,40 @@ header {
 }
 
 @media (max-width: 991px) {
-  .navbar .container {
-    flex-direction: column;
-  }
+  .navbar {
+    .container {
+      flex-direction: column;
+    }
 
-  .navbar-nav {
-    width: 100%;
-    text-align: center;
-  }
+    .d-flex {
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
 
-  .nav-item {
-    margin: 5px 0;
+    .navbar-toggler {
+      order: 2;
+    }
+
+    .navbar-brand {
+      order: 1;
+    }
+
+    .navbar-nav {
+      width: 100%;
+      text-align: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-item {
+      width: 100%;
+
+      a {
+        display: block;
+        width: 100%;
+        padding: 12px;
+      }
+    }
   }
 }
