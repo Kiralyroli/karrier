@@ -1,10 +1,10 @@
 <div id="faq" class="container">
-    <h3 class="dark-text-shadow">Gyakran Ismételt Kérdések</h3>
+    <h2 class="dark-text-shadow">Gyakran Ismételt Kérdések</h2>
     {% for faq in faqs %}
         <div class="faq">
-            <div class="question">
-                {{ faq.question }}
-                <div class="symbol">+</div>
+            <div class="question" aria-expanded="false">
+                <span>{{ faq.question }}</span>
+                <span class="symbol" aria-hidden="true">+</span>
             </div>
             <div class="answer">{{ faq.answer }}</div>
         </div>
@@ -17,9 +17,11 @@
             if (!$(this).closest('.faq').hasClass('active')) {
                 $(this).closest('.faq').addClass('active');
                 $(this).next('.answer').slideDown(500);
+                $(this).find('.symbol').text("−");
             } else {
                 $(this).closest('.faq').removeClass('active');
                 $(this).next('.answer').slideUp(500);
+                $(this).find('.symbol').text("+");
             }
         });
     });
