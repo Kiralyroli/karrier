@@ -1,0 +1,41 @@
+#success-page {
+  padding-top: 120px;
+  text-align: center;
+  color: $base-color-dark;
+
+  i {
+    font-size: 150px;
+    color: green;
+  }
+  h1 {
+    font-size: 45px;
+    margin-bottom: 50px;
+  }
+
+  p {
+    font-size: 25px;
+    line-height: 30px;
+    margin-bottom: 30px;
+  }
+
+  #button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    a {
+      text-decoration: none;
+      border-radius: 20px;
+      padding: 12px 20px;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+      transition: all 0.3s ease-in-out;
+      background-color: $base-color-dark;
+      color: white;
+      font-size: 25px;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

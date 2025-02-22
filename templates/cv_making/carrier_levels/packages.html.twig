@@ -33,7 +33,10 @@
                                 <li><i class="bi bi-check2"></i> {{ feature }}</li>
                             {% endfor %}
                         </ul>
-                        <button class="btn order-btn">Megrendelem</button>
+                        <form action="{{ path('cart_add') }}" method="POST">
+                            <input type="hidden" name="package_id" value="{{ package.id }}">
+                            <button type="submit" class="btn order-btn">Megrendelem</button>
+                        </form>
                         <div class="logo-icon mt-3">
                             <img src="{{ asset('images/logo.svg') }}" alt="logo">
                         </div>

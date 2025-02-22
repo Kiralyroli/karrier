@@ -1,0 +1,24 @@
+#cart-page {
+  padding-top: 80px;
+
+  h2 {
+    font-size: 45px;
+    color: $base-color-dark;
+  }
+
+  .card {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    color: $base-color-dark;
+  }
+
+  input.form-control {
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  button.btn {
+    border-radius: 5px;
+    padding: 10px;
+  }
+}
