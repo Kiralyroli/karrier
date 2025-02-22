@@ -1,0 +1,61 @@
+<div id="career-levels-title">
+    <h1>Válaszd ki a neked megfelelő csomagot:</h1>
+    <h2>Tökéletes önéletrajz megfizethető áron</h2>
+</div>
+<div id="career-levels" class="container-fluid">
+    <section id="big_cards" class="container text-center py-4">
+        <div class="row justify-content-center">
+            {% for carrier_level in carrier_levels %}
+                <div class="col-md-4 level" data-level="{{ carrier_level.level }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ carrier_level.title }}</h5>
+                            <p class="card-text">{{ carrier_level.text }}</p>
+                            <img src="{{ asset(carrier_level.image) }}" alt="{{ carrier_level.title }}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section id="small_cards" class="container text-center py-4">
+        <div class="row justify-content-center">
+            {% for carrier_level in carrier_levels %}
+                <div class="col-md-2 level" data-level="{{ carrier_level.level }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ carrier_level.title }}</h5>
+                            <p class="card-text">{{ carrier_level.text }}</p>
+                            <img src="{{ asset(carrier_level.image) }}" alt="{{ carrier_level.title }}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="career-content" class="container text-center my-4">
+        {# Ide töltődik be az AJAX tartalom #}
+    </section>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.level').click(function () {
+            let level = $(this).data('level');
+            $.ajax({
+                url: '/load-career-content',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({level: level}),
+                success: function (response) {
+                    $('#career-content').html(response);
+                    $('#big_cards').hide();
+                    $('#small_cards').show();
+                    $('.level').removeClass('active');
+                    $('#small_cards').find(`[data-level='${level}']`).addClass(`active`);
+                }
+            });
+        });
+    });
+</script>

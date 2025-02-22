@@ -1,0 +1,12 @@
+{# templates/cv_making/cv_making.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="cv-making-page">
+        {% include 'cv_making/carrier_levels.html.twig' %}
+        {% include 'components/making_process.html.twig' %}
+        {% include 'components/features.html.twig' %}
+        {% include 'components/faq.html.twig' %}
+        {% include 'components/contact.html.twig' %}
+    </div>
+{% endblock %}

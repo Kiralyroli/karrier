@@ -17,6 +17,10 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @param string $jsonFile
+     * @return array
+     */
     private function getJsonData(string $jsonFile): array
     {
         $filePath = $this->getParameter('kernel.project_dir') . '/data/' . $jsonFile;

@@ -1,0 +1,9 @@
+#cv-making-page {
+  padding-top: 80px;
+
+  @import "components/carrier_levels";
+  @import "components/making_process";
+  @import "components/features";
+  @import "components/faq";
+  @import "components/contact_component";
+}

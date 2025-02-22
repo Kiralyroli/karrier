@@ -1,0 +1,62 @@
+<div class="package-title">
+    <h3>
+        {% if level == 'beginner' %}Pályakezdő
+        {% elseif level == 'junior' %}Junior
+        {% elseif level == 'medior' %}Medior
+        {% elseif level == 'senior' %}Senior
+        {% elseif level == 'leader' %}Vezető
+        {% endif %}
+    </h3>
+    <div class="title-description">
+        {% if level == 'beginner' %}Kulcsszavakra optimalizált önéletrajzot biztosítunk, amelyet szakértőink kifejezetten az alapoktól, az ügyfél egyedi igényeire és céljaira szabva készítenek el. Kiemeli az oktatási eredményeket és a kulcsfontosságú szakmai tapasztalatokat, valamint a releváns készségeket.
+        {% elseif level == 'junior' %}Kezdő szakemberek számára készült önéletrajz, amely egyensúlyban tartja az első szakmai tapasztalatokat és a még kiemelendő készségeket. Kulcsszavakkal optimalizált formázással, amely megfogja a figyelmet, és professzionális benyomást kelt a munkáltatók szemében.
+        {% elseif level == 'medior' %}Néhány éves szakmai tapasztalattal rendelkező szakemberek számára készült önéletrajz, amely az eddigi eredményekre és készségekre fókuszál. Személyre szabott tartalommal és ATS-kompatibilis kialakítással segít kiemelkedni a pályázók közül.
+        {% elseif level == 'senior' %}Tapasztalt szakembereknek szánt önéletrajz, amely az évek során megszerzett eredményekre, vezetői kompetenciákra és szakmai sikerekre helyezi a hangsúlyt. Az önéletrajzod kiemeli azokat az értékeket, amelyek hozzájárulhatnak a vállalat sikeréhez.
+        {% elseif level == 'leader' %}Magas szintű szakmai tapasztalattal rendelkező vezetők, igazgatók és vállalkozók számára. Kiemeli az üzleti eredményeket, a stratégiai gondolkodást és a vezetői készségeket, valamint professzionálisan bemutatja az iparági szaktudást és az elért mérföldköveket.
+        {% endif %}
+    </div>
+</div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        {% for package in packages %}
+            <div class="col-md-3 col-sm-6">
+                <div class="card career-package text-center">
+                    <div class="package-header">
+                        <span class="badge">{{ package.title }}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-title">Önéletrajz</p>
+                        <p class="price">{{ package.price }}</p>
+                        <hr class="hr">
+                        <ul class="list-unstyled">
+                            {% for feature in package.features %}
+                                <li><i class="bi bi-check2"></i> {{ feature }}</li>
+                            {% endfor %}
+                        </ul>
+                        <button class="btn order-btn">Megrendelem</button>
+                        <div class="logo-icon mt-3">
+                            <img src="{{ asset('images/logo.svg') }}" alt="logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        let cards = document.querySelectorAll(".list-unstyled");
+        let maxHeight = 0;
+
+        cards.forEach(card => {
+            let cardHeight = card.offsetHeight;
+            if (cardHeight > maxHeight) {
+                maxHeight = cardHeight;
+            }
+        });
+
+        cards.forEach(card => {
+            card.style.height = maxHeight + "px";
+        });
+    });
+</script>

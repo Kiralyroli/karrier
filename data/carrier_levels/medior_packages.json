@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Alap",
+    "price": "15.900 Ft",
+    "features": [
+      "Személyre szabott önéletrajz",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "5 sablonválasztási lehetőség",
+      "5 munkanapon belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "1 módosítási lehetőség"
+    ]
+  },
+  {
+    "title": "Prémium",
+    "price": "16.900 Ft",
+    "features": [
+      "Személyre szabott önéletrajz",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "10 sablonválasztási lehetőség",
+      "72 órán belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "3 módosítási lehetőség"
+    ]
+  },
+  {
+    "title": "Prémium+",
+    "price": "17.900 Ft",
+    "features": [
+      "Személyre szabott önéletrajz",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "15 sablonválasztási lehetőség",
+      "48 órán belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "Korlátlan módosítási lehetőség"
+    ]
+  },
+  {
+    "title": "Angol",
+    "price": "18.900 Ft",
+    "features": [
+      "Angol nyelvű önéletrajz",
+      "Személyre szabott",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "10 sablonválasztási lehetőség",
+      "72 órán belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "1 módosítási lehetőség"
+    ]
+  },
+  {
+    "title": "Angol-Magyar",
+    "price": "20.900 Ft",
+    "features": [
+      "Angol és magyar nyelvű önéletrajz",
+      "Személyre szabott",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "5 sablonválasztási lehetőség",
+      "5 munkanapon belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "1 módosítási lehetőség"
+    ]
+  },
+  {
+    "title": "Német",
+    "price": "19.900 Ft",
+    "features": [
+      "Német nyelvű önéletrajz",
+      "Személyre szabott",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "10 sablonválasztási lehetőség",
+      "72 órán belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "1 módosítási lehetőség"
+    ]
+  },
+  {
+    "title": "Német-Magyar",
+    "price": "22.900 Ft",
+    "features": [
+      "Német és magyar nyelvű önéletrajz",
+      "Személyre szabott",
+      "Kulcsszó optimalizálás (ATS barát)",
+      "5 sablonválasztási lehetőség",
+      "5 munkanapon belüli kézbesítés",
+      "Telefonos vagy emailes konzultáció",
+      "1 módosítási lehetőség"
+    ]
+  }
+]
