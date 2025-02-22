@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\PackagesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ class CvMakingController extends AbstractController
     }
 
     #[Route('/load-career-content', name: 'load_career_content', methods: ['POST'])]
-    public function loadCareerContent(Request $request): Response
+    public function loadCareerContent(Request $request, PackagesRepository $packagesRepository): Response
     {
         $data = json_decode($request->getContent(), true);
 
@@ -30,10 +31,11 @@ class CvMakingController extends AbstractController
         $level = $data['level'];
 
         $templatePath = 'cv_making/carrier_levels/packages.html.twig';
+
         return $this->render($templatePath, [
             'carrier_levels' => $this->getJsonData('carrier_levels/carrier_levels.json'),
             'level' => $level,
-            'packages' => $this->getJsonData('carrier_levels/' . $level . '_packages.json')
+            'packages' => $packagesRepository->findByLevel($level)
         ]);
     }
 
