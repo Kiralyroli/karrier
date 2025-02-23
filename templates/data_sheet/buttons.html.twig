@@ -1,0 +1,8 @@
+<div id="buttons">
+    {% if step > 1 %}
+        <button class="step-button button-hover" data-step="{{ step-1 }}" title="Vissza" aria-label="Vissza">Vissza</button>
+    {% endif %}
+    {% if step < 9 %}
+        <button class="step-button button-hover" data-step="{{ step+1 }}" title="Tovább" aria-label="Tovább">Tovább</button>
+    {% endif %}
+</div>

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="data_sheet">
+        <section id="data_sheet_content" class="container text-center my-4">
+            {% include 'data_sheet/steps/1.html.twig' %}
+        </section>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.step-button', function () {
+                let step = $(this).data('step');
+                let formData = {};
+                $('#data-form').find('input').each(function () {
+                    let name = $(this).attr('name');
+                    let value = $(this).val();
+                    if (name) {
+                        formData[name] = value;
+                    }
+                });
+                $.ajax({
+                    url: '/load-data-sheet-content',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        step: step,
+                        uniqueId: {{ uniqueId|json_encode|raw }},
+                        formData: formData
+                    }),
+                    success: function (response) {
+                        $('#data_sheet_content').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

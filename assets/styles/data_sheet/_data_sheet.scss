@@ -1,0 +1,148 @@
+#data_sheet {
+  padding-top: 100px;
+  color: $base-color-dark;
+  min-height: 60vh;
+
+  .content-header {
+    font-size: 25px;
+    padding-bottom: 50px;
+  }
+
+  .form-step {
+    text-align: left;
+    padding-right: 20px;
+    margin-top: 30px;
+
+    .form-title {
+      font-size: 45px;
+      text-align: center;
+    }
+
+    .form-subtitle {
+      font-size: 25px;
+      text-align: center;
+    }
+
+    .form-notes {
+      font-size: 22px;
+      margin-left: 20px;
+    }
+  }
+
+  .step-number {
+    font-size: 30px;
+    border: 3px solid $base-color-dark;
+    display: inline;
+    padding: 10px 25px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px $base-color-dark;
+  }
+
+  .vertical-line {
+    height: 80%;
+    border: 1px solid $base-color-dark;
+    width: 0;
+    margin-left: 50%;
+    margin-top: 8px;
+  }
+
+  #data-form {
+    margin-top: 30px;
+
+    .form-control {
+      border: 1px solid #ccc;
+      font-size: 16px;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: $base-color-dark;
+        box-shadow: 0 0 5px rgba($base-color-dark, 0.5);
+      }
+    }
+  }
+
+  .file-upload-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .drop-area {
+      width: 400px;
+      height: 300px;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(white, 0.5);
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .drop-area.dragover {
+      border-color: #007bff;
+      background: rgba($base-color-dark, 0.1);
+    }
+
+    .drop-text {
+      font-size: 30px;
+      font-weight: bold;
+      color: $base-color-dark;
+    }
+
+    .or-text {
+      font-size: 20px;
+      color: #777;
+      margin: 5px 0;
+    }
+
+    .browse-button {
+      background: $base-color-dark;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
+      transition: 0.3s;
+      font-size: 20px;
+    }
+
+    .browse-button:hover {
+      background: #02507d;
+    }
+  }
+
+  #buttons {
+    padding-top: 50px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+
+    button {
+      text-decoration: none;
+      color: $base-color-dark;
+      background-color: white;
+      border-radius: 20px;
+      padding: 12px 20px;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+      transition: all 0.3s ease-in-out;
+
+      &:last-of-type {
+        background-color: $base-color-dark;
+        color: white;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

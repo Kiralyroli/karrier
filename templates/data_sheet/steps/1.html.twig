@@ -1,0 +1,41 @@
+<div class="content-header">Kérjük, töltsd ki az űrlapot a lehető legteljesebb és legpontosabb információkkal! Minél több részletet adsz meg, annál jobban tudjuk elkészíteni számodra a tökéletes önéletrajzot.</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Személyes adatok</h1>
+            <p class="form-subtitle">FONTOS:</p>
+            <ul class="form-notes">
+                <li>Email cím: professzionális legyen, és tartalmazza a nevedet, mivel ez is hozzájárul a szakmai benyomás kialakításához</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div class="mb-3">
+                <input type="text" name="personal_lastname" class="form-control" placeholder="Vezetéknév" aria-label="Vezetéknév" value="{% if formData.personal_lastname is defined %}{{ formData.personal_lastname }}{% endif %}">
+            </div>
+            <div class="mb-3">
+                <input type="text" name="personal_firstname" class="form-control" placeholder="Keresztnév" aria-label="Keresztnév" value="{% if formData.personal_firstname is defined %}{{ formData.personal_firstname }}{% endif %}">
+            </div>
+            <div class="mb-3">
+                <input type="email" name="personal_email" class="form-control" placeholder="Email cím" aria-label="Email cím" value="{% if formData.personal_email is defined %}{{ formData.personal_email }}{% endif %}">
+            </div>
+            <div class="mb-3">
+                <input type="tel" name="personal_phone" class="form-control" placeholder="Telefonszám" aria-label="Telefonszám" value="{% if formData.personal_phone is defined %}{{ formData.personal_phone }}{% endif %}">
+            </div>
+            <div class="mb-3">
+                <input type="text" name="personal_city" class="form-control" placeholder="Város" aria-label="Város" value="{% if formData.personal_city is defined %}{{ formData.personal_city }}{% endif %}">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}

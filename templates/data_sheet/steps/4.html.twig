@@ -1,0 +1,29 @@
+<div class="content-header">Ha van, másold be a LinkedIn fiókod URL-jét.</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">LinkedIn fiók hivatkozása</h1>
+            <p class="form-notes">A LinkedIn profil feltüntetése pozitív benyomást kelthet, erősítheti az önéletrajzod hitelességét.</p>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-linkedin"></i></span>
+                </div>
+                <input type="text" class="form-control" name="linkedin" placeholder="https://linkedin.com/in/..." aria-label="linkedin" value="{% if formData.linkedin is defined %}{{ formData.linkedin }}{% endif %}">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}

@@ -1,0 +1,95 @@
+<div class="content-header">Ha tudod, add meg, milyen pozícióra vagy iparágba szeretnél pályázni! Ha van konkrét álláshirdetés, másold be a linkjét, hogy még pontosabb tanácsokat adhassunk neked!</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Célok és álláshirdetés</h1>
+            <p class="form-subtitle">FONTOS:</p>
+            <ul class="form-notes">
+                <li>Pozíciót vagy iparágat mindenképpen jelölj meg, ha szükséges, több pozíciót is megjelölhetsz</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div id="position-container">
+                {% if formData.jobs is defined and formData.jobs is not empty %}
+                    {% for job in formData.jobs %}
+                        <div class="position-group">
+                            <div class="mb-3">
+                                <input type="text" name="job_position[{{ loop.index0 }}]" class="form-control" placeholder="Pozíció" aria-label="Pozíció" value="{{ job.position }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="job_industry[{{ loop.index0 }}]" class="form-control" placeholder="Iparág" aria-label="Iparág" value="{{ job.industry }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="job_link[{{ loop.index0 }}]" class="form-control" placeholder="Álláshirdetés link" aria-label="Álláshirdetés link" value="{{ job.link }}">
+                            </div>
+                            <button type="button" class="btn btn-danger remove-position">🗑️</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="position-group">
+                        <div class="mb-3">
+                            <input type="text" name="job_position[0]" class="form-control" placeholder="Pozíció" aria-label="Pozíció">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="job_industry[0]" class="form-control" placeholder="Iparág" aria-label="Iparág">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="job_link[0]" class="form-control" placeholder="Álláshirdetés link" aria-label="Álláshirdetés link">
+                        </div>
+                        <button type="button" class="btn btn-danger remove-position">🗑️</button>
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="button" id="add-position" class="btn btn-outline-primary mt-3">+ Pozíció</button>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        function updateIndexes() {
+            $("#position-container .position-group").each(function(index) {
+                $(this).find("input[name^='job_position']").attr("name", "job_position[" + index + "]");
+                $(this).find("input[name^='job_industry']").attr("name", "job_industry[" + index + "]");
+                $(this).find("input[name^='job_link']").attr("name", "job_link[" + index + "]");
+            });
+        }
+
+        $("#add-position").click(function() {
+            let count = $("#position-container .position-group").length;
+            let newGroup = `
+            <div class="position-group">
+                <div class="mb-3">
+                    <input type="text" name="job_position[${count}]" class="form-control" placeholder="Pozíció" aria-label="Pozíció">
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="job_industry[${count}]" class="form-control" placeholder="Iparág" aria-label="Iparág">
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="job_link[${count}]" class="form-control" placeholder="Álláshirdetés link" aria-label="Álláshirdetés link">
+                </div>
+                <button type="button" class="btn btn-danger remove-position">🗑️</button>
+            </div>
+        `;
+            $("#position-container").append(newGroup);
+        });
+
+        $(document).on("click", ".remove-position", function() {
+            $(this).closest(".position-group").remove();
+            updateIndexes();
+        });
+    });
+</script>
