@@ -40,7 +40,9 @@
 
   .vertical-line {
     height: 80%;
-    border: 1px solid $base-color-dark;
+    border: 1px solid;
+    border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, $base-color-dark 50%, rgba(0, 0, 0, 0) 100%);
+    border-image-slice: 1;
     width: 0;
     margin-left: 50%;
     margin-top: 8px;
@@ -114,6 +116,39 @@
 
     .browse-button:hover {
       background: #02507d;
+    }
+  }
+
+  .remove-button-container {
+    border-bottom: 2px solid;
+    border-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, $base-color-dark 50%, rgba(0, 0, 0, 0) 100%);
+    border-image-slice: 1;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+
+    .remove-button-position {
+      color: red;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  #add-button-container {
+    #add-button-position {
+      color: $base-color-dark;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 22px;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 

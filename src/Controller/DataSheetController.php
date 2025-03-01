@@ -58,6 +58,18 @@ class DataSheetController extends AbstractController
             }
         }
         if (!empty($jobs)) {
+            foreach ($jobs as $key => $job) {
+                $isEmptyJob = true;
+                foreach ($job as $value) {
+                    if (!empty($value)) {
+                        $isEmptyJob = false;
+                        break;
+                    }
+                }
+                if ($isEmptyJob) {
+                    unset($jobs[$key]);
+                }
+            }
             $data['formData']['jobs'] = $jobs;
         }
 
