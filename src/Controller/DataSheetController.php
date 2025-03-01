@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\OrdersRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +14,16 @@ use Symfony\Component\Routing\Attribute\Route;
 class DataSheetController extends AbstractController
 {
     #[Route('/data-sheet/{uniqueId}', name: 'data_sheet', methods: ['GET'])]
-    public function index(string $uniqueId, SessionInterface $session): Response
+    public function index(string $uniqueId, SessionInterface $session, OrdersRepository $ordersRepository): Response
     {
         $sessionFormData = $session->get('formData');
         if (!$sessionFormData) {
-            $sessionFormData = [];
+            $order = $ordersRepository->findByUniqueId($uniqueId);
+            if (!$order) {
+                throw $this->createNotFoundException('Order not found');
+            }
+            $sessionFormData = $order->getDataSheet();
+            $session->set('formData', $sessionFormData);
         }
         return $this->render('data_sheet/data_sheet.html.twig', [
             'uniqueId' => $uniqueId,
@@ -29,12 +34,22 @@ class DataSheetController extends AbstractController
     }
 
     #[Route('/data-sheet/{uniqueId}/finish', name: 'data_sheet_finish', methods: ['GET'])]
-    public function finish(string $uniqueId, SessionInterface $session): Response
+    public function finish(string $uniqueId, SessionInterface $session, OrdersRepository $ordersRepository, EntityManagerInterface $entityManager): Response
     {
         $sessionFormData = $session->get('formData');
         if (!$sessionFormData) {
             $sessionFormData = [];
         }
+
+        $order = $ordersRepository->findByUniqueId($uniqueId);
+        if (!$order) {
+            throw $this->createNotFoundException('Order not found');
+        }
+        $order->setDataSheet($sessionFormData);
+        $order->setUpdated(new \DateTime());
+        $entityManager->persist($order);
+        $entityManager->flush();
+        $session->remove('formData');
         return $this->render('data_sheet/success.html.twig');
     }
 

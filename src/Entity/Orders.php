@@ -56,6 +56,9 @@ class Orders
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $updated;
 
+    #[ORM\Column]
+    private array $data_sheet;
+
     /**
      * @param string $custom_id
      * @param string $lastname
@@ -102,6 +105,7 @@ class Orders
         $this->package_price = $package_price;
         $this->created = $created;
         $this->updated = $updated;
+        $this->data_sheet = [];
     }
 
     public function getId(): ?int
@@ -182,5 +186,15 @@ class Orders
     public function setUpdated(\DateTimeInterface $updated): void
     {
         $this->updated = $updated;
+    }
+
+    public function getDataSheet(): array
+    {
+        return $this->data_sheet;
+    }
+
+    public function setDataSheet(array $data_sheet): void
+    {
+        $this->data_sheet = $data_sheet;
     }
 }
