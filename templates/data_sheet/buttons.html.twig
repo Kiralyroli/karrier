@@ -2,7 +2,10 @@
     {% if step > 1 %}
         <button class="step-button button-hover" data-step="{{ step-1 }}" title="Vissza" aria-label="Vissza">Vissza</button>
     {% endif %}
-    {% if step < 9 %}
-        <button class="step-button button-hover" data-step="{{ step+1 }}" title="Tovább" aria-label="Tovább">Tovább</button>
+    {% if step != lastStep %}
+        {% set buttonTitle = 'Tovább' %}
+    {% else %}
+        {% set buttonTitle = 'Befejezés' %}
     {% endif %}
+    <button class="step-button button-hover" data-step="{{ step+1 }}" title="{{ buttonTitle }}" aria-label="{{ buttonTitle }}">{{ buttonTitle }}</button>
 </div>

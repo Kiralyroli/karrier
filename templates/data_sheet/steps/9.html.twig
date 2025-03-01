@@ -1,0 +1,85 @@
+<div class="content-header">Add meg azokat a személyes készségeidet, amelyek valóban hasznosak lehetnek a megcélzott pozícióban, és relevánsak a munkakör elvárásaihoz.</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Személyes készségek</h1>
+            <ul class="form-notes">
+                <li>Például: Eredményorientáltság</li>
+                <li>Megjegyzés:  csoportvezetőként 5 fős projektcsoport irányítása során alkalmaztam</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div id="private-skill-container">
+                {% if formData.privateSkills is defined and formData.privateSkills is not empty %}
+                    {% for privateSkill in formData.privateSkills %}
+                        <div class="private-skill-group">
+                            <div class="mb-3">
+                                <input type="text" name="private_skill_name[{{ loop.index0 }}]" class="form-control" placeholder="Készség" aria-label="Készség" value="{{ privateSkill.name }}">
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="private_skill_note[{{ loop.index0 }}]" class="form-control" placeholder="Opcionális megjegyzés" aria-label="Opcionális megjegyzés">{{ privateSkill.note }}</textarea>
+                            </div>
+                            <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="private-skill-group">
+                        <div class="mb-3">
+                            <input type="text" name="private_skill_name[0]" class="form-control" placeholder="Készség" aria-label="Készség">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="private_skill_note[0]" class="form-control" placeholder="Opcionális megjegyzés" aria-label="Opcionális megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="add-button-container"><div id="add-button">+ Készség</div></div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        function updateIndexes() {
+            $("#private-skill-container .private-skill-group").each(function(index) {
+                $(this).find("input[name^='private_skill_name']").attr("name", "private_skill_name[" + index + "]");
+                $(this).find("textarea[name^='private_skill_note']").attr("name", "private_skill_note[" + index + "]");
+            });
+        }
+
+        $("#add-button").click(function() {
+            let count = $("#private-skill-container .private-skill-group").length;
+            let newGroup = `
+            <div class="private-skill-group">
+                        <div class="mb-3">
+                            <input type="text" name="private_skill_name[${count}]" class="form-control" placeholder="Készség" aria-label="Készség">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="private_skill_note[${count}]" class="form-control" placeholder="Opcionális megjegyzés" aria-label="Opcionális megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+        `;
+            $("#private-skill-container").append(newGroup);
+        });
+
+        $(document).on("click", ".remove-button", function() {
+            $(this).closest(".private-skill-group").remove();
+            updateIndexes();
+        });
+    });
+</script>

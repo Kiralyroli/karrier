@@ -1,0 +1,85 @@
+<div class="content-header">Add meg a szakmai készségeidet, technikai tudásodat és eszközismereteidet, amelyek relevánsak a megcélzott munkakörhöz. Ide tartoznak például a szoftverek, eszközök, technológiai ismeretek, és más szakmai kompetenciák.</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Szakmai készségek</h1>
+            <ul class="form-notes">
+                <li>Például: MS Excel, AutoCAD, Adobe Photoshop, SQL, programozási nyelvek, projektmenedzsment-eszközök stb.</li>
+                <li>Opcionális megjegyzés: részletezd, hogy hol használtad és mire, milyen eredményeket értél el benne.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div id="professional-skill-container">
+                {% if formData.professionalSkills is defined and formData.professionalSkills is not empty %}
+                    {% for professionalSkill in formData.professionalSkills %}
+                        <div class="professional-skill-group">
+                            <div class="mb-3">
+                                <input type="text" name="professional_skill_name[{{ loop.index0 }}]" class="form-control" placeholder="Készség" aria-label="Készség" value="{{ professionalSkill.name }}">
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="professional_skill_note[{{ loop.index0 }}]" class="form-control" placeholder="Opcionális megjegyzés" aria-label="Opcionális megjegyzés">{{ professionalSkill.note }}</textarea>
+                            </div>
+                            <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="professional-skill-group">
+                        <div class="mb-3">
+                            <input type="text" name="professional_skill_name[0]" class="form-control" placeholder="Készség" aria-label="Készség">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="professional_skill_note[0]" class="form-control" placeholder="Opcionális megjegyzés" aria-label="Opcionális megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="add-button-container"><div id="add-button">+ Készség</div></div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        function updateIndexes() {
+            $("#professional-skill-container .professional-skill-group").each(function(index) {
+                $(this).find("input[name^='professional_skill_name']").attr("name", "professional_skill_name[" + index + "]");
+                $(this).find("textarea[name^='professional_skill_note']").attr("name", "professional_skill_note[" + index + "]");
+            });
+        }
+
+        $("#add-button").click(function() {
+            let count = $("#professional-skill-container .professional-skill-group").length;
+            let newGroup = `
+            <div class="professional-skill-group">
+                        <div class="mb-3">
+                            <input type="text" name="professional_skill_name[${count}]" class="form-control" placeholder="Készség" aria-label="Készség">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="professional_skill_note[${count}]" class="form-control" placeholder="Opcionális megjegyzés" aria-label="Opcionális megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+        `;
+            $("#professional-skill-container").append(newGroup);
+        });
+
+        $(document).on("click", ".remove-button", function() {
+            $(this).closest(".professional-skill-group").remove();
+            updateIndexes();
+        });
+    });
+</script>

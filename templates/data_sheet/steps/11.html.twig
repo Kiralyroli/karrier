@@ -1,0 +1,54 @@
+<div class="content-header">Fontos számunkra, hogy az egyeztetések során kényelmes és hatékony kommunikációt biztosítsunk. Kérjük, add meg, hogyan szeretnél kapcsolatot tartani velünk – e-mailben, telefonon vagy akár mindkét módon. Ha további részleteket szeretnél közölni, használd a megjegyzés mezőt!</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Konzultáció</h1>
+            <p class="form-notes">Ahhoz, hogy minél professzionálisabb önéletrajzot készítsünk, előfordulhat, hogy szükségünk lesz további információkra. Kérjük, válaszd ki, hogyan szeretnél velünk egyeztetni.</p>
+            <p class="form-notes">Megjegyzés mezőben jelezd, ha van bármilyen speciális kérésed, például: “Csak 16 óra után tudok telefonon egyeztetni”</p>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" name="contact_email" id="contact-email">
+                <label class="form-check-label" for="contact-email">Email</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" name="contact_phone" id="contact-phone">
+                <label class="form-check-label" for="contact-phone">Telefon</label>
+            </div>
+            <div class="mb-3">
+                <textarea name="contact_note" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés">{% if formData.contact_note is defined %}{{ formData.contact_note }}{% endif %}</textarea>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function () {
+        let formData = {{ formData|json_encode|raw }};
+
+        for (let key in formData) {
+            let field = $('[name="' + key + '"]');
+
+            if (field.length) {
+                if (field.attr('type') === 'checkbox') {
+                    console.log(formData);
+                    field.prop('checked', formData[key]); // Ha true, bejelöli, ha false, nem
+                } else {
+                    field.val(formData[key]);
+                }
+            }
+        }
+    });
+</script>

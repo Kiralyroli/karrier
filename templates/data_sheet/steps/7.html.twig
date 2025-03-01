@@ -1,0 +1,111 @@
+<div class="content-header">Kérjük, add meg iskolai tanulmányaidat!<br>Lehetőséged van több végzettséget is megadni, így örömmel fogadunk minden információt az általad elvégzett képzésekről. <strong>Minden végzettség értékes lehet!</strong></div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Tanulmányok, végzettségek</h1>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div id="study-container">
+                {% if formData.studies is defined and formData.studies is not empty %}
+                    {% for study in formData.studies %}
+                        <div class="study-group">
+                            <div class="mb-3">
+                                <input type="text" name="study_name[{{ loop.index0 }}]" class="form-control" placeholder="Végzettség megnevezése" aria-label="Végzettség megnevezése" value="{{ study.name }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="study_company_name[{{ loop.index0 }}]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése" value="{{ study.company_name }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_start[{{ loop.index0 }}]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma" value="{{ study.start }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_end[{{ loop.index0 }}]" class="form-control" placeholder="Befejezés dátuma" aria-label="Befejezés dátuma" value="{{ study.end }}">
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="study_note[{{ loop.index0 }}]" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés">{{ study.note }}</textarea>
+                            </div>
+                            <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="study-group">
+                        <div class="mb-3">
+                            <input type="text" name="study_name[0]" class="form-control" placeholder="Végzettség megnevezése" aria-label="Végzettség megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="study_company_name[0]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_start[0]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_end[0]" class="form-control" placeholder="Befejezés dátuma" aria-label="Befejezés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="study_note[0]" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="add-button-container"><div id="add-button">+ Tanulmány, végzettség</div></div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        function updateIndexes() {
+            $("#study-container .study-group").each(function(index) {
+                $(this).find("input[name^='study_name']").attr("name", "study_name[" + index + "]");
+                $(this).find("input[name^='study_company_name']").attr("name", "study_company_name[" + index + "]");
+                $(this).find("input[name^='study_start']").attr("name", "study_start[" + index + "]");
+                $(this).find("input[name^='study_end']").attr("name", "study_end[" + index + "]");
+                $(this).find("textarea[name^='study_note']").attr("name", "study_note[" + index + "]");
+            });
+        }
+
+        $("#add-button").click(function() {
+            let count = $("#study-container .study-group").length;
+            let newGroup = `
+            <div class="study-group">
+                        <div class="mb-3">
+                            <input type="text" name="study_name[${count}]" class="form-control" placeholder="Végzettség megnevezése" aria-label="Végzettség megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="study_company_name[${count}]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_start[${count}]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_end[${count}]" class="form-control" placeholder="Befejezés dátuma" aria-label="Befejezés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="study_note[${count}]" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+        `;
+            $("#study-container").append(newGroup);
+        });
+
+        $(document).on("click", ".remove-button", function() {
+            $(this).closest(".study-group").remove();
+            updateIndexes();
+        });
+    });
+</script>

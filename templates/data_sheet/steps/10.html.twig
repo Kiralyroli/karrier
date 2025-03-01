@@ -1,0 +1,85 @@
+<div class="content-header">Nyelvtudásod kulcsfontosságú lehet bizonyos pozíciók betöltéséhez. Kérjük, add meg, milyen nyelveket beszélsz, és milyen szinten használod őket.</div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Nyelvismeret</h1>
+            <ul class="form-notes">
+                <li>Például: Eredményorientáltság</li>
+                <li>Megjegyzés:  csoportvezetőként 5 fős projektcsoport irányítása során alkalmaztam</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div id="language-container">
+                {% if formData.languages is defined and formData.languages is not empty %}
+                    {% for language in formData.languages %}
+                        <div class="language-group">
+                            <div class="mb-3">
+                                <input type="text" name="language_name[{{ loop.index0 }}]" class="form-control" placeholder="Nyelv" aria-label="Nyelv" value="{{ language.name }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="language_level[{{ loop.index0 }}]" class="form-control" placeholder="Szint" aria-label="Szint" value="{{ language.level }}">
+                            </div>
+                            <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="language-group">
+                        <div class="mb-3">
+                            <input type="text" name="language_name[0]" class="form-control" placeholder="Nyelv" aria-label="Nyelv">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="language_level[0]" class="form-control" placeholder="Szint" aria-label="Szint">
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="add-button-container"><div id="add-button">+ Nyelvismeret</div></div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        function updateIndexes() {
+            $("#language-container .language-group").each(function(index) {
+                $(this).find("input[name^='language_name']").attr("name", "language_name[" + index + "]");
+                $(this).find("input[name^='language_level']").attr("name", "language_level[" + index + "]");
+            });
+        }
+
+        $("#add-button").click(function() {
+            let count = $("#language-container .language-group").length;
+            let newGroup = `
+            <div class="language-group">
+                        <div class="mb-3">
+                            <input type="text" name="language_name[${count}]" class="form-control" placeholder="Nyelv" aria-label="Nyelv">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="language_level[${count}]" class="form-control" placeholder="Szint" aria-label="Szint">
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+        `;
+            $("#language-container").append(newGroup);
+        });
+
+        $(document).on("click", ".remove-button", function() {
+            $(this).closest(".language-group").remove();
+            updateIndexes();
+        });
+    });
+</script>

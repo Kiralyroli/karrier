@@ -1,0 +1,125 @@
+<div class="content-header">Kérjük, add meg szakmai tapasztalataidat!<br>Lehetőséged van több munkahelyet és pozíciót is megadni, így örömmel várunk minden információt az eddigi munkakörökről és feladataidról. <strong>Minden tapasztalat értékes lehet!</strong></div>
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="form-step">
+            <h1 class="form-title dark-text-shadow">Szakmai tapasztalatok</h1>
+            <div class="form-notes">
+                <p>Ha valamit nem tudsz pontosan kitölteni, ne aggódj, írd le saját szavaiddal vagy körülírva a megjegyzés mezőbe – <strong>minden részlet segít!</strong></p>
+                <p>Ha valamit nem tudsz pontosan kitölteni, ne aggódj, írd le saját szavaiddal vagy körülírva a megjegyzés mezőbe – <strong>minden részlet segít!</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="step-number">
+            {{ step }}
+        </div>
+        <div class="vertical-line"></div>
+    </div>
+
+    <div class="col-md-5">
+        <form id="data-form">
+            <div id="experience-container">
+                {% if formData.experiences is defined and formData.experiences is not empty %}
+                    {% for experience in formData.experiences %}
+                        <div class="experience-group">
+                            <div class="mb-3">
+                                <input type="text" name="experience_name[{{ loop.index0 }}]" class="form-control" placeholder="Munkakör megnevezése" aria-label="Munkakör megnevezése" value="{{ experience.name }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="experience_industry[{{ loop.index0 }}]" class="form-control" placeholder="Üzletág" aria-label="Üzletág" value="{{ experience.industry }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="experience_company_name[{{ loop.index0 }}]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése" value="{{ experience.company_name }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="experience_start[{{ loop.index0 }}]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma" value="{{ experience.start }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="experience_end[{{ loop.index0 }}]" class="form-control" placeholder="Befejezés dátuma" aria-label="Befejezés dátuma" value="{{ experience.end }}">
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="experience_note[{{ loop.index0 }}]" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés">{{ experience.note }}</textarea>
+                            </div>
+                            <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="experience-group">
+                        <div class="mb-3">
+                            <input type="text" name="experience_name[0]" class="form-control" placeholder="Munkakör megnevezése" aria-label="Munkakör megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="experience_industry[0]" class="form-control" placeholder="Üzletág" aria-label="Üzletág">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="experience_company_name[0]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="experience_start[0]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="experience_end[0]" class="form-control" placeholder="Befejezés dátuma" aria-label="Befejezés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="experience_note[0]" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="add-button-container"><div id="add-button">+ Szakmai tapasztalat</div></div>
+        </form>
+    </div>
+</div>
+
+{% include 'data_sheet/buttons.html.twig' %}
+
+<script>
+    $(document).ready(function() {
+        function updateIndexes() {
+            $("#experience-container .experience-group").each(function(index) {
+                $(this).find("input[name^='experience_name']").attr("name", "experience_name[" + index + "]");
+                $(this).find("input[name^='experience_industry']").attr("name", "experience_industry[" + index + "]");
+                $(this).find("input[name^='experience_company_name']").attr("name", "experience_company_name[" + index + "]");
+                $(this).find("input[name^='experience_start']").attr("name", "experience_start[" + index + "]");
+                $(this).find("input[name^='experience_end']").attr("name", "experience_end[" + index + "]");
+                $(this).find("textarea[name^='experience_note']").attr("name", "experience_note[" + index + "]");
+            });
+        }
+
+        $("#add-button").click(function() {
+            let count = $("#experience-container .experience-group").length;
+            let newGroup = `
+            <div class="experience-group">
+                        <div class="mb-3">
+                            <input type="text" name="experience_name[${count}]" class="form-control" placeholder="Munkakör megnevezése" aria-label="Munkakör megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="experience_industry[${count}]" class="form-control" placeholder="Üzletág" aria-label="Üzletág">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="experience_company_name[${count}]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="experience_start[${count}]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="experience_end[${count}]" class="form-control" placeholder="Befejezés dátuma" aria-label="Befejezés dátuma">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="experience_note[${count}]" class="form-control" placeholder="Megjegyzés" aria-label="Megjegyzés"></textarea>
+                        </div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                    </div>
+        `;
+            $("#experience-container").append(newGroup);
+        });
+
+        $(document).on("click", ".remove-button", function() {
+            $(this).closest(".experience-group").remove();
+            updateIndexes();
+        });
+    });
+</script>

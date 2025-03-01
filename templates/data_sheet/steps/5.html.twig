@@ -32,7 +32,7 @@
                             <div class="mb-3">
                                 <input type="text" name="job_link[{{ loop.index0 }}]" class="form-control" placeholder="Álláshirdetés link" aria-label="Álláshirdetés link" value="{{ job.link }}">
                             </div>
-                            <div class="remove-button-container"><div class="remove-button-position"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                            <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -46,12 +46,12 @@
                         <div class="mb-3">
                             <input type="text" name="job_link[0]" class="form-control" placeholder="Álláshirdetés link" aria-label="Álláshirdetés link">
                         </div>
-                        <div class="remove-button-container"><div class="remove-button-position"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                        <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
                     </div>
                 {% endif %}
             </div>
 
-            <div id="add-button-container"><div id="add-button-position">+ Pozíció</div></div>
+            <div id="add-button-container"><div id="add-button">+ Pozíció</div></div>
         </form>
     </div>
 </div>
@@ -68,7 +68,7 @@
             });
         }
 
-        $("#add-button-position").click(function() {
+        $("#add-button").click(function() {
             let count = $("#position-container .position-group").length;
             let newGroup = `
             <div class="position-group">
@@ -81,13 +81,13 @@
                 <div class="mb-3">
                     <input type="text" name="job_link[${count}]" class="form-control" placeholder="Álláshirdetés link" aria-label="Álláshirdetés link">
                 </div>
-                <div class="remove-button-container"><div class="remove-button-position"><i class="bi bi-x-circle"></i> Törlés</div></div>
+                <div class="remove-button-container"><div class="remove-button"><i class="bi bi-x-circle"></i> Törlés</div></div>
             </div>
         `;
             $("#position-container").append(newGroup);
         });
 
-        $(document).on("click", ".remove-button-position", function() {
+        $(document).on("click", ".remove-button", function() {
             $(this).closest(".position-group").remove();
             updateIndexes();
         });

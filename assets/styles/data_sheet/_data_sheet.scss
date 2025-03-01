@@ -126,7 +126,7 @@
     margin-bottom: 15px;
     padding-bottom: 5px;
 
-    .remove-button-position {
+    .remove-button {
       color: red;
       cursor: pointer;
       display: inline-block;
@@ -138,8 +138,13 @@
     }
   }
 
+  .form-check {
+    text-align: left;
+    font-size: 20px;
+  }
+
   #add-button-container {
-    #add-button-position {
+    #add-button {
       color: $base-color-dark;
       cursor: pointer;
       display: inline-block;

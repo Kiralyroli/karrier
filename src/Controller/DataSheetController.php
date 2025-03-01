@@ -23,8 +23,19 @@ class DataSheetController extends AbstractController
         return $this->render('data_sheet/data_sheet.html.twig', [
             'uniqueId' => $uniqueId,
             'step' => 1,
+            'lastStep' => $this->getLastStepNumber(),
             'formData' => $sessionFormData,
         ]);
+    }
+
+    #[Route('/data-sheet/{uniqueId}/finish', name: 'data_sheet_finish', methods: ['GET'])]
+    public function finish(string $uniqueId, SessionInterface $session): Response
+    {
+        $sessionFormData = $session->get('formData');
+        if (!$sessionFormData) {
+            $sessionFormData = [];
+        }
+        return $this->render('data_sheet/success.html.twig');
     }
 
     #[Route('/load-data-sheet-content', name: 'load_data_sheet_content', methods: ['POST'])]
@@ -49,37 +60,86 @@ class DataSheetController extends AbstractController
         if (empty($data['formData']['uploaded_cv_image'])) {
             unset($data['formData']['uploaded_cv_image']);
         }
-        $jobs = [];
-        foreach ($data['formData'] as $key => $value) {
-            if (str_contains($key, 'job_')) {
-                preg_match('/\[(\d+)\]/', $key, $matches);
-                $jobs[$matches[1]][str_replace(['job_', '[' . $matches[1] . ']'], '', $key)] = $value;
-                unset($data['formData'][$key]);
-            }
-        }
-        if (!empty($jobs)) {
-            foreach ($jobs as $key => $job) {
-                $isEmptyJob = true;
-                foreach ($job as $value) {
-                    if (!empty($value)) {
-                        $isEmptyJob = false;
-                        break;
-                    }
-                }
-                if ($isEmptyJob) {
-                    unset($jobs[$key]);
-                }
-            }
-            $data['formData']['jobs'] = $jobs;
-        }
+
+        $data = $this->addMultiElementFormData($data, 'jobs', 'job');
+        $data = $this->addMultiElementFormData($data, 'experiences', 'experience');
+        $data = $this->addMultiElementFormData($data, 'studies', 'study');
+        $data = $this->addMultiElementFormData($data, 'professionalSkills', 'professional_skill');
+        $data = $this->addMultiElementFormData($data, 'privateSkills', 'private_skill');
+        $data = $this->addMultiElementFormData($data, 'languages', 'language');
 
         $sessionFormData = array_merge($sessionFormData, $data['formData']);
         $session->set('formData', $sessionFormData);
 
+        $lastStepNumber = $this->getLastStepNumber();
+        if ($step > $lastStepNumber) {
+            return new JsonResponse([
+                'redirect' => $this->generateUrl('data_sheet_finish', ['uniqueId' => $uniqueId]),
+            ]);
+        }
+
         $templatePath = 'data_sheet/steps/' . $step . '.html.twig';
-        return $this->render($templatePath, [
+        $content = $this->renderView($templatePath, [
             'step' => $step,
+            'lastStep' => $lastStepNumber,
             'formData' => $sessionFormData,
+            'uniqueId' => $uniqueId,
         ]);
+
+        return new JsonResponse([
+            'content' => $content
+        ]);
+    }
+
+    /**
+     * @return int
+     */
+    private function getLastStepNumber(): int
+    {
+        $files = glob($this->getParameter('kernel.project_dir') . '/templates/data_sheet/steps/*.html.twig');
+        $maxNumber = 0;
+        foreach ($files as $file) {
+            if (preg_match('/(\d+)\.html\.twig$/', basename($file), $matches)) {
+                $number = (int)$matches[1];
+                if ($number > $maxNumber) {
+                    $maxNumber = $number;
+                }
+            }
+        }
+        return $maxNumber;
+    }
+
+    /**
+     * @param array $data
+     * @param string $elementsName
+     * @param string $elementName
+     * @return array
+     */
+    private function addMultiElementFormData(array $data, string $elementsName, string $elementName): array
+    {
+        $elements = [];
+        foreach ($data['formData'] as $key => $value) {
+            if (str_contains($key, $elementName . '_')) {
+                preg_match('/\[(\d+)\]/', $key, $matches);
+                $elements[$matches[1]][str_replace([$elementName . '_', '[' . $matches[1] . ']'], '', $key)] = $value;
+                unset($data['formData'][$key]);
+            }
+        }
+        if (!empty($elements)) {
+            foreach ($elements as $key => $element) {
+                $isEmptyElement = true;
+                foreach ($element as $value) {
+                    if (!empty($value)) {
+                        $isEmptyElement = false;
+                        break;
+                    }
+                }
+                if ($isEmptyElement) {
+                    unset($elements[$key]);
+                }
+            }
+            $data['formData'][$elementsName] = $elements;
+        }
+        return $data;
     }
 }

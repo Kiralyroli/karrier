@@ -12,11 +12,13 @@
             $(document).on('click', '.step-button', function () {
                 let step = $(this).data('step');
                 let formData = {};
-                $('#data-form').find('input').each(function () {
+                $('#data-form').find('input, textarea').each(function () {
                     let name = $(this).attr('name');
-                    let value = $(this).val();
-                    if (name) {
-                        formData[name] = value;
+                    if (!name) return;
+                    if ($(this).attr('type') === 'checkbox') {
+                        formData[name] = $(this).prop('checked') ? ($(this).val() || true) : false;
+                    } else {
+                        formData[name] = $(this).val();
                     }
                 });
                 $.ajax({
@@ -29,7 +31,12 @@
                         formData: formData
                     }),
                     success: function (response) {
-                        $('#data_sheet_content').html(response);
+                        console.log(response);
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        } else {
+                            $('#data_sheet_content').html(response.content);
+                        }
                     }
                 });
             });
