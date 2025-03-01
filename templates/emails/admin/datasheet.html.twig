@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Új CV Maker adatlap került kitöltésre!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #003954;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+            background-color: #16b7b1;
+            color: white !important;
+            border-radius: 15px;
+            padding: 10px 15px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Új CV Maker adatlap került kitöltésre!</h1>
+    </div>
+    <div class="content">
+        <p>A(z) <strong>{{ uniqueId }}</strong> azonosítóval rendelkező adatlapot kitöltötték.</p>
+        <p>Az alábbi fájlok kerültek csatolásra</p>
+        <table class="table">
+            {% for fileType, fileName in fileNames %}
+                <tr>
+                    <td>{{ fileType }}</td>
+                    <td>{{ fileName }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025, primeCV. Minden jog fenntartva.</p>
+    </div>
+</div>
+</body>
+</html>

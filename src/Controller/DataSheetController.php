@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Email\EmailSender;
+use App\Model\Word\DocxProcessor;
 use App\Repository\OrdersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,11 +36,18 @@ class DataSheetController extends AbstractController
     }
 
     #[Route('/data-sheet/{uniqueId}/finish', name: 'data_sheet_finish', methods: ['GET'])]
-    public function finish(string $uniqueId, SessionInterface $session, OrdersRepository $ordersRepository, EntityManagerInterface $entityManager): Response
+    public function finish(
+        string                 $uniqueId,
+        SessionInterface       $session,
+        OrdersRepository       $ordersRepository,
+        EntityManagerInterface $entityManager,
+        DocxProcessor          $docxProcessor,
+        EmailSender            $emailSender
+    ): Response
     {
         $sessionFormData = $session->get('formData');
         if (!$sessionFormData) {
-            $sessionFormData = [];
+            return $this->redirectToRoute('data_sheet', ['uniqueId' => $uniqueId]);
         }
 
         $order = $ordersRepository->findByUniqueId($uniqueId);
@@ -50,6 +59,31 @@ class DataSheetController extends AbstractController
         $entityManager->persist($order);
         $entityManager->flush();
         $session->remove('formData');
+
+        $docxData = [
+            'name' => $sessionFormData['personal_lastname'] . ' ' . $sessionFormData['personal_firstname'],
+            'phone' => $sessionFormData['personal_phone'],
+            'email' => $sessionFormData['personal_email'],
+            'city' => $sessionFormData['personal_city'],
+            'about' => $sessionFormData['summary'],
+        ];
+        $outputPath = $this->getParameter('kernel.project_dir') . '/uploads/sablon_' . $uniqueId . '.docx';
+        $result = $docxProcessor->generateDocx(
+            $docxData,
+            $this->getParameter('kernel.project_dir') . '/data/sablon.docx',
+            $outputPath
+        );
+        $filePaths = [$outputPath];
+        $fileNames['Sablon önéletrajz'] = 'sablon_' . $uniqueId . '.docx';
+        if (!empty($sessionFormData['uploaded_cv_file'])) {
+            $filePaths[] = $this->getParameter('kernel.project_dir') . '/uploads/' . $sessionFormData['uploaded_cv_file'];
+            $fileNames['Létező önéletrajz'] = $sessionFormData['uploaded_cv_file'];
+        }
+        if (!empty($sessionFormData['uploaded_cv_image'])) {
+            $filePaths[] = $this->getParameter('kernel.project_dir') . '/uploads/' . $sessionFormData['uploaded_cv_image'];
+            $fileNames['Feltöltött kép'] = $sessionFormData['uploaded_cv_image'];
+        }
+        $this->sendEmail($emailSender, $filePaths, $uniqueId, $fileNames);
         return $this->render('data_sheet/success.html.twig');
     }
 
@@ -156,5 +190,28 @@ class DataSheetController extends AbstractController
             $data['formData'][$elementsName] = $elements;
         }
         return $data;
+    }
+
+    /**
+     * @param EmailSender $emailSender
+     * @param array $filePaths
+     * @param string $uniqueId
+     * @param array $fileNames
+     * @return void
+     */
+    private function sendEmail(EmailSender $emailSender, array $filePaths, string $uniqueId, array $fileNames): void
+    {
+        $contactEmail = $_ENV['CONTACT_EMAIL'];
+        $emailSender->send(
+            [$contactEmail],
+            'Új CV Maker adatlap került kitöltésre',
+            'emails/admin/datasheet.html.twig',
+            [
+                'uniqueId' => $uniqueId,
+                'fileNames' => $fileNames,
+            ],
+            $filePaths
+        );
+
     }
 }

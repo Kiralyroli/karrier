@@ -24,13 +24,15 @@ readonly class EmailSender
      * @param string $subject
      * @param string $htmlTemplate
      * @param array $context
+     * @param array $attachments
      * @return bool
      */
-    public function send(array $toEmails, string $subject, string $htmlTemplate, array $context = []): bool
+    public function send(array $toEmails, string $subject, string $htmlTemplate, array $context = [], array $attachments = []): bool
     {
         $toAddresses = array_map(function ($toEmail) {
             return new Address($toEmail);
         }, $toEmails);
+
         $email = $this->templatedEmail
             ->from($this->fromEmail)
             ->to(...$toAddresses)
@@ -38,6 +40,15 @@ readonly class EmailSender
             ->htmlTemplate($htmlTemplate)
             ->locale('hu')
             ->context($context);
+
+        foreach ($attachments as $attachment) {
+            if (file_exists($attachment)) {
+                $email->attachFromPath($attachment);
+            } else {
+                $this->fileLogger->logError('Attachment not found: ' . $attachment);
+            }
+        }
+
         try {
             $this->mailer->send($email);
             return true;
