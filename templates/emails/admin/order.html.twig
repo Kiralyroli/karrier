@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Új CV Maker rendelés érkezett!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #003954;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+            background-color: #16b7b1;
+            color: white !important;
+            border-radius: 15px;
+            padding: 10px 15px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Új CV Maker rendelés érkezett!</h1>
+    </div>
+    <div class="content">
+        <table class="table">
+            <tr>
+                <td><strong>Vezetéknév</strong></td>
+                <td>{{ values.lastname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Keresztnév</strong></td>
+                <td>{{ values.firstname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Email cím</strong></td>
+                <td>{{ values.email }}</td>
+            </tr>
+            <tr>
+                <td><strong>Telefonszám</strong></td>
+                <td>{{ values.phone }}</td>
+            </tr>
+            <tr>
+                <td><strong>Ország</strong></td>
+                <td>{{ values.country }}</td>
+            </tr>
+            <tr>
+                <td><strong>Irányítószám</strong></td>
+                <td>{{ values.zipcode }}</td>
+            </tr>
+            <tr>
+                <td><strong>Város</strong></td>
+                <td>{{ values.city }}</td>
+            </tr>
+            <tr>
+                <td><strong>Utca</strong></td>
+                <td>{{ values.address }}</td>
+            </tr>
+            <tr>
+                <td><strong>Önéletrajz szint</strong></td>
+                <td>{{ packageLevel }}</td>
+            </tr>
+            <tr>
+                <td><strong>Önéletrajz név</strong></td>
+                <td>{{ packageTitle }}</td>
+            </tr>
+            <tr>
+                <td><strong>Ár</strong></td>
+                <td>{{ price|price }}</td>
+            </tr>
+            <tr>
+                <td><strong>Dátum</strong></td>
+                <td>{{ createdDate|date("Y-m-d H:i:s") }}</td>
+            </tr>
+            <tr>
+                <td><strong>Egyedi azonosító</strong></td>
+                <td>{{ uniqueId }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025, primeCV. Minden jog fenntartva.</p>
+    </div>
+</div>
+</body>
+</html>

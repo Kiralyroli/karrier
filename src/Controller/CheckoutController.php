@@ -152,7 +152,7 @@ class CheckoutController extends AbstractController
             'senior' => $package->setLevel('Senior'),
             'leader' => $package->setLevel('Vezető'),
         };
-        return $emailSender->send(
+        $result = $emailSender->send(
             [$values['email']],
             'CV Maker rendelés',
             'emails/order.html.twig',
@@ -164,5 +164,22 @@ class CheckoutController extends AbstractController
                 'uniqueId' => $uniqueId
             ]
         );
+
+        $contactEmail = $_ENV['CONTACT_EMAIL'];
+        $adminResult = $emailSender->send(
+            [$contactEmail],
+            'Új CV Maker rendelés érkezett',
+            'emails/admin/order.html.twig',
+            [
+                'values' => $values,
+                'createdDate' => new \DateTime(),
+                'packageLevel' => $package->getLevel(),
+                'packageTitle' => $package->getTitle(),
+                'price' => $package->getPrice(),
+                'uniqueId' => $uniqueId
+            ]
+        );
+
+        return $result && $adminResult;
     }
 }
