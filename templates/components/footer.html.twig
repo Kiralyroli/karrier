@@ -48,6 +48,15 @@
 
 <script>
     $(document).ready(function() {
+        function setMinHeight() {
+            let footerHeight = $("footer").outerHeight();
+            let headerHeight = $("header").outerHeight();
+            $("#content").css("min-height", `calc(100vh - ${footerHeight}px - ${headerHeight}px)`);
+        }
+
+        setMinHeight();
+        $(window).resize(setMinHeight);
+
         const y = new Date().getFullYear();
         $("#copyright").html(`&copy; ${y} primeCV`);
     });
