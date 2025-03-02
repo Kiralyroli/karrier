@@ -23,7 +23,7 @@
                                 <input type="text" name="study_name[{{ loop.index0 }}]" class="form-control" placeholder="Végzettség megnevezése" aria-label="Végzettség megnevezése" value="{{ study.name }}">
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="study_company_name[{{ loop.index0 }}]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése" value="{{ study.company_name }}">
+                                <input type="text" name="study_school_name[{{ loop.index0 }}]" class="form-control" placeholder="Iskola neve" aria-label="Iskola neve" value="{{ study.school_name }}">
                             </div>
                             <div class="mb-3">
                                 <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_start[{{ loop.index0 }}]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma" value="{{ study.start }}">
@@ -43,7 +43,7 @@
                             <input type="text" name="study_name[0]" class="form-control" placeholder="Végzettség megnevezése" aria-label="Végzettség megnevezése">
                         </div>
                         <div class="mb-3">
-                            <input type="text" name="study_company_name[0]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése">
+                            <input type="text" name="study_school_name[0]" class="form-control" placeholder="Iskola neve" aria-label="Iskola neve">
                         </div>
                         <div class="mb-3">
                             <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_start[0]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma">
@@ -71,7 +71,7 @@
         function updateIndexes() {
             $("#study-container .study-group").each(function(index) {
                 $(this).find("input[name^='study_name']").attr("name", "study_name[" + index + "]");
-                $(this).find("input[name^='study_company_name']").attr("name", "study_company_name[" + index + "]");
+                $(this).find("input[name^='study_school_name']").attr("name", "study_school_name[" + index + "]");
                 $(this).find("input[name^='study_start']").attr("name", "study_start[" + index + "]");
                 $(this).find("input[name^='study_end']").attr("name", "study_end[" + index + "]");
                 $(this).find("textarea[name^='study_note']").attr("name", "study_note[" + index + "]");
@@ -86,7 +86,7 @@
                             <input type="text" name="study_name[${count}]" class="form-control" placeholder="Végzettség megnevezése" aria-label="Végzettség megnevezése">
                         </div>
                         <div class="mb-3">
-                            <input type="text" name="study_company_name[${count}]" class="form-control" placeholder="Cég megnevezése" aria-label="Cég megnevezése">
+                            <input type="text" name="study_school_name[${count}]" class="form-control" placeholder="Iskola neve" aria-label="Iskola neve">
                         </div>
                         <div class="mb-3">
                             <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="study_start[${count}]" class="form-control" placeholder="Kezdés dátuma" aria-label="Kezdés dátuma">

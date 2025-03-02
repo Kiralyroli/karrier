@@ -74,7 +74,7 @@ class DataSheetController extends AbstractController
             $outputPath
         );
         $filePaths = [$outputPath];
-        $fileNames['Sablon önéletrajz'] = 'sablon_' . $uniqueId . '.docx';
+        $fileNames['Generált Sablon önéletrajz'] = 'sablon_' . $uniqueId . '.docx';
         if (!empty($sessionFormData['uploaded_cv_file'])) {
             $filePaths[] = $this->getParameter('kernel.project_dir') . '/uploads/' . $sessionFormData['uploaded_cv_file'];
             $fileNames['Létező önéletrajz'] = $sessionFormData['uploaded_cv_file'];
@@ -83,7 +83,7 @@ class DataSheetController extends AbstractController
             $filePaths[] = $this->getParameter('kernel.project_dir') . '/uploads/' . $sessionFormData['uploaded_cv_image'];
             $fileNames['Feltöltött kép'] = $sessionFormData['uploaded_cv_image'];
         }
-        $this->sendEmail($emailSender, $filePaths, $uniqueId, $fileNames);
+        $this->sendEmail($emailSender, $filePaths, $uniqueId, $fileNames, $sessionFormData);
         return $this->render('data_sheet/success.html.twig');
     }
 
@@ -199,8 +199,18 @@ class DataSheetController extends AbstractController
      * @param array $fileNames
      * @return void
      */
-    private function sendEmail(EmailSender $emailSender, array $filePaths, string $uniqueId, array $fileNames): void
+    private function sendEmail(EmailSender $emailSender, array $filePaths, string $uniqueId, array $fileNames, array $formData): void
     {
+        if (!$formData['contact_email']) {
+            $formData['contact_email'] = 'Nem';
+        } else {
+            $formData['contact_email'] = 'Igen';
+        }
+        if (!$formData['contact_phone']) {
+            $formData['contact_phone'] = 'Nem';
+        } else {
+            $formData['contact_phone'] = 'Igen';
+        }
         $contactEmail = $_ENV['CONTACT_EMAIL'];
         $emailSender->send(
             [$contactEmail],
@@ -209,6 +219,7 @@ class DataSheetController extends AbstractController
             [
                 'uniqueId' => $uniqueId,
                 'fileNames' => $fileNames,
+                'formData' => $formData
             ],
             $filePaths
         );

@@ -7,51 +7,45 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f7f7f7;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: #ffffff;
+            background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .header h1 {
             font-size: 24px;
             color: #003954;
         }
-        .content {
-            margin-bottom: 20px;
-        }
 
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
         }
 
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
+        th, td {
+            border: 1px solid #ddd;
             padding: 8px;
+            text-align: left;
         }
 
-        .button {
-            display: inline-block;
-            font-size: 16px;
-            text-decoration: none;
-            text-align: center;
+        th {
             background-color: #16b7b1;
-            color: white !important;
-            border-radius: 15px;
-            padding: 10px 15px;
+            color: white;
         }
+
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -63,20 +57,233 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Új CV Maker adatlap került kitöltésre!</h1>
+        <h1>A(z) <strong>{{ uniqueId }}</strong> azonosítóval rendelkező CV Maker adatlap kitöltésre került!</h1>
     </div>
-    <div class="content">
-        <p>A(z) <strong>{{ uniqueId }}</strong> azonosítóval rendelkező adatlapot kitöltötték.</p>
-        <p>Az alábbi fájlok kerültek csatolásra</p>
-        <table class="table">
-            {% for fileType, fileName in fileNames %}
-                <tr>
-                    <td>{{ fileType }}</td>
-                    <td>{{ fileName }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+
+    <h3>Személyes adatok</h3>
+    <table>
+        <tr>
+            <th>Vezetéknév</th>
+            <td>{{ formData.personal_lastname }}</td>
+        </tr>
+        <tr>
+            <th>Keresztnév</th>
+            <td>{{ formData.personal_firstname }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ formData.personal_email }}</td>
+        </tr>
+        <tr>
+            <th>Telefonszám</th>
+            <td>{{ formData.personal_phone }}</td>
+        </tr>
+        <tr>
+            <th>Város</th>
+            <td>{{ formData.personal_city }}</td>
+        </tr>
+        <tr>
+            <th>LinkedIn</th>
+            <td><a href="{{ formData.linkedin }}" target="_blank">{{ formData.linkedin }}</a></td>
+        </tr>
+    </table>
+
+    <h3>Feltöltött fájlok</h3>
+    <table>
+        <tr>
+            <th>Fájl típusa</th>
+            <th>Fájlnév</th>
+        </tr>
+        <tr>
+            <td>CV PDF</td>
+            <td>{{ formData.uploaded_cv_file }}</td>
+        </tr>
+        <tr>
+            <td>CV Kép</td>
+            <td>{{ formData.uploaded_cv_image }}</td>
+        </tr>
+    </table>
+
+    <h3>Célok és álláshirdetés</h3>
+    <table>
+        <tr>
+            <th>Pozíció</th>
+            <th>Iparág</th>
+            <th>Álláshirdetés link</th>
+        </tr>
+        {% for job in formData.jobs %}
+            <tr>
+                <td>{{ job.position }}</td>
+                <td>{{ job.industry }}</td>
+                <td>{{ job.link }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Szakmai tapasztalatok</h3>
+    <table>
+        <tr>
+            <th>Munkakör</th>
+            <th>Üzletág</th>
+            <th>Cég</th>
+            <th>Kezdés</th>
+            <th>Befejezés</th>
+            <th>Megjegyzés</th>
+        </tr>
+        {% for exp in formData.experiences %}
+            <tr>
+                <td>{{ exp.name }}</td>
+                <td>{{ exp.industry }}</td>
+                <td>{{ exp.company_name }}</td>
+                <td>{{ exp.start }}</td>
+                <td>{{ exp.end }}</td>
+                <td>{{ exp.note }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Tanulmányok, végzettségek</h3>
+    <table>
+        <tr>
+            <th>Végzettség</th>
+            <th>Iskola</th>
+            <th>Kezdés</th>
+            <th>Befejezés</th>
+            <th>Megjegyzés</th>
+        </tr>
+        {% for study in formData.studies %}
+            <tr>
+                <td>{{ study.name }}</td>
+                <td>{{ study.school_name }}</td>
+                <td>{{ study.start }}</td>
+                <td>{{ study.end }}</td>
+                <td>{{ study.note }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Szakmai Készségek</h3>
+    <table>
+        <tr>
+            <th>Név</th>
+            <th>Megjegyzés</th>
+        </tr>
+        {% for professionalSkill in formData.professionalSkills %}
+            <tr>
+                <td>{{ professionalSkill.name }}</td>
+                <td>{{ professionalSkill.note }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Személyes Készségek</h3>
+    <table>
+        <tr>
+            <th>Név</th>
+            <th>Megjegyzés</th>
+        </tr>
+        {% for privateSkill in formData.privateSkills %}
+            <tr>
+                <td>{{ privateSkill.name }}</td>
+                <td>{{ privateSkill.note }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Nyelvtudás</h3>
+    <table>
+        <tr>
+            <th>Nyelv</th>
+            <th>Szint</th>
+        </tr>
+        {% for lang in formData.languages %}
+            <tr>
+                <td>{{ lang.name }}</td>
+                <td>{{ lang.level }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Konzultáció</h3>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Megjegyzés</th>
+        </tr>
+        <tr>
+            <td>{{ formData.contact_email }}</td>
+            <td>{{ formData.contact_phone }}</td>
+            <td>{{ formData.contact_note }}</td>
+        </tr>
+    </table>
+
+    <h3>Összegzés</h3>
+    <table>
+        <tr>
+            <th>Összegzés</th>
+        </tr>
+        <tr>
+            <td>{{ formData.summary }}</td>
+        </tr>
+    </table>
+
+    <h3>Konzultáció</h3>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Megjegyzés</th>
+        </tr>
+        <tr>
+            <td>{{ formData.contact_email }}</td>
+            <td>{{ formData.contact_phone }}</td>
+            <td>{{ formData.contact_note }}</td>
+        </tr>
+    </table>
+
+    <h3>Ehhez az emailhez csatolt fájlok</h3>
+    <table>
+        <tr>
+            <th>Fájl típus</th>
+            <th>Fájl név</th>
+        </tr>
+        {% for fileType, fileName in fileNames %}
+            <tr>
+                <td>{{ fileType }}</td>
+                <td>{{ fileName }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Nincs adat</td>
+            </tr>
+        {% endfor %}
+    </table>
+
     <div class="footer">
         <p>&copy; 2025, primeCV. Minden jog fenntartva.</p>
     </div>
