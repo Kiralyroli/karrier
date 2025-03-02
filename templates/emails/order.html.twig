@@ -70,7 +70,7 @@
         <p><span class="highlight">Ár:</span> {{ price|price }}</p>
         <p>Ha bármilyen kérdéses van, kérjük, ne habozzon kapcsolatba lépni velünk!</p>
         <p>Az alábbi gombra kattintva ki tudod tölteni az adatlapot:</p>
-        <a href="{{ path('data_sheet', { 'uniqueId': uniqueId }) }}" class="button">Adatlap kitöltése</a>
+        <a href="{{ url('data_sheet', { 'uniqueId': uniqueId }) }}" class="button">Adatlap kitöltése</a>
     </div>
     <div class="footer">
         <p>&copy; 2025, primeCV. Minden jog fenntartva.</p>
