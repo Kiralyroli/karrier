@@ -78,10 +78,14 @@ class DataSheetController extends AbstractController
         if (!empty($sessionFormData['uploaded_cv_file'])) {
             $filePaths[] = $this->getParameter('kernel.project_dir') . '/uploads/' . $sessionFormData['uploaded_cv_file'];
             $fileNames['Létező önéletrajz'] = $sessionFormData['uploaded_cv_file'];
+        } else {
+            $sessionFormData['uploaded_cv_file'] = '';
         }
         if (!empty($sessionFormData['uploaded_cv_image'])) {
             $filePaths[] = $this->getParameter('kernel.project_dir') . '/uploads/' . $sessionFormData['uploaded_cv_image'];
             $fileNames['Feltöltött kép'] = $sessionFormData['uploaded_cv_image'];
+        } else {
+            $sessionFormData['uploaded_cv_image'] = '';
         }
         $this->sendEmail($emailSender, $filePaths, $uniqueId, $fileNames, $sessionFormData);
         return $this->render('data_sheet/success.html.twig');
