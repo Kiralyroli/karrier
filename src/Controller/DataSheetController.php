@@ -211,9 +211,9 @@ class DataSheetController extends AbstractController
         } else {
             $formData['contact_phone'] = 'Igen';
         }
-        $contactEmail = $_ENV['CONTACT_EMAIL'];
+        $contactEmail = explode(';', $_ENV['CONTACT_EMAIL']);
         $emailSender->send(
-            [$contactEmail],
+            $contactEmail,
             'Új CV Maker adatlap került kitöltésre',
             'emails/admin/datasheet.html.twig',
             [

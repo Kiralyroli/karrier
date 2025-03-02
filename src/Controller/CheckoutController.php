@@ -165,9 +165,9 @@ class CheckoutController extends AbstractController
             ]
         );
 
-        $contactEmail = $_ENV['CONTACT_EMAIL'];
+        $contactEmail = explode(';', $_ENV['CONTACT_EMAIL']);
         $adminResult = $emailSender->send(
-            [$contactEmail],
+            $contactEmail,
             'Új CV Maker rendelés érkezett',
             'emails/admin/order.html.twig',
             [
