@@ -2,6 +2,7 @@ twig:
     file_name_pattern: '*.twig'
     globals:
         recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+        barion_pixel_id: '%env(BARION_PIXEL_ID)%'
 
 when@test:
     twig:
