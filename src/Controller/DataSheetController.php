@@ -24,6 +24,9 @@ class DataSheetController extends AbstractController
             if (!$order) {
                 throw $this->createNotFoundException('Order not found');
             }
+            if (!$order->isSuccess()) {
+                return $this->redirectToRoute('cv_making_page');
+            }
             $sessionFormData = $order->getDataSheet();
             $session->set('formData', $sessionFormData);
         }
