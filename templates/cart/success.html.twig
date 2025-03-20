@@ -1,21 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div id="success-page" class="container">
-        <i class="bi bi-check2-all"></i>
+    <div id="finish-page" class="container">
         <h1>Köszönjük a vásárlást!</h1>
-        <p>A rendelésed sikeresen feldolgozásra került.
-            A vásárlásról szóló számlát elküldtük az email címedre.
-            Az emailben található linken bármikor újra megnyithatod és kitöltheted az adatlapot, ha most nem tudnád befejezni, vagy véletlenül bezárnád az oldalt.
-        </p>
-        <p>
-            Most már csak egy lépés választ el attól, hogy elkészítsük professzionális önéletrajzodat!
-        </p>
-        <div id="button">
-            <a href="{{ path('data_sheet', { 'uniqueId': uniqueId }) }}" class="button-hover">Adatlap kitöltése</a>
+        {% include 'components/barion_result.html.twig' %}
+
+        <div class="finish-page-content">
+            <p>A rendelésed sikeresen feldolgozásra került.
+                A vásárlásról szóló számlát elküldtük az email címedre.
+                Az emailben található linken bármikor újra megnyithatod és kitöltheted az adatlapot, ha most nem tudnád befejezni, vagy véletlenül bezárnád az oldalt.
+            </p>
+            <p>
+                Most már csak egy lépés választ el attól, hogy elkészítsük professzionális önéletrajzodat!
+            </p>
+            <div id="button">
+                <a href="{{ path('data_sheet', { 'uniqueId': uniqueId }) }}" class="button-hover">Adatlap kitöltése</a>
+            </div>
+            <p>
+                Ha bármilyen kérdésed merülne fel, keress minket bizalommal az elérhetőségeink egyikén!
+            </p>
         </div>
-        <p>
-            Ha bármilyen kérdésed merülne fel, keress minket bizalommal az elérhetőségeink egyikén!
-        </p>
     </div>
 {% endblock %}

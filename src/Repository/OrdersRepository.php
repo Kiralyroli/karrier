@@ -28,4 +28,20 @@ class OrdersRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param string $uniqueId
+     * @return void
+     */
+    public function setOrderSuccessWith(string $uniqueId): void
+    {
+        $this->createQueryBuilder('o')
+            ->update(Orders::class, 'o')
+            ->set('o.success', ':success')
+            ->andWhere('o.custom_id = :uniqueId')
+            ->setParameter('success', true)
+            ->setParameter('uniqueId', $uniqueId)
+            ->getQuery()
+            ->execute();
+    }
 }

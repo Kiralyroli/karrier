@@ -57,6 +57,9 @@ class Orders
     private \DateTimeInterface $updated;
 
     #[ORM\Column]
+    private bool $success;
+
+    #[ORM\Column]
     private array $data_sheet;
 
     /**
@@ -74,6 +77,7 @@ class Orders
      * @param int $package_price
      * @param \DateTimeInterface $created
      * @param \DateTimeInterface $updated
+     * @param bool $success
      */
     public function __construct(
         string             $custom_id,
@@ -89,8 +93,9 @@ class Orders
         string             $package_title,
         int                $package_price,
         \DateTimeInterface $created,
-        \DateTimeInterface $updated)
-    {
+        \DateTimeInterface $updated,
+        bool $success
+    ) {
         $this->custom_id = $custom_id;
         $this->lastname = $lastname;
         $this->firstname = $firstname;
@@ -105,6 +110,7 @@ class Orders
         $this->package_price = $package_price;
         $this->created = $created;
         $this->updated = $updated;
+        $this->success = $success;
         $this->data_sheet = [];
     }
 
@@ -186,6 +192,16 @@ class Orders
     public function setUpdated(\DateTimeInterface $updated): void
     {
         $this->updated = $updated;
+    }
+
+    public function isSuccess(): bool
+    {
+        return $this->success;
+    }
+
+    public function setSuccess(bool $success): void
+    {
+        $this->success = $success;
     }
 
     public function getDataSheet(): array

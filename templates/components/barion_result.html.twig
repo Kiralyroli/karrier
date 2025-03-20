@@ -1,0 +1,19 @@
+<div id="barion-result" class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            {% if barion_success %}
+                <i class="bi bi-check2-all success"></i>
+                <h3>Az Ön Barion alkalmazásból indított tranzakciója sikeres volt.</h3>
+            {% else %}
+                <i class="bi bi-x-octagon failed"></i>
+                <h3>Az Ön Barion alkalmazásból indított tranzakciója sikertelen volt.</h3>
+            {% endif %}
+
+            <div class="barion-data">
+                <div><strong>Kártyás fizetés adatai</strong></div>
+                <div>• Összeg: {{ barion_payment_price|price }}</div>
+                <div>• Barion tranzakció azonosító: {{ barion_payment_id }}</div>
+            </div>
+        </div>
+    </div>
+</div>

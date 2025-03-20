@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="finish-page" class="container">
+        <h1>Sikertelen vásárlás!</h1>
+        {% include 'components/barion_result.html.twig' %}
+        <div id="button">
+            <a href="{{ path('checkout_payment_restart') }}" class="button-hover">Fizetés újraindítása</a>
+        </div>
+    </div>
+{% endblock %}

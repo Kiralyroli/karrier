@@ -4,8 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9e29bfd9f72d9e14d113f9d64858f0d",
+    "content-hash": "6a87403e9768a244789f3a9771e87608",
     "packages": [
+        {
+            "name": "barion/barion-web-php",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barion/barion-web-php.git",
+                "reference": "482b7d44371028691c88a058bedaaa1c9201c713"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barion/barion-web-php/zipball/482b7d44371028691c88a058bedaaa1c9201c713",
+                "reference": "482b7d44371028691c88a058bedaaa1c9201c713",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Barion\\": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "PHP libary for Barion Smart Gateway API integration",
+            "support": {
+                "chat": "https://discord.gg/rPkeS5fW",
+                "docs": "https://docs.barion.com",
+                "email": "devsupport@barion.com",
+                "issues": "https://github.com/barion/barion-web-php/issues",
+                "source": "https://github.com/barion/barion-web-php/tree/v2.0.0"
+            },
+            "time": "2024-07-16T10:20:57+00:00"
+        },
         {
             "name": "composer/semver",
             "version": "3.4.2",
