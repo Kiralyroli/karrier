@@ -47,6 +47,8 @@ class CheckoutController extends AbstractController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $request->request->all();
+            $data['agree_aszf'] = isset($data['agree_aszf']) && $data['agree_aszf'] === 'on';
+            $data['agree_privacy_statement'] = isset($data['agree_privacy_statement']) && $data['agree_privacy_statement'] === 'on';
 
             $constraints = new Assert\Collection([
                 'firstname' => [new Assert\NotBlank()],
@@ -57,6 +59,8 @@ class CheckoutController extends AbstractController
                 'zipcode' => [new Assert\NotBlank()],
                 'city' => [new Assert\NotBlank()],
                 'address' => [new Assert\NotBlank()],
+                'agree_aszf' => [new Assert\IsTrue()],
+                'agree_privacy_statement' => [new Assert\IsTrue()],
             ]);
 
             $violations = $validator->validate($data, $constraints);
@@ -70,6 +74,8 @@ class CheckoutController extends AbstractController
                 'zipcode' => 'is-valid',
                 'city' => 'is-valid',
                 'address' => 'is-valid',
+                'agree_aszf' => 'is-valid',
+                'agree_privacy_statement' => 'is-valid',
             ];
             if (count($violations) > 0) {
                 foreach ($violations as $violation) {

@@ -17,14 +17,14 @@
             <nav class="col-md-4">
                 <h3>Támogatás</h3>
                 <ul>
-                    <li><a href="#">ÁSZF</a></li>
-                    <li><a href="#">Adatvédelmi tájékoztató</a></li>
+                    <li><a href="{{ path('information_aszf') }}">ÁSZF</a></li>
+                    <li><a href="{{ path('information_privacy_statement') }}">Adatvédelmi tájékoztató</a></li>
                 </ul>
             </nav>
         </div>
         <hr class="hr" />
         <div class="row footer-bottom">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <a class="footer-brand" href="{{ path('home_page') }}">
                     <img src="{{ asset('images/logo.svg') }}" alt="primeCV logó">
                     <div class="brand-title">
@@ -33,14 +33,19 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 social-icons">
+            <div class="col-md-3 social-icons">
                 <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
                 <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                 <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                 <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p id="copyright"></p>
+            </div>
+            <div class="col-md-3">
+                <a class="barion-logo" href="https://www.barion.com/hu/">
+                    <img src="{{ asset('images/barion-logo.svg') }}" alt="Barion logó">
+                </a>
             </div>
         </div>
     </div>

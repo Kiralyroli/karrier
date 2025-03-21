@@ -17,8 +17,23 @@
     padding: 10px;
   }
 
+  .hr {
+    margin-top: 0;
+  }
+
+  .payment-method {
+    img {
+      width: 80%;
+    }
+  }
+
+  .input-agree {
+    margin-bottom: 5px;
+  }
+
   button.btn {
     border-radius: 5px;
     padding: 10px;
+    text-transform: uppercase;
   }
 }

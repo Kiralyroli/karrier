@@ -58,7 +58,19 @@
                             </ul>
 
                             <hr class="hr"/>
-                            <div class="mt-3">
+
+                            <div class="payment-method">
+                                <h4 class="fw-bold">Fizetési mód</h4>
+                                <p class="fs-5">Bankkártyás fizetés Barionnal</p>
+                                <img src="{{ asset('images/barion-logo.svg') }}" alt="Barion bankkártyás fizetés">
+                                <p class="text-muted small mt-2">
+                                    A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja.<br>
+                                    Magyar Nemzeti Bank engedély száma: H-EN-I-1064/2013<br>
+                                    Bankkártya adatai áruházunkhoz nem jutnak el.<br>
+                                </p>
+                            </div>
+                            <hr class="hr"/>
+                            <div>
                                 <h5 class="fw-bold">Teljes összeg</h5>
                                 <p class="fs-5"><strong>{{ package.price|price }}</strong></p>
                             </div>
@@ -68,11 +80,56 @@
                             {#                            <button class="btn btn-primary" id="apply-coupon">Beváltás</button> #}
                             {#                        </div> #}
 
-                            <button class="btn btn-success w-100">MEGRENDELÉS</button>
+                            <hr class="hr"/>
+
+                            <div class="input-agree">
+                                <input type="checkbox" class="form-check-input {% if validations.agree_aszf is defined %}{{ validations.agree_aszf }}{% endif %}" name="agree_aszf" id="agree_aszf" required {% if data.agree_aszf is defined and data.agree_aszf == true %}checked{% endif %}>
+                                <label class="form-check-label" for="agree_aszf">Elolvastam és elfogadom az <a href="#" data-bs-toggle="modal" data-bs-target="#aszf_modal">Általános Szerződési Feltételek</a>et</label>
+                            </div>
+                            <div class="input-agree">
+                                <input type="checkbox" class="form-check-input {% if validations.agree_privacy_statement is defined %}{{ validations.agree_privacy_statement }}{% endif %}" name="agree_privacy_statement" id="agree_privacy_statement" required {% if data.agree_privacy_statement is defined and data.agree_privacy_statement == true %}checked{% endif %}>
+                                <label class="form-check-label" for="agree_privacy_statement">Elolvastam és elfogadom az <a href="#" data-bs-toggle="modal" data-bs-target="#privacy_statement_modal">Adatkezelési Nyilatkozat</a>ot</label>
+                            </div>
+
+                            <button class="btn btn-success w-100">Megrendelés és fizetés indítása</button>
                         </div>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="aszf_modal" tabindex="-1" aria-labelledby="aszfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="aszfModalLabel">Általános Szerződési Feltételek</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% include 'information/aszf.html.twig' %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="privacy_statement_modal" tabindex="-1" aria-labelledby="privacyStatementModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="privacyStatementModalLabel">Adatkezelési Nyilatkozat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% include 'information/privacy_statement.htm.twig' %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -86,6 +143,29 @@
                     alert('Kuponkód alkalmazva: ' + coupon);
                 }
             });
+        });
+
+        const openModals = document.querySelectorAll(".open-modal");
+        const closeButtons = document.querySelectorAll(".close");
+
+        openModals.forEach(link => {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                const modalId = this.getAttribute("data-modal");
+                document.getElementById(modalId).style.display = "block";
+            });
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                this.closest(".modal").style.display = "none";
+            });
+        });
+
+        window.addEventListener("click", function(event) {
+            if (event.target.classList.contains("modal")) {
+                event.target.style.display = "none";
+            }
         });
     </script>
 {% endblock %}
