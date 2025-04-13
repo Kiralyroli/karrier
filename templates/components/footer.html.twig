@@ -2,16 +2,15 @@
     <div class="container">
         <div class="row footer-nav">
             <div class="col-md-4">
-                <h3>primecv.hu</h3>
+                <h3>Szolgáltatás</h3>
                 <ul>
-                    <li><a href="#">Önéletrajz készítés</a></li>
+                    <li><a href="{{ path('cv_making_page') }}">Önéletrajz készítés</a></li>
                 </ul>
             </div>
             <nav class="col-md-4">
                 <h3>primecv.hu</h3>
                 <ul>
-                    <li><a href="#">Kapcsolat</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="{{ path('contact_page') }}">Kapcsolat</a></li>
                 </ul>
             </nav>
             <nav class="col-md-4">
@@ -27,10 +26,6 @@
             <div class="col-md-3">
                 <a class="footer-brand" href="{{ path('home_page') }}">
                     <img src="{{ asset('images/logo.svg') }}" alt="primeCV logó">
-                    <div class="brand-title">
-                        <span class="brand-title-1">prime</span>
-                        <span class="brand-title-2">cv</span>
-                    </div>
                 </a>
             </div>
             <div class="col-md-3 social-icons">

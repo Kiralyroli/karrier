@@ -19,14 +19,16 @@
       text-decoration: none;
       color: white;
       background-color: $base-color-light;
+      border-color: $base-color-light;
       border-radius: 20px;
       padding: 15px 20px;
       display: inline-block;
       box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
       transition: all 0.3s ease;
+      font-size: 20px;
 
       &:hover {
-        transform: translateY(-3px);
+        transform: scale(1.05);
       }
     }
   }

@@ -4,10 +4,6 @@
             <div class="d-flex align-items-center justify-content-between">
                 <a class="navbar-brand" href="{{ path('home_page') }}">
                     <img src="{{ asset('images/logo.svg') }}" alt="PrimeCV - Professzionális önéletrajz készítés">
-                    <div class="brand-title">
-                        <span class="brand-title-1">prime</span>
-                        <span class="brand-title-2">cv</span>
-                    </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Menü megnyitása">
@@ -17,13 +13,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('contact_page') }}">Kapcsolat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('cv_making_page') }}">Önéletrajz készítés</a>
+                        <a class="nav-link active button-hover" href="{{ path('cv_making_page') }}">Önéletrajz készítés</a>
                     </li>
                 </ul>
             </div>

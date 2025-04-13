@@ -18,6 +18,8 @@
   #features-buttons {
     text-align: center;
     margin-bottom: 50px;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
 
     a {
       text-decoration: none;
@@ -32,6 +34,10 @@
         background-color: $base-color-dark;
         color: white;
       }
+    }
+
+    &:hover {
+      transform: scale(1.05);
     }
   }
 

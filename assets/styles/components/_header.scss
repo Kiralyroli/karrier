@@ -1,6 +1,6 @@
 $navbar-bg: rgba(255, 255, 255, 0.5);
 $navbar-blur: 4px;
-$nav-link-color: $base-color-light;
+$nav-link-color: white;
 $nav-link-hover-color: $base-color-dark;
 $nav-active-bg: $base-color-light;
 $nav-active-text: white;
@@ -32,19 +32,6 @@ header {
           height: 50px;
           padding-left: 20px;
         }
-
-        .brand-title {
-          font-size: 33px;
-          display: flex;
-
-          .brand-title-1 {
-            color: $base-color-light;
-          }
-
-          .brand-title-2 {
-            color: $base-color-dark;
-          }
-        }
       }
 
       .navbar-toggler {
@@ -67,7 +54,7 @@ header {
           a {
             color: $nav-link-color;
             font-size: 18px;
-            transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out, background 0.3s ease-in-out;
             padding: 8px 12px;
             border-radius: 10px;
 
@@ -81,6 +68,10 @@ header {
               color: $nav-active-text;
               border-radius: 15px;
               padding: 10px 15px;
+
+              &:hover {
+                transform: scale(1.05);
+              }
             }
           }
         }

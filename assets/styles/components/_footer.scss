@@ -56,19 +56,6 @@ footer {
         padding-left: 20px;
         padding-right: 10px;
       }
-
-      .brand-title {
-        font-size: clamp(28px, 3vw, 33px);
-        display: flex;
-
-        .brand-title-1 {
-          color: $base-color-light;
-        }
-
-        .brand-title-2 {
-          color: $base-color-dark;
-        }
-      }
     }
 
     .social-icons {
