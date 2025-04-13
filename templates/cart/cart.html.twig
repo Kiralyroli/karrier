@@ -6,9 +6,9 @@
             <h2 class="text-center mb-4">Számlázási adatok</h2>
 
             <form action="{{ path('checkout') }}" method="POST" class="needs-validation" novalidate>
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="card p-4 shadow-sm">
+                <div class="row gy-4">
+                    <div class="col-12 col-lg-7">
+                        <div class="card p-3 shadow-sm">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <input type="text" name="lastname" class="form-control {% if validations.lastname is defined %}{{ validations.lastname }}{% endif %}" placeholder="Vezetéknév" value="{% if data.lastname is defined %}{{ data.lastname }}{% endif %}" required>
@@ -46,11 +46,15 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5">
-                        <div class="card p-4 shadow-sm">
+                    <div class="col-12 col-lg-5">
+                        <div class="card p-3 shadow-sm h-100">
                             <h3 class="fw-bold">Rendelés összesítő</h3>
-                            <p class="mb-1"><strong>{{ package.level }} {{ package.title }}</strong> <span
-                                        class="float-end">{{ package.price|price }}</span></p>
+
+                            <p class="mb-1">
+                                <strong>{{ package.level }} {{ package.title }}</strong>
+                                <span class="float-end">{{ package.price|price }}</span>
+                            </p>
+
                             <ul class="list-unstyled">
                                 {% for feature in package.features %}
                                     <li><i class="bi bi-check2"></i> {{ feature }}</li>
@@ -62,11 +66,11 @@
                             <div class="payment-method">
                                 <h4 class="fw-bold">Fizetési mód</h4>
                                 <p class="fs-5">Bankkártyás fizetés Barionnal</p>
-                                <img src="{{ asset('images/barion-logo.svg') }}" alt="Barion bankkártyás fizetés">
+                                <img src="{{ asset('images/barion-logo.svg') }}" alt="Barion bankkártyás fizetés" class="img-fluid" style="max-height: 50px;">
                                 <p class="text-muted small mt-2">
                                     A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja.<br>
                                     Magyar Nemzeti Bank engedély száma: H-EN-I-1064/2013<br>
-                                    Bankkártya adatai áruházunkhoz nem jutnak el.<br>
+                                    Bankkártya adatai áruházunkhoz nem jutnak el.
                                 </p>
                             </div>
                             <hr class="hr"/>
@@ -82,13 +86,29 @@
 
                             <hr class="hr"/>
 
-                            <div class="input-agree">
-                                <input type="checkbox" class="form-check-input {% if validations.agree_aszf is defined %}{{ validations.agree_aszf }}{% endif %}" name="agree_aszf" id="agree_aszf" required {% if data.agree_aszf is defined and data.agree_aszf == true %}checked{% endif %}>
-                                <label class="form-check-label" for="agree_aszf">Elolvastam és elfogadom az <a href="#" data-bs-toggle="modal" data-bs-target="#aszf_modal">Általános Szerződési Feltételek</a>et</label>
+                            <div class="form-check d-flex align-items-start mb-2">
+                                <input type="checkbox"
+                                       class="form-check-input mt-1 me-2 {% if validations.agree_aszf is defined %}{{ validations.agree_aszf }}{% endif %}"
+                                       name="agree_aszf"
+                                       id="agree_aszf"
+                                       required
+                                       {% if data.agree_aszf is defined and data.agree_aszf == true %}checked{% endif %}>
+                                <label class="form-check-label" for="agree_aszf">
+                                    Elolvastam és elfogadom az <a href="#" data-bs-toggle="modal" data-bs-target="#aszf_modal">ÁSZF</a>-et
+                                </label>
                             </div>
-                            <div class="input-agree">
-                                <input type="checkbox" class="form-check-input {% if validations.agree_privacy_statement is defined %}{{ validations.agree_privacy_statement }}{% endif %}" name="agree_privacy_statement" id="agree_privacy_statement" required {% if data.agree_privacy_statement is defined and data.agree_privacy_statement == true %}checked{% endif %}>
-                                <label class="form-check-label" for="agree_privacy_statement">Elolvastam és elfogadom az <a href="#" data-bs-toggle="modal" data-bs-target="#privacy_statement_modal">Adatkezelési Nyilatkozat</a>ot</label>
+
+
+                            <div class="form-check d-flex align-items-start mb-3">
+                                <input type="checkbox"
+                                       class="form-check-input mt-1 me-2 {% if validations.agree_privacy_statement is defined %}{{ validations.agree_privacy_statement }}{% endif %}"
+                                       name="agree_privacy_statement"
+                                       id="agree_privacy_statement"
+                                       required
+                                       {% if data.agree_privacy_statement is defined and data.agree_privacy_statement == true %}checked{% endif %}>
+                                <label class="form-check-label" for="agree_privacy_statement">
+                                    Elolvastam és elfogadom az <a href="#" data-bs-toggle="modal" data-bs-target="#privacy_statement_modal">Adatkezelési Nyilatkozat</a>-ot
+                                </label>
                             </div>
 
                             <button class="btn btn-success w-100">Megrendelés és fizetés indítása</button>

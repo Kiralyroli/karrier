@@ -17,28 +17,28 @@
     </div>
 </div>
 <div class="container py-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center g-4">
         {% for package in packages %}
-            <div class="col-md-3 col-sm-6">
-                <div class="card career-package text-center">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                <div class="card career-package text-center w-100">
                     <div class="package-header">
                         <span class="badge">{{ package.title }}</span>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column align-items-center">
                         <p class="card-title">Önéletrajz</p>
                         <p class="price">{{ package.price|price }}</p>
                         <hr class="hr">
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled flex-grow-1">
                             {% for feature in package.features %}
                                 <li><i class="bi bi-check2"></i> {{ feature }}</li>
                             {% endfor %}
                         </ul>
-                        <form action="{{ path('cart_add') }}" method="POST">
+                        <form action="{{ path('cart_add') }}" method="POST" class="w-100">
                             <input type="hidden" name="package_id" value="{{ package.id }}">
-                            <button type="submit" class="btn order-btn">Megrendelem</button>
+                            <button type="submit" class="btn order-btn w-100">Megrendelem</button>
                         </form>
                         <div class="logo-icon mt-3">
-                            <img src="{{ asset('images/logo.svg') }}" alt="logo">
+                            <img src="{{ asset('images/logo.svg') }}" alt="logo" class="img-fluid" style="max-height: 40px;">
                         </div>
                     </div>
                 </div>
@@ -48,18 +48,18 @@
 </div>
 <script>
     $(document).ready(function () {
-        let cards = document.querySelectorAll(".list-unstyled");
+        let cardBodies = document.querySelectorAll(".career-package .card-body");
         let maxHeight = 0;
 
-        cards.forEach(card => {
-            let cardHeight = card.offsetHeight;
-            if (cardHeight > maxHeight) {
-                maxHeight = cardHeight;
+        cardBodies.forEach(body => {
+            let height = body.offsetHeight;
+            if (height > maxHeight) {
+                maxHeight = height;
             }
         });
 
-        cards.forEach(card => {
-            card.style.height = maxHeight + "px";
+        cardBodies.forEach(body => {
+            body.style.minHeight = maxHeight + "px";
         });
     });
 </script>

@@ -24,6 +24,7 @@ class PackagesRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
                 ->andWhere('p.level = :level')
+                ->andWhere('p.status = 1')
                 ->setParameter('level', $level)
                 ->getQuery()
                 ->getResult();
