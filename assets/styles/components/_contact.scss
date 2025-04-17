@@ -8,18 +8,32 @@
     border-color: #0f5132;
   }
 
+  .alert-danger {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    border-color: #842029;
+  }
+
   #contact-title {
     text-align: center;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.5);
     font-size: 30px;
-    padding: 10px;
+    padding-top: 10px;
     margin-bottom: 50px;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
 
     h1 {
       font-weight: bold;
       margin-bottom: 20px;
       font-size: 45px;
+
+      @media (max-width: 768px) {
+        font-size: 30px;
+      }
     }
   }
 
@@ -53,8 +67,7 @@
     font-size: 1.25rem;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.5);
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px;
     height: fit-content;
 
     .content {
@@ -66,10 +79,6 @@
         text-decoration: none;
         color: $base-color-dark;
       }
-    }
-
-    i {
-      padding: 15px;
     }
   }
 }

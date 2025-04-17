@@ -1,76 +1,100 @@
-{# templates/contact/contact.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block content %}
     <div id="contact-page" class="container">
         <div class="row justify-content-between">
             {% if successMessage %}
-                <div class="alert alert-success alert-dismissible" role="alert">
-                    <strong>{{ successMessage }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ successMessage }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Bezárás"></button>
+                    </div>
                 </div>
             {% elseif unSuccessMessage %}
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>{{ unSuccessMessage }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ unSuccessMessage }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Bezárás"></button>
+                    </div>
                 </div>
             {% endif %}
 
-            <div id="contact-title" class="col-12">
-                <h1>Kapcsolatfelvétel</h1>
-                <div>Kérdésed van?<br>Töltsd ki az alábbi űrlapot, és csapatunk hamarosan felveszi veled a kapcsolatot.</div>
+            <div class="col-12">
+                <div id="contact-title">
+                    <h1 class="mb-2">Kapcsolatfelvétel</h1>
+                    <p>Kérdésed van?<br>Töltsd ki az alábbi űrlapot, és csapatunk hamarosan felveszi veled a kapcsolatot.</p>
+                </div>
             </div>
-            <div class="col-6">
-                <form action="" method="POST" id="contact-form">
+
+            <div class="col-lg-6">
+                <form method="POST" id="contact-form" novalidate>
                     <div class="row g-3">
                         <div class="col-12">
-                            <input type="text" name="name" aria-label="Teljes név" class="form-control {% if validations.name is defined %}{{ validations.name }}{% endif %}" placeholder="Teljes név" value="{% if formData.name is defined %}{{ formData.name }}{% endif %}" required>
+                            <input type="text" name="name" aria-label="Teljes név"
+                                   class="form-control {% if validations.name is defined %}{{ validations.name }}{% endif %}"
+                                   placeholder="Teljes név"
+                                   value="{{ formData.name|default('') }}"
+                                   required>
                             <div class="invalid-feedback">Kérlek, add meg a nevedet!</div>
                         </div>
+
                         <div class="col-12">
-                            <input type="email" name="email" aria-label="Email cím" class="form-control {% if validations.email is defined %}{{ validations.email }}{% endif %}" placeholder="Email cím" value="{% if formData.email is defined %}{{ formData.email }}{% endif %}" required>
+                            <input type="email" name="email" aria-label="Email cím"
+                                   class="form-control {% if validations.email is defined %}{{ validations.email }}{% endif %}"
+                                   placeholder="Email cím"
+                                   value="{{ formData.email|default('') }}"
+                                   required>
                             <div class="invalid-feedback">Érvényes email cím szükséges!</div>
                         </div>
+
                         <div class="col-12">
-                            <input type="text" name="phone" aria-label="Telefonszám" class="form-control {% if validations.phone is defined %}{{ validations.phone }}{% endif %}" placeholder="Telefonszám" value="{% if formData.phone is defined %}{{ formData.phone }}{% endif %}">
+                            <input type="text" name="phone" id="phone" aria-label="Telefonszám"
+                                   class="form-control {% if validations.phone is defined %}{{ validations.phone }}{% endif %}"
+                                   placeholder="Telefonszám"
+                                   value="{{ formData.phone|default('') }}">
                         </div>
+
                         <div class="col-12">
-                            <textarea name="message" class="form-control {% if validations.message is defined %}{{ validations.message }}{% endif %}" placeholder="Üzenet" aria-label="Üzenet">{% if formData.message is defined %}{{ formData.message }}{% endif %}</textarea>
-                            <div class="invalid-feedback">Kérlek adj meg üzenetet!</div>
+                            <textarea name="message" aria-label="Üzenet" rows="5"
+                                      class="form-control {% if validations.message is defined %}{{ validations.message }}{% endif %}"
+                                      placeholder="Üzenet">{{ formData.message|default('') }}</textarea>
+                            <div class="invalid-feedback">Kérlek, adj meg egy üzenetet!</div>
                         </div>
+
+                        <div class="col-12 mt-2">
+                            <button class="btn btn-primary g-recaptcha"
+                                    data-sitekey="{{ recaptcha_site_key }}"
+                                    data-callback='onSubmit'
+                                    data-action='submit'
+                                    type="submit">Elküld</button>
+                        </div>
+
+                        {% if validations.recaptcha is defined and validations.recaptcha == 'is-invalid' %}
+                            <div class="col-12">
+                                <div class="invalid-feedback d-block">reCAPTCHA ellenőrzés szükséges!</div>
+                            </div>
+                        {% endif %}
                     </div>
-
-                    <button class="g-recaptcha"
-                            data-sitekey="{{ recaptcha_site_key }}"
-                            data-callback='onSubmit'
-                            data-action='submit'
-                            type="submit">{{ 'Elküld' }}</button>
-
-                    {% if validations.recaptcha is defined and validations.recaptcha == 'is-invalid' %}
-                        <div class="is-invalid">
-                            <div class="invalid-feedback d-block">reCAPTCHA ellenőrzés szükséges!</div>
-                        </div>
-                    {% endif %}
                 </form>
             </div>
-            <div id="description" class="col-5">
-                <div class="row">
-                    <div id="contact-email" class="col-12">
-                        <p><i class="bi bi-envelope"></i>{{ contactEmail }}</p>
-                    </div>
-                    <div id="contact-phone" class="col-12">
-                        <p><a href="tel:+36303303584"><i class="bi bi-telephone"></i>+36303303584</a></p>
-                    </div>
+
+            <div class="col-lg-5 mt-5 mt-lg-0">
+                <div id="description">
+                    <p><i class="bi bi-envelope me-2"></i>{{ contactEmail }}</p>
+                    <p id="contact-phone"><i class="bi bi-telephone me-2"></i><a href="tel:+36303303584" class="text-decoration-none">+36 30 330 3584</a></p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#phone').on('input', function () {
-                $(this).val($(this).val().replace(/[^0-9+\-]/g, ''));
-            });
+        document.addEventListener("DOMContentLoaded", function () {
+            const phoneInput = document.getElementById("phone");
+            if (phoneInput) {
+                phoneInput.addEventListener("input", function () {
+                    this.value = this.value.replace(/[^0-9+\-]/g, '');
+                });
+            }
         });
 
         function onSubmit(token) {

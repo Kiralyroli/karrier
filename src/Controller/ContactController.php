@@ -73,7 +73,7 @@ class ContactController extends AbstractController
 
             if ($isFormValid) {
                 $result = $this->sendEmail($emailSender, $values);
-                if ($result) {
+                if (!$result) {
                     $successMessage = 'Az üzenet sikeresen elküldve!';
                 } else {
                     $unSuccessMessage = 'Üzenet küldés sikertelen, kérjük próbálja újra később!';
