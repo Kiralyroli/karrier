@@ -7,11 +7,13 @@ use App\Model\Email\EmailSender;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact_page')]
-    public function index(EmailSender $emailSender, ReCaptchaService $reCaptchaService): Response
+    public function index(EmailSender $emailSender, ValidatorInterface $validator, ReCaptchaService $reCaptchaService): Response
     {
         $validations = [];
         $successMessage = null;
@@ -22,8 +24,7 @@ class ContactController extends AbstractController
             'phone' => '',
             'message' => '',
         ];
-        $contactEmail = $_ENV['CONTACT_EMAIL'];
-        
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $email = $_POST['email'] ?? '';
@@ -31,32 +32,29 @@ class ContactController extends AbstractController
             $message = $_POST['message'] ?? '';
             $isFormValid = true;
 
-            if (empty($name)) {
-                $validations['name'] = 'is-invalid';
-                $isFormValid = false;
-            } else {
-                $validations['name'] = 'is-valid';
-            }
+            $constraints = new Assert\Collection([
+                'name' => [new Assert\NotBlank()],
+                'email' => [new Assert\NotBlank(), new Assert\Email()],
+                'phone' => [],
+                'message' => [new Assert\NotBlank()],
+                'g-recaptcha-response' => [new Assert\NotBlank()],
+            ]);
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $validations['email'] = 'is-invalid';
-                $isFormValid = false;
-            } else {
-                $validations['email'] = 'is-valid';
-            }
+            $violations = $validator->validate($_POST, $constraints);
 
-            if (empty($phone)) {
-                $validations['phone'] = 'is-invalid';
-                $isFormValid = false;
-            } else {
-                $validations['phone'] = 'is-valid';
-            }
+            $validations = [
+                'name' => 'is-valid',
+                'email' => 'is-valid',
+                'phone' => 'is-valid',
+                'message' => 'is-valid',
+            ];
 
-            if (empty($message)) {
-                $validations['message'] = 'is-invalid';
+            if (count($violations) > 0) {
                 $isFormValid = false;
-            } else {
-                $validations['message'] = 'is-valid';
+                foreach ($violations as $violation) {
+                    $property = str_replace(['[', ']'], '', $violation->getPropertyPath());
+                    $validations[$property] = 'is-invalid';
+                }
             }
 
             if ($reCaptchaService->isSuccessVerify($_POST['g-recaptcha-response'])) {
@@ -74,7 +72,7 @@ class ContactController extends AbstractController
             ];
 
             if ($isFormValid) {
-                $result = $this->sendEmail($emailSender, $contactEmail, $values);
+                $result = $this->sendEmail($emailSender, $values);
                 if ($result) {
                     $successMessage = 'Az üzenet sikeresen elküldve!';
                 } else {
@@ -83,26 +81,27 @@ class ContactController extends AbstractController
             }
         }
 
+        $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
         return $this->render('contact/contact.html.twig', [
             'validations' => $validations,
             'successMessage' => $successMessage,
             'unSuccessMessage' => $unSuccessMessage,
             'formData' => $values,
-            'contactEmail' => $contactEmail
+            'contactEmail' => reset($contactEmails)
         ]);
     }
 
     /**
      * @param EmailSender $emailSender
-     * @param string $contactEmail
      * @param array $values
      * @return bool
      */
-    private function sendEmail(EmailSender $emailSender, string $contactEmail, array $values): bool
+    private function sendEmail(EmailSender $emailSender, array $values): bool
     {
+        $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
         return $emailSender->send(
-            [$values['email']],//TODO: itt majd a $contactEmail-t kell használni. Teszelés idejére van csak $values['email'] használva!
-            'Új kapcsolat felvétel',
+            $contactEmails,
+            'Új kapcsolatfelvétel',
             'emails/contact.html.twig',
             [
                 'name' => $values['name'],

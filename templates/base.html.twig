@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
-    <title>{% block title %}Karrier Manufaktúra{% endblock %}</title>
+    <title>{% block title %}PrimeCV{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.svg') }}">
 
     {% include 'components/barion.html.twig' %}
@@ -19,6 +19,7 @@
 
     {% block javascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
