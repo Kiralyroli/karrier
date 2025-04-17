@@ -1,0 +1,25 @@
+#about-page {
+  background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
+  padding-top: 130px;
+  color: white;
+
+  h1 {
+    font-weight: bold;
+  }
+
+  .employees {
+    .employee-name {
+      font-weight: bold;
+    }
+  }
+
+  h2 {
+    font-weight: bold;
+  }
+
+  #choices {
+    li {
+      padding: 10px;
+    }
+  }
+}
