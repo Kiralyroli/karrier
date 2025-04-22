@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Orders;
 use App\Entity\Packages;
+use App\Model\Captcha\ReCaptchaService;
 use App\Model\Email\EmailSender;
 use App\Repository\OrdersRepository;
 use App\Repository\PackagesRepository;
@@ -43,12 +44,19 @@ class CheckoutController extends AbstractController
      * @throws BarionException
      */
     #[Route('/checkout', name: 'checkout', methods: ['GET', 'POST'])]
-    public function checkout(Request $request, ValidatorInterface $validator, PackagesRepository $packagesRepository, SessionInterface $session, EntityManagerInterface $entityManager): Response
-    {
+    public function checkout(
+        Request                $request,
+        ValidatorInterface     $validator,
+        PackagesRepository     $packagesRepository,
+        SessionInterface       $session,
+        EntityManagerInterface $entityManager,
+        ReCaptchaService       $reCaptchaService
+    ): Response {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $request->request->all();
             $data['agree_aszf'] = isset($data['agree_aszf']) && $data['agree_aszf'] === 'on';
             $data['agree_privacy_statement'] = isset($data['agree_privacy_statement']) && $data['agree_privacy_statement'] === 'on';
+            $isFormValid = true;
 
             $constraints = new Assert\Collection([
                 'firstname' => [new Assert\NotBlank()],
@@ -61,6 +69,7 @@ class CheckoutController extends AbstractController
                 'address' => [new Assert\NotBlank()],
                 'agree_aszf' => [new Assert\IsTrue()],
                 'agree_privacy_statement' => [new Assert\IsTrue()],
+                'g-recaptcha-response' => [new Assert\NotBlank()],
             ]);
 
             $violations = $validator->validate($data, $constraints);
@@ -78,10 +87,21 @@ class CheckoutController extends AbstractController
                 'agree_privacy_statement' => 'is-valid',
             ];
             if (count($violations) > 0) {
+                $isFormValid = false;
                 foreach ($violations as $violation) {
                     $property = str_replace(['[', ']'], '', $violation->getPropertyPath());
                     $validations[$property] = 'is-invalid';
                 }
+            }
+
+            if ($reCaptchaService->isSuccessVerify($_POST['g-recaptcha-response'])) {
+                $validations['recaptcha'] = 'is-valid';
+            } else {
+                $validations['recaptcha'] = 'is-invalid';
+                $isFormValid = false;
+            }
+
+            if (!$isFormValid) {
                 return $this->getCartTwig($packagesRepository, $session, $data, $validations);
             }
 

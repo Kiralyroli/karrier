@@ -5,7 +5,7 @@
         <div class="container my-5">
             <h2 class="text-center mb-4">Számlázási adatok</h2>
 
-            <form action="{{ path('checkout') }}" method="POST" class="needs-validation" novalidate>
+            <form action="{{ path('checkout') }}" method="POST" id="checkout-form" class="needs-validation" novalidate>
                 <div class="row gy-4">
                     <div class="col-12 col-lg-7">
                         <div class="card p-3 shadow-sm">
@@ -111,7 +111,17 @@
                                 </label>
                             </div>
 
-                            <button class="btn btn-success w-100">Megrendelés és fizetés indítása</button>
+                            <button class="btn btn-success w-100 g-recaptcha"
+                                    data-sitekey="{{ recaptcha_site_key }}"
+                                    data-callback='onSubmit'
+                                    data-action='submit'>Megrendelés és fizetés indítása
+                            </button>
+
+                            {% if validations.recaptcha is defined and validations.recaptcha == 'is-invalid' %}
+                                <div class="col-12">
+                                    <div class="invalid-feedback d-block">reCAPTCHA ellenőrzés szükséges!</div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -187,5 +197,9 @@
                 event.target.style.display = "none";
             }
         });
+
+        function onSubmit(token) {
+            document.getElementById("checkout-form").submit();
+        }
     </script>
 {% endblock %}
