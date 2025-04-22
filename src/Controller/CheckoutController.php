@@ -86,6 +86,7 @@ class CheckoutController extends AbstractController
             }
 
             $session->set('checkout_data', $data);
+            $session->remove('email_sent');
             $order = $this->createOrder($session, $packagesRepository, $entityManager);
             $gatewayUrl = $this->callBarion($order, $session->get('package_id'));
             if ($gatewayUrl) {
@@ -214,23 +215,25 @@ class CheckoutController extends AbstractController
             'senior' => $package->setLevel('Senior'),
             'leader' => $package->setLevel('Vezető'),
         };
+        $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
         $result = $emailSender->send(
             [$values['email']],
-            'CV Maker rendelés',
+            'Megrendelés megerősítése',
             'emails/order.html.twig',
             [
                 'firstname' => $values['firstname'],
                 'packageLevel' => $package->getLevel(),
                 'packageTitle' => $package->getTitle(),
                 'price' => $package->getPrice(),
-                'uniqueId' => $uniqueId
+                'uniqueId' => $uniqueId,
+                'contactEmail' => reset($contactEmails),
+                'contactPhone' => $_ENV['CONTACT_PHONE']
             ]
         );
 
-        $contactEmail = explode(';', $_ENV['CONTACT_EMAIL']);
         $adminResult = $emailSender->send(
-            $contactEmail,
-            'Új CV Maker rendelés érkezett',
+            $contactEmails,
+            'Új PrimeCV rendelés érkezett',
             'emails/admin/order.html.twig',
             [
                 'values' => $values,

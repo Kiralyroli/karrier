@@ -26,6 +26,7 @@ services:
     App\Model\Email\EmailSender:
         arguments:
             $fromEmail: '%env(string:MAILER_FROM_EMAIL)%'
+            $fromName: '%env(string:MAILER_FROM_NAME)%'
 
     App\Model\Logger\FileLogger:
         arguments:

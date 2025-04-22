@@ -52,7 +52,7 @@ header {
 
         .nav-item {
           a {
-            color: $nav-link-color;
+            color: $nav-link-hover-color;
             font-size: 18px;
             transition: all 0.3s ease-in-out, background 0.3s ease-in-out;
             padding: 8px 12px;

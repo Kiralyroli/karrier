@@ -14,6 +14,7 @@ readonly class EmailSender
         private MailerInterface $mailer,
         private FileLogger      $fileLogger,
         private string          $fromEmail,
+        private string          $fromName,
         private TemplatedEmail  $templatedEmail = new TemplatedEmail(),
     )
     {
@@ -34,7 +35,7 @@ readonly class EmailSender
         }, $toEmails);
 
         $email = $this->templatedEmail
-            ->from($this->fromEmail)
+            ->from(new Address($this->fromEmail, $this->fromName))
             ->to(...$toAddresses)
             ->subject($subject)
             ->htmlTemplate($htmlTemplate)

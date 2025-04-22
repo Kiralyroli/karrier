@@ -81,7 +81,7 @@
             <div class="col-lg-5 mt-5 mt-lg-0">
                 <div id="description">
                     <p><i class="bi bi-envelope me-2"></i>{{ contactEmail }}</p>
-                    <p id="contact-phone"><i class="bi bi-telephone me-2"></i><a href="tel:+36303303584" class="text-decoration-none">+36 30 330 3584</a></p>
+                    <p id="contact-phone"><i class="bi bi-telephone me-2"></i><a href="tel:{{ contactPhone|replace({' ': ''}) }}" class="text-decoration-none">{{ contactPhone }}</a></p>
                 </div>
             </div>
         </div>

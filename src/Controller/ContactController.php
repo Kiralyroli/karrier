@@ -87,7 +87,8 @@ class ContactController extends AbstractController
             'successMessage' => $successMessage,
             'unSuccessMessage' => $unSuccessMessage,
             'formData' => $values,
-            'contactEmail' => reset($contactEmails)
+            'contactEmail' => reset($contactEmails),
+            'contactPhone' => $_ENV['CONTACT_PHONE']
         ]);
     }
 
