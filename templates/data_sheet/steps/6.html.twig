@@ -1,8 +1,8 @@
 <div class="content-header">Kérjük, add meg szakmai tapasztalataidat!<br>Lehetőséged van több munkahelyet és pozíciót is megadni, így örömmel várunk minden információt az eddigi munkakörökről és feladataidról. <strong>Minden tapasztalat értékes lehet!</strong></div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Szakmai tapasztalatok</h1>
+            <h1 class="form-title">Szakmai tapasztalatok</h1>
             <div class="form-notes">
                 <p>Ha valamit nem tudsz pontosan kitölteni, ne aggódj, írd le saját szavaiddal vagy körülírva a megjegyzés mezőbe – <strong>minden részlet segít!</strong></p>
                 <p>Ha valamit nem tudsz pontosan kitölteni, ne aggódj, írd le saját szavaiddal vagy körülírva a megjegyzés mezőbe – <strong>minden részlet segít!</strong></p>
@@ -10,11 +10,11 @@
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

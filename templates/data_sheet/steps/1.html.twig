@@ -1,8 +1,8 @@
 <div class="content-header">Kérjük, töltsd ki az űrlapot a lehető legteljesebb és legpontosabb információkkal! Minél több részletet adsz meg, annál jobban tudjuk elkészíteni számodra a tökéletes önéletrajzot.</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Személyes adatok</h1>
+            <h1 class="form-title">Személyes adatok</h1>
             <p class="form-subtitle">FONTOS:</p>
             <ul class="form-notes">
                 <li>Email cím: professzionális legyen, és tartalmazza a nevedet, mivel ez is hozzájárul a szakmai benyomás kialakításához</li>
@@ -10,11 +10,11 @@
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

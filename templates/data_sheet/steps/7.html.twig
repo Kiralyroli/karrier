@@ -1,16 +1,16 @@
 <div class="content-header">Kérjük, add meg iskolai tanulmányaidat!<br>Lehetőséged van több végzettséget is megadni, így örömmel fogadunk minden információt az általad elvégzett képzésekről. <strong>Minden végzettség értékes lehet!</strong></div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Tanulmányok, végzettségek</h1>
+            <h1 class="form-title">Tanulmányok, végzettségek</h1>
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

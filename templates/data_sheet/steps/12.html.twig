@@ -1,17 +1,17 @@
 <div class="content-header">Írj pár mondatot arról, hogy milyen értéket képviselsz. Említsd meg a pozíciót, amit betöltöttél, és hogy mit értél el.
     Mik voltak a legnagyobb eredményeid? Írd le a motivációdat, és sorold fel a készségeidet, amiket egyszerűbben ki tudsz fejteni szóban.</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Összegzés</h1>
+            <h1 class="form-title">Összegzés</h1>
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

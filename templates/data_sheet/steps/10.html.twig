@@ -1,8 +1,8 @@
 <div class="content-header">Nyelvtudásod kulcsfontosságú lehet bizonyos pozíciók betöltéséhez. Kérjük, add meg, milyen nyelveket beszélsz, és milyen szinten használod őket.</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Nyelvismeret</h1>
+            <h1 class="form-title">Nyelvismeret</h1>
             <ul class="form-notes">
                 <li>Például: Eredményorientáltság</li>
                 <li>Megjegyzés:  csoportvezetőként 5 fős projektcsoport irányítása során alkalmaztam</li>
@@ -10,11 +10,11 @@
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

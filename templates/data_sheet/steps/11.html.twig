@@ -1,18 +1,18 @@
 <div class="content-header">Fontos számunkra, hogy az egyeztetések során kényelmes és hatékony kommunikációt biztosítsunk. Kérjük, add meg, hogyan szeretnél kapcsolatot tartani velünk – e-mailben, telefonon vagy akár mindkét módon. Ha további részleteket szeretnél közölni, használd a megjegyzés mezőt!</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Konzultáció</h1>
+            <h1 class="form-title">Konzultáció</h1>
             <p class="form-notes">Ahhoz, hogy minél professzionálisabb önéletrajzot készítsünk, előfordulhat, hogy szükségünk lesz további információkra. Kérjük, válaszd ki, hogyan szeretnél velünk egyeztetni.</p>
             <p class="form-notes">Megjegyzés mezőben jelezd, ha van bármilyen speciális kérésed, például: “Csak 16 óra után tudok telefonon egyeztetni”</p>
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

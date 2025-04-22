@@ -1,8 +1,8 @@
 <div class="content-header">Tölts fel egy képet magadról (nem kötelező).</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Fénykép feltöltése</h1>
+            <h1 class="form-title">Fénykép feltöltése</h1>
             <p class="form-subtitle">FONTOS:</p>
             <p class="form-notes">Nem kötelező, de előnyt jelent, ha:</p>
             <ul class="form-notes">
@@ -14,11 +14,11 @@
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

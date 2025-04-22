@@ -1,17 +1,17 @@
 <div class="content-header">Ha van, másold be a LinkedIn fiókod URL-jét.</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">LinkedIn fiók hivatkozása</h1>
+            <h1 class="form-title">LinkedIn fiók hivatkozása</h1>
             <p class="form-notes">A LinkedIn profil feltüntetése pozitív benyomást kelthet, erősítheti az önéletrajzod hitelességét.</p>
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

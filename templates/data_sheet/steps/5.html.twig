@@ -1,8 +1,8 @@
 <div class="content-header">Ha tudod, add meg, milyen pozícióra vagy iparágba szeretnél pályázni! Ha van konkrét álláshirdetés, másold be a linkjét, hogy még pontosabb tanácsokat adhassunk neked!</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Célok és álláshirdetés</h1>
+            <h1 class="form-title">Célok és álláshirdetés</h1>
             <p class="form-subtitle">FONTOS:</p>
             <ul class="form-notes">
                 <li>Pozíciót vagy iparágat mindenképpen jelölj meg, ha szükséges, több pozíciót is megjelölhetsz</li>
@@ -10,11 +10,11 @@
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">

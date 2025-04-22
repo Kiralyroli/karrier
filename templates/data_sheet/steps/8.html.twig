@@ -1,8 +1,8 @@
 <div class="content-header">Add meg a szakmai készségeidet, technikai tudásodat és eszközismereteidet, amelyek relevánsak a megcélzott munkakörhöz. Ide tartoznak például a szoftverek, eszközök, technológiai ismeretek, és más szakmai kompetenciák.</div>
-<div class="row justify-content-center">
+<div class="row justify-content-center content-wrapper">
     <div class="col-md-5">
         <div class="form-step">
-            <h1 class="form-title dark-text-shadow">Szakmai készségek</h1>
+            <h1 class="form-title">Szakmai készségek</h1>
             <ul class="form-notes">
                 <li>Például: MS Excel, AutoCAD, Adobe Photoshop, SQL, programozási nyelvek, projektmenedzsment-eszközök stb.</li>
                 <li>Opcionális megjegyzés: részletezd, hogy hol használtad és mire, milyen eredményeket értél el benne.</li>
@@ -10,11 +10,11 @@
         </div>
     </div>
 
-    <div class="col-md-2">
-        <div class="step-number">
+    <div class="col-md-2 position-relative step-wrapper">
+        <div class="vertical-line"></div>
+        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
             {{ step }}
         </div>
-        <div class="vertical-line"></div>
     </div>
 
     <div class="col-md-5">
