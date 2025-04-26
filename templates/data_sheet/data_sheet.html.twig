@@ -31,11 +31,16 @@
                         formData: formData
                     }),
                     success: function (response) {
-                        console.log(response);
                         if (response.redirect) {
                             window.location.href = response.redirect;
                         } else {
                             $('#data_sheet_content').html(response.content);
+                            if (window.innerWidth < 768) {
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+                            }
                         }
                     }
                 });
