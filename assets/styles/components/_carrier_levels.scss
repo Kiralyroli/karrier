@@ -162,6 +162,10 @@
           &:hover {
             background: #1a9e7b;
           }
+
+          &:focus {
+            box-shadow: none;
+          }
         }
 
         .logo-icon img {

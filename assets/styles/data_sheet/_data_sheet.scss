@@ -148,13 +148,16 @@
     padding-bottom: 5px;
 
     .remove-button {
-      color: red;
       cursor: pointer;
       display: inline-block;
       transition: all 0.3s ease-in-out;
 
       &:hover {
         transform: scale(1.05);
+      }
+
+      i {
+        color: red;
       }
     }
   }
@@ -193,7 +196,6 @@
       background-color: white;
       border-radius: 20px;
       padding: 12px 20px;
-      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
       transition: all 0.3s ease-in-out;
 
       &:last-of-type {

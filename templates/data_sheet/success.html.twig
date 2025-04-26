@@ -2,11 +2,13 @@
 
 {% block content %}
     <div id="success-page" class="container">
-        <i class="bi bi-check2-all"></i>
-        <p>Köszönjük, hogy elküldted az adatlapot és a megrendelést! Szakértőink már elkezdték az anyagod feldolgozását. Hamarosan elkészítjük az önéletrajzodat, és a megadott e-mail címre küldjük.
-        </p>
-        <p>
-            Ha bármilyen kérdésed merülne fel, keress minket bizalommal az elérhetőségeink egyikén!
-        </p>
+        <div class="success-page-content text-center">
+            <i class="bi bi-check2-all"></i>
+            <p>Köszönjük, hogy elküldted az adatlapot és a megrendelést! Szakértőink már elkezdték az anyagod feldolgozását. Hamarosan elkészítjük az önéletrajzodat, és a megadott e-mail címre küldjük.
+            </p>
+            <p class="text-muted">
+                Ha bármilyen kérdésed merülne fel, keress minket bizalommal az <a href="{{ path('contact_page') }}">elérhetőségeink</a> egyikén!
+            </p>
+        </div>
     </div>
 {% endblock %}

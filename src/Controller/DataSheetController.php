@@ -90,7 +90,7 @@ class DataSheetController extends AbstractController
         } else {
             $sessionFormData['uploaded_cv_image'] = '';
         }
-        $this->sendEmail($emailSender, $filePaths, $uniqueId, $fileNames, $sessionFormData);
+//        $this->sendEmail($emailSender, $filePaths, $uniqueId, $fileNames, $sessionFormData);
         return $this->render('data_sheet/success.html.twig');
     }
 
