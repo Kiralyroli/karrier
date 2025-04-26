@@ -56,6 +56,14 @@
                     $('#small_cards').show();
                     $('.level').removeClass('active');
                     $('#small_cards').find(`[data-level='${level}']`).addClass(`active`);
+
+                    const element = document.getElementById('career-content');
+                    const topPos = element.getBoundingClientRect().top + window.scrollY - 100;
+
+                    window.scrollTo({
+                        top: topPos,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
