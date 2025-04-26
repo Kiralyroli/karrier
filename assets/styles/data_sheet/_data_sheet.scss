@@ -77,6 +77,11 @@
         box-shadow: 0 0 5px rgba($base-color-dark, 0.5);
       }
     }
+
+    #linkedin-logo {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   .file-upload-form {
