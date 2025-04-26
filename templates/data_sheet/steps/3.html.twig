@@ -31,6 +31,15 @@
                 <label for="file-input" class="browse-button">Tallózás</label>
                 <input type="file" id="file-input" accept=".jpeg,.png,.jpg,.webp" name="file" hidden>
             </div>
+            <div id="uploaded-file-info" class="uploaded-file-info" {% if formData.uploaded_cv_image is not defined %}style="display: none;"{% endif %}>
+                {% if formData.uploaded_cv_image is defined %}
+                    <p>Feltöltött fájl:
+                        <a href="/download-file/{{ formData.uploaded_cv_image }}" target="_blank" class="download-link">
+                            {{ formData.uploaded_cv_image }}
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
         </form>
         <form id="data-form">
             <input type="hidden" id="uploaded-cv-image" name="uploaded_cv_image">
@@ -108,6 +117,12 @@
                     contentType: false,
                     success: function (response) {
                         fileNameDisplay.val(response.file);
+                        $('#uploaded-file-info').show().html(
+                            '<p>Feltöltött fájl: ' +
+                            '<a href="/download-file/' + response.file + '" target="_blank" class="download-link">' +
+                            response.file +
+                            '</a></p>'
+                        );
                         alert('Fájl sikeresen feltöltve!');
                     },
                     error: function (xhr, status, error) {

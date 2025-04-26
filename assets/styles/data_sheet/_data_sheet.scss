@@ -138,6 +138,26 @@
     .browse-button:hover {
       background: #02507d;
     }
+
+    .uploaded-file-info {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: green;
+      margin-bottom: 10px;
+
+      .download-link {
+        display: inline-block;
+        color: green;
+        font-size: 18px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
   }
 
   .remove-button-container {
