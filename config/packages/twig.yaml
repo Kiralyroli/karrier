@@ -3,6 +3,7 @@ twig:
     globals:
         recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
         barion_pixel_id: '%env(BARION_PIXEL_ID)%'
+        google_analytics_id: '%env(GOOGLE_ANALYTICS_ID)%'
 
 when@test:
     twig:
