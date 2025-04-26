@@ -36,11 +36,11 @@
 
   .step-wrapper {
     min-height: 400px;
+    position: relative;
   }
 
   .step-number {
     position: absolute;
-    left: 50%;
     transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
@@ -50,11 +50,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white; // vagy amit szeretnél
+    background-color: white;
     z-index: 1;
   }
 
-  .vertical-line {
+  .step-line {
     position: absolute;
     top: 0;
     left: 50%;
@@ -199,6 +199,55 @@
       &:hover {
         transform: scale(1.05);
       }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .step-wrapper {
+      min-height: 50px;
+      margin-bottom: 50px;
+    }
+
+    .step-line {
+      top: auto;
+      left: 5%;
+      bottom: 0;
+      width: 90%;
+      height: 2px;
+      transform: none;
+      background: linear-gradient(to right, transparent 0%, $base-color-dark 50%, transparent 100%);
+    }
+
+    .step-number {
+      top: auto !important;
+      bottom: 0;
+      transform: translate(-50%, 50%);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .step-number {
+      left: 50% !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    .form-title {
+      font-size: 35px;
+    }
+
+    .form-subtitle {
+      font-size: 20px;
+    }
+
+    .form-notes {
+      font-size: 18px;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
     }
   }
 }

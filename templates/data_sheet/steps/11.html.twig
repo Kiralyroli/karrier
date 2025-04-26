@@ -9,8 +9,10 @@
     </div>
 
     <div class="col-md-2 position-relative step-wrapper">
-        <div class="vertical-line"></div>
-        <div class="step-number" style="top: {{ (step - 1) * (100 / (lastStep - 1)) }}%;">
+        <div class="step-line"></div>
+        <div class="step-number"
+             style="top: calc(8% + ({{ (step - 1) * (85 / (lastStep - 1)) }}%));
+                     left: calc(10% + ({{ (step - 1) * (80 / (lastStep - 1)) }}%));">
             {{ step }}
         </div>
     </div>
