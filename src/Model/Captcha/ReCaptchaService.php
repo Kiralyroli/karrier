@@ -3,6 +3,7 @@
 namespace App\Model\Captcha;
 
 use ReCaptcha\ReCaptcha;
+use ReCaptcha\RequestMethod\CurlPost;
 
 class ReCaptchaService
 {
@@ -12,7 +13,8 @@ class ReCaptchaService
     private ReCaptcha $recaptcha;
     public function __construct(private readonly string $secret)
     {
-        $this->recaptcha = new ReCaptcha($this->secret);
+        $requestMethod = new CurlPost();
+        $this->recaptcha = new ReCaptcha($this->secret, $requestMethod);
     }
 
     /**
