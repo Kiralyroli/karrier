@@ -49,8 +49,10 @@
     font-size: 20px;
 
     .choices-container {
-      @media (min-width: 992px) {
-        width: 50%;
+      h3 {
+        display: inline-block;
+        font-weight: bold;
+        font-size: 22px;
       }
     }
 
