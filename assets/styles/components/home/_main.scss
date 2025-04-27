@@ -39,8 +39,11 @@
   }
 
   #main-description {
-    font-size: 20px;
     margin-bottom: 20px;
+
+    h2 {
+      font-size: 20px;
+    }
   }
 
   #cv-image {
