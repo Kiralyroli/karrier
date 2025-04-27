@@ -1,15 +1,43 @@
 #about-page {
   background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
   padding-top: 130px;
+  padding-bottom: 100px;
   color: white;
+  font-size: 25px;
 
   h1 {
     font-weight: bold;
   }
 
+  #team-image {
+    text-align: center;
+    padding-bottom: 35px;
+  }
+
+  .about-description {
+    font-size: 20px;
+  }
+
   .employees {
-    .employee-name {
-      font-weight: bold;
+    .employee {
+      padding-bottom: 50px;
+
+      .employee-data {
+        display: flex;
+        padding-bottom: 20px;
+
+        .employee-image {
+          padding-right: 20px;
+        }
+
+        .employee-name {
+          font-weight: bold;
+        }
+      }
+
+      .employee-description {
+        font-size: 20px;
+      }
     }
   }
 
@@ -18,6 +46,14 @@
   }
 
   #choices {
+    font-size: 20px;
+
+    .choices-container {
+      @media (min-width: 992px) {
+        width: 50%;
+      }
+    }
+
     li {
       padding: 10px;
     }
