@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Önéletrajz írás, CV készítés – PrimeCV: Személyre szabott ATS-barát önéletrajz, amit HR szakértők készítenek.">
     <meta name="keywords" content="önéletrajz írás, cv készítés, professzionális önéletrajz, álláspályázat, karrier tanácsadás, önéletrajz szerkesztés, PrimeCV, szakmai önéletrajz, álláskeresés, interjú felkészülés, profi cv, önéletrajz">
+    <meta name="author" content="PrimeCV">
     <title>{% block title %}PrimeCV{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.svg') }}">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PrimeCV" />
+    <meta property="og:url" content="{{ absolute_url(app.request.uri) }}" />
+    <meta property="og:title" content="PrimeCV - Profi önéletrajz készítés" />
+    <meta property="og:description" content="Tűnj ki a tömegből profi önéletrajzzal! Személyre szabott ATS-barát önéletrajz, amit HR szakértők készítenek." />
+    <meta property="og:image" content="{{ absolute_url(asset('images/logo-bg.png')) }}" />
 
     {% include 'components/analytics.html.twig' %}
     {% include 'components/barion.html.twig' %}
