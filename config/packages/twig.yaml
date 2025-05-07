@@ -4,6 +4,7 @@ twig:
         recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
         barion_pixel_id: '%env(BARION_PIXEL_ID)%'
         google_tag_manager_id: '%env(GOOGLE_TAG_MANAGER_ID)%'
+        meta_pixel_id: '%env(META_PIXEL_ID)%'
 
 when@test:
     twig:

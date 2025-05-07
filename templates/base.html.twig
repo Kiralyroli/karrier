@@ -31,6 +31,8 @@
         <script src="https://www.google.com/recaptcha/api.js"></script>
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
+
+    {% include 'components/meta_pixel.html.twig' %}
 </head>
 <body>
 {% if app.environment == 'prod' %}
