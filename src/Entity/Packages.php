@@ -23,6 +23,9 @@ class Packages
     #[ORM\Column]
     private int $price;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $discountPrice;
+
     #[ORM\Column(type: Types::JSON)]
     private array $features;
 
@@ -41,6 +44,7 @@ class Packages
         $this->level = $type;
         $this->title = $title;
         $this->price = $price;
+        $this->discountPrice = null;
         $this->features = $features;
         $this->status = $status;
     }
@@ -102,6 +106,22 @@ class Packages
     public function setPrice(int $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDiscountPrice(): ?int
+    {
+        return $this->discountPrice;
+    }
+
+    /**
+     * @param int|null $discountPrice
+     */
+    public function setDiscountPrice(?int $discountPrice): void
+    {
+        $this->discountPrice = $discountPrice;
     }
 
     /**

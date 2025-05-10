@@ -26,7 +26,19 @@
                     </div>
                     <div class="card-body d-flex flex-column align-items-center">
                         <p class="card-title">Önéletrajz</p>
-                        <p class="price">{{ package.price|price }}</p>
+                        {% if package.discountPrice is defined and package.discountPrice is not null and package.discountPrice < package.price %}
+                            <div class="price-section">
+                                <p class="original-price text-muted" style="text-decoration: line-through;">
+                                    {{ package.price|price }}
+                                </p>
+                                <p class="discount-percent">
+                                    -{{ ((1 - (package.discountPrice / package.price)) * 100)|round(0, 'floor') }}%
+                                </p>
+                            </div>
+                            <p class="price">{{ package.discountPrice|price }}</p>
+                        {% else %}
+                            <p class="price">{{ package.price|price }}</p>
+                        {% endif %}
                         <hr class="hr">
                         <ul class="list-unstyled flex-grow-1">
                             {% for feature in package.features %}

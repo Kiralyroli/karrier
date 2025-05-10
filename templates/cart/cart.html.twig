@@ -52,7 +52,11 @@
 
                             <p class="mb-1">
                                 <strong>{{ package.level }} {{ package.title }}</strong>
-                                <span class="float-end">{{ package.price|price }}</span>
+                                {% if package.discountPrice is defined and package.discountPrice is not null and package.discountPrice < package.price %}
+                                    <span class="float-end">{{ package.discountPrice|price }}</span>
+                                {% else %}
+                                    <span class="float-end">{{ package.price|price }}</span>
+                                {% endif %}
                             </p>
 
                             <ul class="list-unstyled">
@@ -76,7 +80,11 @@
                             <hr class="hr"/>
                             <div>
                                 <h5 class="fw-bold">Teljes összeg</h5>
-                                <p class="fs-5"><strong>{{ package.price|price }}</strong></p>
+                                {% if package.discountPrice is defined and package.discountPrice is not null and package.discountPrice < package.price %}
+                                    <p class="fs-5"><strong>{{ package.discountPrice|price }}</strong></p>
+                                {% else %}
+                                    <p class="fs-5"><strong>{{ package.price|price }}</strong></p>
+                                {% endif %}
                             </div>
 
                             {#                        <div class="input-group mb-3"> #}

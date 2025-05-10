@@ -124,6 +124,26 @@
       .card-body {
         padding-top: 2.5rem;
 
+        .price-section {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .original-price {
+            font-size: 20px;
+          }
+
+          .discount-percent {
+            font-size: 17px;
+            font-weight: bold;
+            background-color: red;
+            color: white;
+            border-radius: 15px;
+            padding: 5px 10px;
+            margin-left: 10px;
+          }
+        }
+
         .card-title {
           font-size: 17px;
           margin-bottom: 10px;

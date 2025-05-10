@@ -236,6 +236,10 @@ class CheckoutController extends AbstractController
             'leader' => $package->setLevel('Vezető'),
         };
         $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
+        $price = $package->getPrice();
+        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $price) {
+            $price = $package->getDiscountPrice();
+        }
         $result = $emailSender->send(
             [$values['email']],
             'Megrendelés megerősítése',
@@ -244,7 +248,7 @@ class CheckoutController extends AbstractController
                 'firstname' => $values['firstname'],
                 'packageLevel' => $package->getLevel(),
                 'packageTitle' => $package->getTitle(),
-                'price' => $package->getPrice(),
+                'price' => $price,
                 'uniqueId' => $uniqueId,
                 'contactEmail' => reset($contactEmails),
                 'contactPhone' => $_ENV['CONTACT_PHONE']
@@ -260,7 +264,7 @@ class CheckoutController extends AbstractController
                 'createdDate' => new \DateTime(),
                 'packageLevel' => $package->getLevel(),
                 'packageTitle' => $package->getTitle(),
-                'price' => $package->getPrice(),
+                'price' => $price,
                 'uniqueId' => $uniqueId
             ]
         );
@@ -282,6 +286,10 @@ class CheckoutController extends AbstractController
         $package = $packagesRepository->find($packageId);
 
         $uniqueId = uniqid();
+        $price = $package->getPrice();
+        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $price) {
+            $price = $package->getDiscountPrice();
+        }
         $order = new Orders(
             $uniqueId,
             $checkoutData['lastname'],
@@ -294,7 +302,7 @@ class CheckoutController extends AbstractController
             $checkoutData['address'],
             $package->getLevel(),
             $package->getTitle(),
-            $package->getPrice(),
+            $price,
             new \DateTime(),
             new \DateTime(),
             false
