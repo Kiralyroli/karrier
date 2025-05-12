@@ -258,7 +258,7 @@ class CheckoutController extends AbstractController
 
         $adminResult = $emailSender->send(
             $contactEmails,
-            'Új PrimeCV rendelés érkezett',
+            'Új primecv.hu rendelés érkezett',
             'emails/admin/order.html.twig',
             [
                 'values' => $values,
