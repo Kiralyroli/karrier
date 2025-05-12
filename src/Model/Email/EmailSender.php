@@ -26,17 +26,29 @@ readonly class EmailSender
      * @param string $htmlTemplate
      * @param array $context
      * @param array $attachments
+     * @param array $secretToEmails
      * @return bool
      */
-    public function send(array $toEmails, string $subject, string $htmlTemplate, array $context = [], array $attachments = []): bool
-    {
+    public function send(
+        array $toEmails,
+        string $subject,
+        string $htmlTemplate,
+        array $context = [],
+        array $attachments = [],
+        array $secretToEmails = []
+    ): bool {
         $toAddresses = array_map(function ($toEmail) {
             return new Address($toEmail);
         }, $toEmails);
 
+        $bccAddresses = array_map(function ($bccEmail) {
+            return new Address($bccEmail);
+        }, $secretToEmails);
+
         $email = $this->templatedEmail
             ->from(new Address($this->fromEmail, $this->fromName))
             ->to(...$toAddresses)
+            ->bcc(...$bccAddresses)
             ->subject($subject)
             ->htmlTemplate($htmlTemplate)
             ->locale('hu')

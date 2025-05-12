@@ -236,6 +236,7 @@ class CheckoutController extends AbstractController
             'leader' => $package->setLevel('Vezető'),
         };
         $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
+        $secretEmails = explode(';', $_ENV['SECRET_EMAIL']);
         $price = $package->getPrice();
         if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $price) {
             $price = $package->getDiscountPrice();
@@ -266,7 +267,9 @@ class CheckoutController extends AbstractController
                 'packageTitle' => $package->getTitle(),
                 'price' => $price,
                 'uniqueId' => $uniqueId
-            ]
+            ],
+            [],
+            $secretEmails
         );
 
         return $result && $adminResult;

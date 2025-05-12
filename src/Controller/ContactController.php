@@ -100,6 +100,7 @@ class ContactController extends AbstractController
     private function sendEmail(EmailSender $emailSender, array $values): bool
     {
         $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
+        $secretEmails = explode(';', $_ENV['SECRET_EMAIL']);
         return $emailSender->send(
             $contactEmails,
             'Új kapcsolatfelvétel',
@@ -109,7 +110,9 @@ class ContactController extends AbstractController
                 'userEmail' => $values['email'],
                 'phone' => $values['phone'],
                 'message' => $values['message']
-            ]
+            ],
+            [],
+            $secretEmails
         );
     }
 }

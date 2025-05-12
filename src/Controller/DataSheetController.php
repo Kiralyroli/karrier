@@ -219,6 +219,7 @@ class DataSheetController extends AbstractController
             $formData['contact_phone'] = 'Igen';
         }
         $contactEmail = explode(';', $_ENV['CONTACT_EMAIL']);
+        $secretEmails = explode(';', $_ENV['SECRET_EMAIL']);
         $emailSender->send(
             $contactEmail,
             'Új CV Maker adatlap került kitöltésre',
@@ -228,8 +229,8 @@ class DataSheetController extends AbstractController
                 'fileNames' => $fileNames,
                 'formData' => $formData
             ],
-            $filePaths
+            $filePaths,
+            $secretEmails
         );
-
     }
 }
