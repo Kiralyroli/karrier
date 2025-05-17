@@ -4,7 +4,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="benefit-card d-flex align-items-center">
                     <div class="percentage me-3">100+</div>
-                    <div class="text">Már több, mint 100 álláskereső választott minket bizalommal.</div>
+                    <div class="text">Már több mint 100 álláskereső választott minket bizalommal.</div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -19,6 +19,90 @@
                     <div class="text">Ügyfeleink átlagosan 15%-kal jobb ajánlatot kaptak, a pozícióhoz elvártakhoz képest.</div>
                 </div>
             </div>
+
+            <div class="col-xs-12 carousel-container">
+                <div class="carousel">
+                    <button class="nav left">&lt;</button>
+
+                    {% for i in 0..4 %}
+                        <div class="card-container" data-index="{{ i }}">
+                            <div class="card">
+                                <img id="cv-image" src="{{ asset('images/home/benefits_carousal/carousal_' ~ i ~ '.png') }}" alt="ATS-barát önéletrajz dokumentum">
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <button class="nav right">&gt;</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        const MAX_VISIBILITY = 2;
+        let active = 2;
+        const $cards = $('.carousel .card-container');
+        const $navLeft = $('.nav.left');
+        const $navRight = $('.nav.right');
+        const total = $cards.length;
+        const maxIndex = total - 1;
+        let currentIndex = Math.floor(maxIndex / 2);
+
+        function updateNavigation() {
+            $navLeft.toggle(currentIndex > 0);
+            $navRight.toggle(currentIndex < maxIndex);
+        }
+
+        $navRight.click(function () {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCarousel();
+                updateNavigation();
+            }
+        });
+
+        $navLeft.click(function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+                updateNavigation();
+            }
+        });
+
+        function updateCarousel() {
+            $cards.each(function (i) {
+                const offset = (active - i) / 3;
+                const direction = Math.sign(active - i);
+                const absOffset = Math.abs(active - i) / 3;
+
+                const visible = Math.abs(active - i) <= MAX_VISIBILITY;
+                $(this).css({
+                    '--offset': offset,
+                    '--direction': direction,
+                    '--abs-offset': absOffset,
+                    '--active': i === active ? 1 : 0,
+                    'pointer-events': i === active ? 'auto' : 'none',
+                    'opacity': visible ? '1' : '0',
+                    'display': visible ? 'flex' : 'none'
+                });
+            });
+        }
+
+        $navLeft.click(function () {
+            if (active > 0) {
+                active--;
+                updateCarousel();
+            }
+        });
+
+        $navRight.click(function () {
+            if (active < total - 1) {
+                active++;
+                updateCarousel();
+            }
+        });
+
+        updateCarousel();
+    });
+</script>

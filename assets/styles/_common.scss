@@ -23,3 +23,10 @@ body, html {
     background-color: $background-color-dark !important;
   }
 }
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -150px;
+  visibility: hidden;
+}
