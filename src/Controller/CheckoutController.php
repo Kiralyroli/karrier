@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Orders;
 use App\Entity\Packages;
 use App\Model\Captcha\ReCaptchaService;
+use App\Model\Coupon\CouponProcessor;
 use App\Model\Email\EmailSender;
+use App\Repository\CouponRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\PackagesRepository;
 use Barion\BarionClient;
@@ -21,6 +23,7 @@ use Barion\Models\Payment\PaymentTransactionModel;
 use Barion\Models\Payment\PreparePaymentRequestModel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -50,8 +53,10 @@ class CheckoutController extends AbstractController
         PackagesRepository     $packagesRepository,
         SessionInterface       $session,
         EntityManagerInterface $entityManager,
-        ReCaptchaService       $reCaptchaService
-    ): Response {
+        ReCaptchaService       $reCaptchaService,
+        CouponRepository       $couponRepository
+    ): Response
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $request->request->all();
             $data['agree_aszf'] = isset($data['agree_aszf']) && $data['agree_aszf'] === 'on';
@@ -107,15 +112,45 @@ class CheckoutController extends AbstractController
 
             $session->set('checkout_data', $data);
             $session->remove('email_sent');
-            $order = $this->createOrder($session, $packagesRepository, $entityManager);
+            $order = $this->createOrder($session, $packagesRepository, $entityManager, $couponRepository);
             $gatewayUrl = $this->callBarion($order, $session->get('package_id'));
             if ($gatewayUrl) {
                 return $this->redirect($gatewayUrl);
             }
             //todo: sikertelen azonosítás lekezelés, mondjuk sikertelen kártyás fizetés oldalra vigyen
         } else {
+            $session->remove('coupon');
             return $this->getCartTwig($packagesRepository, $session);
         }
+    }
+
+    #[Route('/checkout/coupon', name: 'checkout_coupon', methods: ['POST'])]
+    public function coupon(Request $request, SessionInterface $session, PackagesRepository $packagesRepository, CouponRepository $couponRepository): JsonResponse
+    {
+        $couponCode = $request->request->get('coupon');
+        $packageId = $session->get('package_id');
+        if (empty($packageId)) {
+            return new JsonResponse([
+                'valid' => false,
+                'message' => 'Hiányzó csomag.'
+            ]);
+        }
+        $package = $packagesRepository->find($packageId);
+        if ($package === null) {
+            return new JsonResponse([
+                'valid' => false,
+                'message' => 'Hiányzó csomag.'
+            ]);
+        }
+        $originalPrice = $package->getPrice();
+        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $originalPrice) {
+            $originalPrice = $package->getDiscountPrice();
+        }
+        $processedCoupon = CouponProcessor::calculatePrices($couponCode, $originalPrice, $couponRepository);
+        if ($processedCoupon['valid']) {
+            $session->set('coupon', $couponCode);
+        }
+        return new JsonResponse($processedCoupon);
     }
 
     #[Route('/checkout/success', name: 'checkout_success', methods: ['GET'])]
@@ -129,10 +164,11 @@ class CheckoutController extends AbstractController
         $emailSent = $session->get('email_sent');
 
         $ordersRepository->setOrderSuccessWith($uniqueId);
+        $order = $ordersRepository->findByUniqueId($uniqueId);
         $package = $packagesRepository->find($packageId);
 
         if (!$emailSent) {
-            $result = $this->sendEmail($emailSender, $checkoutData, $package, $uniqueId);
+            $result = $this->sendEmail($emailSender, $checkoutData, $package, $order, $uniqueId);
         }
         $session->set('email_sent', true);
         return $this->render('cart/success.html.twig', [
@@ -223,10 +259,11 @@ class CheckoutController extends AbstractController
      * @param EmailSender $emailSender
      * @param array $values
      * @param Packages $package
+     * @param Orders $order
      * @param string $uniqueId
      * @return bool
      */
-    private function sendEmail(EmailSender $emailSender, array $values, Packages $package, string $uniqueId): bool
+    private function sendEmail(EmailSender $emailSender, array $values, Packages $package, Orders $order, string $uniqueId): bool
     {
         match ($package->getLevel()) {
             'beginner' => $package->setLevel('Pályakezdő'),
@@ -237,10 +274,7 @@ class CheckoutController extends AbstractController
         };
         $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
         $secretEmails = explode(';', $_ENV['SECRET_EMAIL']);
-        $price = $package->getPrice();
-        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $price) {
-            $price = $package->getDiscountPrice();
-        }
+        $price = $order->getPrice();
         $result = $emailSender->send(
             [$values['email']],
             'Megrendelés megerősítése',
@@ -279,9 +313,10 @@ class CheckoutController extends AbstractController
      * @param SessionInterface $session
      * @param PackagesRepository $packagesRepository
      * @param EntityManagerInterface $entityManager
+     * @param CouponRepository $couponRepository
      * @return Orders
      */
-    private function createOrder(SessionInterface $session, PackagesRepository $packagesRepository, EntityManagerInterface $entityManager): Orders
+    private function createOrder(SessionInterface $session, PackagesRepository $packagesRepository, EntityManagerInterface $entityManager, CouponRepository $couponRepository): Orders
     {
         $checkoutData = $session->get('checkout_data');
         $packageId = $session->get('package_id');
@@ -289,9 +324,19 @@ class CheckoutController extends AbstractController
         $package = $packagesRepository->find($packageId);
 
         $uniqueId = uniqid();
-        $price = $package->getPrice();
-        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $price) {
-            $price = $package->getDiscountPrice();
+        $packagePrice = $package->getPrice();
+        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $packagePrice) {
+            $packagePrice = $package->getDiscountPrice();
+        }
+        $couponCode = $session->get('coupon');
+        $price = $packagePrice;
+        $couponText = null;
+        if (!empty($couponCode)) {
+            $processedCoupon = CouponProcessor::calculatePrices($couponCode, $packagePrice, $couponRepository);
+            if ($processedCoupon['valid']) {
+                $price = $processedCoupon['newPriceValue'];
+                $couponText = $processedCoupon['couponText'];
+            }
         }
         $order = new Orders(
             $uniqueId,
@@ -305,11 +350,16 @@ class CheckoutController extends AbstractController
             $checkoutData['address'],
             $package->getLevel(),
             $package->getTitle(),
+            $packagePrice,
             $price,
             new \DateTime(),
             new \DateTime(),
             false
         );
+
+        if ($couponText) {
+            $order->setCoupon($couponText);
+        }
 
         $entityManager->persist($order);
         $entityManager->flush();
@@ -339,15 +389,15 @@ class CheckoutController extends AbstractController
         $item->Name = $order->getPackageTitle() . ' ' . $packageLevel . ' önéletrajz készítés';
         $item->Quantity = 1;
         $item->Unit = "db";
-        $item->UnitPrice = $order->getPackagePrice();
-        $item->ItemTotal = $order->getPackagePrice();
+        $item->UnitPrice = $order->getPrice();
+        $item->ItemTotal = $order->getPrice();
         $item->SKU = $packageLevel . '_' . $packageId;
         $item->Description = $item->Name;
 
         $transaction = new PaymentTransactionModel();
         $transaction->POSTransactionId = uniqid();
         $transaction->Payee = $_ENV['BARION_EMAIL'];
-        $transaction->Total = $order->getPackagePrice();
+        $transaction->Total = $order->getPrice();
         $transaction->AddItem($item);
 
         $ppr = new PreparePaymentRequestModel();
@@ -386,7 +436,7 @@ class CheckoutController extends AbstractController
     {
         if ($_ENV['BARION_ENV'] === 'TEST') {
             $environment = BarionEnvironment::Test;
-        } elseif($_ENV['BARION_ENV'] === 'PROD') {
+        } elseif ($_ENV['BARION_ENV'] === 'PROD') {
             $environment = BarionEnvironment::Prod;
         } else {
             throw new BarionException("Missing environment!");

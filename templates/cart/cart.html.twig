@@ -11,35 +11,35 @@
                         <div class="card p-3 shadow-sm">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <input type="text" name="lastname" class="form-control {% if validations.lastname is defined %}{{ validations.lastname }}{% endif %}" placeholder="Vezetéknév" value="{% if data.lastname is defined %}{{ data.lastname }}{% endif %}" required>
+                                    <input type="text" name="lastname" aria-label="Vezetéknév" class="form-control {% if validations.lastname is defined %}{{ validations.lastname }}{% endif %}" placeholder="Vezetéknév" value="{% if data.lastname is defined %}{{ data.lastname }}{% endif %}" required>
                                     <div class="invalid-feedback">Kérlek, add meg a vezetékneved!</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="firstname" class="form-control {% if validations.firstname is defined %}{{ validations.firstname }}{% endif %}" placeholder="Keresztnév" value="{% if data.firstname is defined %}{{ data.firstname }}{% endif %}" required>
+                                    <input type="text" name="firstname" aria-label="Keresztnév" class="form-control {% if validations.firstname is defined %}{{ validations.firstname }}{% endif %}" placeholder="Keresztnév" value="{% if data.firstname is defined %}{{ data.firstname }}{% endif %}" required>
                                     <div class="invalid-feedback">Kérlek, add meg a keresztneved!</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="email" name="email" class="form-control {% if validations.email is defined %}{{ validations.email }}{% endif %}" placeholder="Email cím" value="{% if data.email is defined %}{{ data.email }}{% endif %}" required>
+                                    <input type="email" name="email" aria-label="Email cím" class="form-control {% if validations.email is defined %}{{ validations.email }}{% endif %}" placeholder="Email cím" value="{% if data.email is defined %}{{ data.email }}{% endif %}" required>
                                     <div class="invalid-feedback">Érvényes email cím szükséges!</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="tel" name="phone" class="form-control {% if validations.phone is defined %}{{ validations.phone }}{% endif %}" placeholder="Telefonszám" value="{% if data.phone is defined %}{{ data.phone }}{% endif %}" required>
+                                    <input type="tel" name="phone" aria-label="Telefonszám" class="form-control {% if validations.phone is defined %}{{ validations.phone }}{% endif %}" placeholder="Telefonszám" value="{% if data.phone is defined %}{{ data.phone }}{% endif %}" required>
                                     <div class="invalid-feedback">Add meg a telefonszámod!</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="country" class="form-control {% if validations.country is defined %}{{ validations.country }}{% endif %}" placeholder="Ország" value="{% if data.country is defined %}{{ data.country }}{% endif %}" required>
+                                    <input type="text" name="country" aria-label="Ország" class="form-control {% if validations.country is defined %}{{ validations.country }}{% endif %}" placeholder="Ország" value="{% if data.country is defined %}{{ data.country }}{% endif %}" required>
                                     <div class="invalid-feedback">Add meg az országot!</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="zipcode" class="form-control {% if validations.zipcode is defined %}{{ validations.zipcode }}{% endif %}" placeholder="Irányítószám" value="{% if data.zipcode is defined %}{{ data.zipcode }}{% endif %}" required>
+                                    <input type="text" name="zipcode" aria-label="Irányítószám" class="form-control {% if validations.zipcode is defined %}{{ validations.zipcode }}{% endif %}" placeholder="Irányítószám" value="{% if data.zipcode is defined %}{{ data.zipcode }}{% endif %}" required>
                                     <div class="invalid-feedback">Add meg az irányítószámot!</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="city" class="form-control {% if validations.city is defined %}{{ validations.city }}{% endif %}" placeholder="Város" value="{% if data.city is defined %}{{ data.city }}{% endif %}" required>
+                                    <input type="text" name="city" aria-label="Város" class="form-control {% if validations.city is defined %}{{ validations.city }}{% endif %}" placeholder="Város" value="{% if data.city is defined %}{{ data.city }}{% endif %}" required>
                                     <div class="invalid-feedback">Add meg a várost!</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="address" class="form-control {% if validations.address is defined %}{{ validations.address }}{% endif %}" placeholder="Utca, házszám" value="{% if data.address is defined %}{{ data.address }}{% endif %}" required>
+                                    <input type="text" name="address" aria-label="Utca, házszám" class="form-control {% if validations.address is defined %}{{ validations.address }}{% endif %}" placeholder="Utca, házszám" value="{% if data.address is defined %}{{ data.address }}{% endif %}" required>
                                     <div class="invalid-feedback">Add meg a címet!</div>
                                 </div>
                             </div>
@@ -81,16 +81,21 @@
                             <div>
                                 <h5 class="fw-bold">Teljes összeg</h5>
                                 {% if package.discountPrice is defined and package.discountPrice is not null and package.discountPrice < package.price %}
-                                    <p class="fs-5"><strong>{{ package.discountPrice|price }}</strong></p>
+                                    <div id="price-original" class="fs-5"><strong>{{ package.discountPrice|price }}</strong></div>
                                 {% else %}
-                                    <p class="fs-5"><strong>{{ package.price|price }}</strong></p>
+                                    <div id="price-original" class="fs-5"><strong>{{ package.price|price }}</strong></div>
                                 {% endif %}
+                                <div id="price-discounted" class="fs-5"><strong></strong></div>
+                                <div id="coupon-discount" class="text-success mt-3 mb-1"><strong></strong></div>
                             </div>
 
-                            {#                        <div class="input-group mb-3"> #}
-                            {#                            <input type="text" class="form-control" placeholder="Kuponkód" id="coupon-code"> #}
-                            {#                            <button class="btn btn-primary" id="apply-coupon">Beváltás</button> #}
-                            {#                        </div> #}
+
+                            <div class="input-group mb-3">
+                                <input type="text" aria-label="Kuponkód" class="form-control" placeholder="Kuponkód" id="coupon-code">
+                                <button type="button" class="btn btn-primary" id="apply-coupon">Beváltás</button>
+                            </div>
+                            <div id="coupon-feedback" class="small"></div>
+
 
                             <hr class="hr"/>
 
@@ -174,12 +179,47 @@
     <script>
         $(document).ready(function () {
             $('#apply-coupon').click(function () {
-                let coupon = $('#coupon-code').val();
-                if (coupon.trim() === '') {
-                    alert('Adj meg egy kuponkódot!');
-                } else {
-                    alert('Kuponkód alkalmazva: ' + coupon);
+                let coupon = $('#coupon-code').val().trim();
+                let feedback = $('#coupon-feedback');
+                feedback.text('');
+
+                if (coupon === '') {
+                    feedback
+                    .removeClass('text-success')
+                    .addClass('text-danger')
+                    .text('Adj meg egy kuponkódot!');
+                    return;
                 }
+
+                $.ajax({
+                    url: "{{ path('checkout_coupon') }}",
+                    method: "POST",
+                    data: {
+                        coupon: coupon
+                    },
+                    success: function (response) {
+                        if (response.valid) {
+                            $('#price-original').addClass('text-muted text-decoration-line-through');
+                            $('#price-original strong').text(response.originalPriceFormatted);
+                            $('#price-discounted strong').text(response.newPriceFormatted);
+
+                            $('#coupon-discount strong').text( response.couponText);
+
+                            $('#coupon-feedback')
+                                .removeClass('text-danger')
+                                .addClass('text-success')
+                                .text('Kupon sikeresen alkalmazva!');
+                        } else {
+                            $('#coupon-feedback')
+                                .removeClass('text-success')
+                                .addClass('text-danger')
+                                .text(response.message);
+                        }
+                    },
+                    error: function () {
+                        feedback.addClass('text-danger').text('Hiba történt a kupon ellenőrzése során.');
+                    }
+                });
             });
         });
 

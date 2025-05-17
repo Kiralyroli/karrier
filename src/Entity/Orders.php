@@ -50,6 +50,9 @@ class Orders
     #[ORM\Column]
     private int $package_price;
 
+    #[ORM\Column]
+    private int $price;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $created;
 
@@ -58,6 +61,9 @@ class Orders
 
     #[ORM\Column]
     private bool $success;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $coupon;
 
     #[ORM\Column]
     private array $data_sheet;
@@ -75,6 +81,7 @@ class Orders
      * @param string $package_level
      * @param string $package_title
      * @param int $package_price
+     * @param int $price
      * @param \DateTimeInterface $created
      * @param \DateTimeInterface $updated
      * @param bool $success
@@ -92,6 +99,7 @@ class Orders
         string             $package_level,
         string             $package_title,
         int                $package_price,
+        int                $price,
         \DateTimeInterface $created,
         \DateTimeInterface $updated,
         bool $success
@@ -108,9 +116,11 @@ class Orders
         $this->package_level = $package_level;
         $this->package_title = $package_title;
         $this->package_price = $package_price;
+        $this->price = $price;
         $this->created = $created;
         $this->updated = $updated;
         $this->success = $success;
+        $this->coupon = null;
         $this->data_sheet = [];
     }
 
@@ -179,6 +189,11 @@ class Orders
         return $this->package_price;
     }
 
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
     public function getCreated(): \DateTimeInterface
     {
         return $this->created;
@@ -202,6 +217,16 @@ class Orders
     public function setSuccess(bool $success): void
     {
         $this->success = $success;
+    }
+
+    public function getCoupon(): ?string
+    {
+        return $this->coupon;
+    }
+
+    public function setCoupon(?string $coupon): void
+    {
+        $this->coupon = $coupon;
     }
 
     public function getDataSheet(): array
