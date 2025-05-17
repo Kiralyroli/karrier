@@ -13,17 +13,14 @@
                 <div class="feature-card-icon">
                     <img src="{{ asset('images/home/features/icon1.webp') }}" alt="icon1">
                 </div>
-                <div class="feature-card-title">
-                    Egyedi és személyre szabott
-                </div>
+                <h3 class="feature-card-title">
+                    Személyre szabott
+                </h3>
                 <div class="feature-card-description">
                     <p class="text">
                         Minden önéletrajzot a te tapasztalataid, <strong>céljaid és személyiséged alapján készítünk
                             el</strong> - nincs két egyforma CV. Modern, letisztult design.
                     </p>
-                    <div class="image">
-                        <img src="{{ asset('images/home/features/icon1.webp') }}" alt="icon1">
-                    </div>
                 </div>
             </div>
         </div>
@@ -32,18 +29,15 @@
                 <div class="feature-card-icon">
                     <img src="{{ asset('images/home/features/icon2.webp') }}" alt="icon1">
                 </div>
-                <div class="feature-card-title">
+                <h3 class="feature-card-title">
                     ATS-barát formázás
-                </div>
+                </h3>
                 <div class="feature-card-description">
                     <p class="text">
                         Garantáljuk, hogy az önéletrajzod átmegy az állásportálok gépi szűrőin (<strong>ATS
                             rendszerek</strong>), és <strong>kulcsszavakra optimalizálva</strong> jut el a HR-esek
                         kezébe.
                     </p>
-                    <div class="image">
-                        <img src="{{ asset('images/home/features/icon2.webp') }}" alt="icon1">
-                    </div>
                 </div>
             </div>
         </div>
@@ -52,18 +46,15 @@
                 <div class="feature-card-icon">
                     <img src="{{ asset('images/home/features/icon3.webp') }}" alt="icon1">
                 </div>
-                <div class="feature-card-title">
+                <h3 class="feature-card-title">
                     Konzultáció
-                </div>
+                </h3>
                 <div class="feature-card-description">
                     <p class="text">
                         A számodra legjobb önéletrajz elkészítéséhez <strong>célzott kérdésekkel</strong> segítünk
                         feltárni a fontos adatokat – közben értékes tudást kapsz arról, hogyan mutasd be magad a
                         legjobban!
                     </p>
-                    <div class="image">
-                        <img src="{{ asset('images/home/features/icon3.webp') }}" alt="icon1">
-                    </div>
                 </div>
             </div>
         </div>
@@ -72,17 +63,14 @@
                 <div class="feature-card-icon">
                     <img src="{{ asset('images/home/features/icon4.webp') }}" alt="icon1">
                 </div>
-                <div class="feature-card-title">
+                <h3 class="feature-card-title">
                     Időmegtakarítás
-                </div>
+                </h3>
                 <div class="feature-card-description">
                     <p class="text">
                         Neked csak az űrlapot kell kitöltened – felejtsd el a hosszú órákig tartó önéletrajzírást.
                         Mi elkészítjük helyetted, hogy <strong>mielőbb pályázhass a legjobb állásokra.</strong>
                     </p>
-                    <div class="image">
-                        <img src="{{ asset('images/home/features/icon4.webp') }}" alt="icon1">
-                    </div>
                 </div>
             </div>
         </div>
@@ -91,17 +79,14 @@
                 <div class="feature-card-icon">
                     <img src="{{ asset('images/home/features/icon5.webp') }}" alt="icon1">
                 </div>
-                <div class="feature-card-title">
+                <h3 class="feature-card-title">
                     Adatvédelem
-                </div>
+                </h3>
                 <div class="feature-card-description">
                     <p class="text">
                         Az adataidat a legszigorúbb GDPR szabályok szerint kezeljük, így biztosítva a teljes diszkréciót
                         és biztonságot.
                     </p>
-                    <div class="image">
-                        <img src="{{ asset('images/home/features/icon5.webp') }}" alt="icon1">
-                    </div>
                 </div>
             </div>
         </div>
@@ -110,55 +95,15 @@
                 <div class="feature-card-icon">
                     <img src="{{ asset('images/home/features/icon6.webp') }}" alt="icon1">
                 </div>
-                <div class="feature-card-title">
-                    Többnyelvű önéletrajz
-                </div>
+                <h3 class="feature-card-title">
+                    Elégedettségi garancia
+                </h3>
                 <div class="feature-card-description">
                     <p class="text">
-                        Vállaljuk önéletrajzod elkészítését <strong>angolul és németül</strong> is, hogy nemzetközi
-                        cégeknél és külföldi állásokra is magabiztosan pályázhass.
+                        Célunk, hogy olyan önéletrajzot kapj, amellyel valóban elégedett vagy. Minden csomagunk tartalmaz módosítási lehetőséget, így biztos lehetsz benne, hogy a végeredmény megfelel az elvárásaidnak.
                     </p>
-                    <div class="image">
-                        <img src="{{ asset('images/home/features/icon6.webp') }}" alt="icon1">
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        const featureCard = $('.feature-card');
-        featureCard.hover(
-            function () {
-                if ($(window).width() > 768) {
-                    $(this).find('.feature-card-icon').stop(true, true).slideUp(500);
-                    $(this).find('.feature-card-title').stop(true, true).slideUp(500);
-                    $(this).find('.feature-card-description')
-                        .stop(true, true)
-                        .css('display', 'flex')
-                        .hide()
-                        .slideDown(500);
-                }
-            },
-            function () {
-                $(this).find('.feature-card-description').stop(true, true).slideUp(500);
-                $(this).find('.feature-card-icon').stop(true, true).slideDown(500);
-                $(this).find('.feature-card-title').stop(true, true).slideDown(500);
-            }
-        );
-
-        featureCard.on('click', function () {
-            if ($(window).width() <= 768) {
-                $(this).find('.feature-card-icon').stop(true, true).slideUp(500);
-                $(this).find('.feature-card-title').stop(true, true).slideUp(500);
-                $(this).find('.feature-card-description')
-                    .stop(true, true)
-                    .css('display', 'flex')
-                    .hide()
-                    .slideDown(500);
-            }
-        });
-    });
-</script>
