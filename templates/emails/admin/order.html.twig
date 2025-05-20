@@ -112,6 +112,10 @@
                 <td>{{ price|price }}</td>
             </tr>
             <tr>
+                <td><strong>Kupon</strong></td>
+                <td>{% if coupon is not null %}{{ coupon }}{% else %}-{% endif %}</td>
+            </tr>
+            <tr>
                 <td><strong>Dátum</strong></td>
                 <td>{{ createdDate|date("Y-m-d H:i:s") }}</td>
             </tr>

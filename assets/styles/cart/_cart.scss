@@ -28,6 +28,16 @@
     }
   }
 
+  #coupon-code {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  
+  #apply-coupon {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   .input-agree {
     margin-bottom: 5px;
   }

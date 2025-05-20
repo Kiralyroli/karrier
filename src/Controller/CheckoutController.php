@@ -300,6 +300,7 @@ class CheckoutController extends AbstractController
                 'packageLevel' => $package->getLevel(),
                 'packageTitle' => $package->getTitle(),
                 'price' => $price,
+                'coupon' => $order->getCoupon(),
                 'uniqueId' => $uniqueId
             ],
             [],
