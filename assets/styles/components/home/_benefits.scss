@@ -95,6 +95,8 @@
         user-select: none;
         background: unset;
         border: unset;
+        padding-left: 5px;
+        padding-right: 5px;
 
         @media (max-width: 576px) {
           font-size: 3rem;
