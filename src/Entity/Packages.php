@@ -29,25 +29,8 @@ class Packages
     #[ORM\Column(type: Types::JSON)]
     private array $features;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private int $status;
-
-    /**
-     * @param string $type
-     * @param string $title
-     * @param int $price
-     * @param array $features
-     * @param int $status
-     */
-    public function __construct(string $type, string $title, int $price, array $features, int $status)
-    {
-        $this->level = $type;
-        $this->title = $title;
-        $this->price = $price;
-        $this->discountPrice = null;
-        $this->features = $features;
-        $this->status = $status;
-    }
+    #[ORM\Column]
+    private bool $status;
 
     /**
      * @return int|null
@@ -142,17 +125,17 @@ class Packages
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getStatus(): int
+    public function getStatus(): bool
     {
         return $this->status;
     }
 
     /**
-     * @param int $status
+     * @param bool $status
      */
-    public function setStatus(int $status): void
+    public function setStatus(bool $status): void
     {
         $this->status = $status;
     }
