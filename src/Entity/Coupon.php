@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CouponRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 class Coupon
@@ -18,6 +19,7 @@ class Coupon
     private string $code;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Choice(choices: ['percentage', 'fixed'], message: 'Érvénytelen típus')]
     private string $type;
 
     #[ORM\Column]
@@ -31,22 +33,6 @@ class Coupon
 
     #[ORM\Column]
     private bool $status;
-
-    /**
-     * @param string $code
-     * @param string $type
-     * @param int $value
-     * @param bool $status
-     */
-    public function __construct(string $code, string $type, int $value, bool $status)
-    {
-        $this->code = $code;
-        $this->type = $type;
-        $this->value = $value;
-        $this->date_from = null;
-        $this->date_to = null;
-        $this->status = $status;
-    }
 
     /**
      * @return int|null
