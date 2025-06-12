@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Coupon;
+use App\Entity\Orders;
 use App\Entity\Packages;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -19,7 +20,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        $url = $adminUrlGenerator->setController(CouponCrudController::class)->generateUrl();
+        $url = $adminUrlGenerator->setController(OrdersCrudController::class)->generateUrl();
 
         return $this->redirect($url);
     }
@@ -33,7 +34,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Csomagok', 'fas fa-cube', Packages::class);
+        yield MenuItem::linkToCrud('Rendelések', 'fa-solid fa-cart-shopping', Orders::class);
         yield MenuItem::linkToCrud('Kuponok', 'fas fa-ticket-alt', Coupon::class);
+        yield MenuItem::linkToCrud('Csomagok', 'fas fa-cube', Packages::class);
     }
 }

@@ -1,0 +1,58 @@
+{% block field %}
+
+    {% set labels = {
+        'personal_lastname': 'Vezetéknév',
+        'personal_firstname': 'Keresztnév',
+        'personal_email': 'Email',
+        'personal_phone': 'Telefonszám',
+        'personal_city': 'Város',
+        'linkedin': 'LinkedIn profil',
+        'jobs': 'Pozíciók',
+        'position': 'Pozíció',
+        'industry': 'Iparág',
+        'link': 'Link',
+        'experiences': 'Tapasztalatok',
+        'name': 'Név',
+        'company_name': 'Cég neve',
+        'start': 'Kezdés',
+        'end': 'Befejezés',
+        'note': 'Megjegyzés',
+        'studies': 'Tanulmányok',
+        'school_name': 'Iskola neve',
+        'professionalSkills': 'Szakmai készségek',
+        'privateSkills': 'Egyéni készségek',
+        'languages': 'Nyelvek',
+        'level': 'Szint',
+        'contact_email': 'Email elérhetőség',
+        'contact_phone': 'Telefon elérhetőség',
+        'contact_note': 'Kapcsolati megjegyzés',
+        'summary': 'Összegzés'
+    } %}
+
+    <div class="data-sheet">
+        {% for key, value in field.value %}
+            <strong>{{ labels[key] ?? key }}:</strong>
+            {% if value is iterable %}
+                <ul class="ms-3">
+                    {% for item in value %}
+                        <li>
+                            {% if item is iterable %}
+                                <ul>
+                                    {% for subKey, subValue in item %}
+                                        <li><strong>{{ labels[subKey] ?? subKey }}:</strong> {{ subValue }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                {{ item }}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {{ value }}
+            {% endif %}
+            <br>
+        {% endfor %}
+    </div>
+
+{% endblock %}
