@@ -63,7 +63,7 @@ class OrdersCrudController extends AbstractCrudController
                 ]),
             TextField::new('packageTitle', 'Csomag név'),
             IntegerField::new('packagePrice', 'Csomag ár'),
-            IntegerField::new('price', 'Fizetett összeg'),
+            IntegerField::new('price', 'Végleges ár'),
             TextField::new('coupon', 'Kupon'),
             DateTimeField::new('created', 'Létrehozva'),
             DateTimeField::new('updated', 'Frissítve'),
