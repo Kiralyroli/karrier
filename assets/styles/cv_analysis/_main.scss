@@ -1,0 +1,46 @@
+#cv-analysis-page #main {
+  padding-top: 130px;
+  padding-bottom: 50px;
+  color: white;
+  background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
+
+  .main-title {
+    text-align: center;
+    font-size: clamp(30px, 5vw, 60px);
+  }
+
+  .main-description {
+    font-size: clamp(16px, 3vw, 25px);
+  }
+
+  .main-button {
+    padding-top: 20px;
+
+    a {
+      text-decoration: none;
+      color: white;
+      background-color: $base-color-light;
+      border-color: $base-color-light;
+      border-radius: 20px;
+      padding: 15px 20px;
+      display: inline-block;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+      transition: all 0.3s ease;
+      font-size: 20px;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .main-price {
+    padding-top: 10px;
+    font-size: clamp(16px, 3vw, 25px);
+  }
+
+  #main-image {
+    max-width: 100%;
+    height: auto;
+  }
+}

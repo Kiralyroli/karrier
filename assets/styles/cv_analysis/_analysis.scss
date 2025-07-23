@@ -1,0 +1,57 @@
+#cv-analysis-page #analysis {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: white;
+  background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
+
+  .main-title {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+  .part {
+    margin-bottom: 30px;
+
+    .image {
+      text-align: right;
+
+      img {
+        height: 64px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .sub-title {
+      font-weight: bolder;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .analysis-button {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+
+    a {
+      transition: all 0.3s ease-in-out;
+      text-decoration: none;
+      color: $base-color-dark;
+      background-color: white;
+      border-radius: 20px;
+      padding: 15px 20px;
+      margin-right: 35px;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+
+      &:first-of-type {
+        background-color: $base-color-dark;
+        color: white;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Mit tartalmaz az önéletrajz-elemzés?",
+    "answer": "Részletes értékelést kapsz 6 szempont szerint (struktúra, design, nyelvhelyesség, stb.), százalékos pontszámmal, megjegyzésekkel és fejlesztési javaslatokkal."
+  },
+  {
+    "question": "Mennyi idő alatt kapom meg az elemzést?",
+    "answer": "Az önéletrajzod beérkezését követően 24 órán belül e-mailben küldjük a részletes, pontozott elemzést PDF formátumban."
+  },
+  {
+    "question": "Kik végzik az elemzést?",
+    "answer": "Toborzási tapasztalattal rendelkező HR szakértőink, akik pontosan tudják, mit keresnek a munkáltatók egy önéletrajzban."
+  },
+  {
+    "question": "Milyen fájltípusokat tölthetek fel?",
+    "answer": "PDF és DOCX formátumot tudunk fogadni, maximum 5 MB méretben."
+  },
+  {
+    "question": "Kell-e álláshirdetést is megadnom?",
+    "answer": "Nem kötelező, de  ajánlott. Az álláshirdetés alapján pontosabban tudjuk értékelni, hogyan illeszkedik az önéletrajzod a megcélzott pozícióhoz. Ugyanakkor, ha nem tudsz konkrét álláshirdetést megadni, akkor is alapos és értékes visszajelzést fogsz kapni az önéletrajzodról, amely segít abban, hogy általánosan is megfeleljen a legfontosabb elvárásoknak és ATS-kompatibilis legyen."
+  }
+]

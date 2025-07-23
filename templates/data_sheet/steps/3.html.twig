@@ -24,113 +24,14 @@
     </div>
 
     <div class="col-md-5">
-        <form id="upload-form" class="file-upload-form">
-            <div id="drop-area" class="drop-area">
-                <p class="drop-text">Húzd ide a fájlt</p>
-                <p class="or-text">vagy</p>
-                <label for="file-input" class="browse-button">Tallózás</label>
-                <input type="file" id="file-input" accept=".jpeg,.png,.jpg,.webp" name="file" hidden>
-            </div>
-            <div id="uploaded-file-info" class="uploaded-file-info" {% if formData.uploaded_cv_image is not defined %}style="display: none;"{% endif %}>
-                {% if formData.uploaded_cv_image is defined %}
-                    <p>Feltöltött fájl:
-                        <a href="/download-file/{{ formData.uploaded_cv_image }}" target="_blank" class="download-link">
-                            {{ formData.uploaded_cv_image }}
-                        </a>
-                    </p>
-                {% endif %}
-            </div>
-        </form>
+        {% include 'components/drop_area.html.twig' with {
+            'uploaded_file': formData.uploaded_cv_image|default(null),
+            'uploadedFileSelector': '#uploaded-cv-image',
+            'areaType': 'image'
+        } %}
         <form id="data-form">
-            <input type="hidden" id="uploaded-cv-image" name="uploaded_cv_image">
+            <input type="hidden" id="uploaded-cv-image" name="uploaded_cv_image" value="{% if formData.uploaded_cv_image is defined %}{{ formData.uploaded_cv_image }}{% endif %}">
         </form>
     </div>
 </div>
 {% include 'data_sheet/buttons.html.twig' %}
-
-<script>
-    $(document).ready(function () {
-        let dropArea = $('#drop-area');
-        let fileInput = $('#file-input');
-        let fileNameDisplay = $('#uploaded-cv-image');
-
-        $('.browse-button').off('click').on('click', function (e) {
-            e.preventDefault();
-            fileInput.click();
-        });
-
-        fileInput.off('change').on('change', function () {
-            if (this.files.length > 0) {
-                let file = this.files[0];
-
-                if (!isValidFileType(file)) {
-                    alert('Csak képeket tölthetsz fel!');
-                    fileInput.val('');
-                    return;
-                }
-
-                handleFiles(this.files);
-                $(this).val('');
-            }
-        });
-
-        dropArea.on('dragover', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).addClass('dragover');
-        });
-
-        dropArea.on('dragleave', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).removeClass('dragover');
-        });
-
-        dropArea.on('drop', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).removeClass('dragover');
-
-            let files = e.originalEvent.dataTransfer.files;
-            if (files.length > 0 && isValidFileType(files[0])) {
-                handleFiles(files);
-            } else {
-                alert('Csak képeket tölthetsz fel!');
-            }
-        });
-
-        function isValidFileType(file) {
-            let allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
-            return allowedTypes.includes(file.type);
-        }
-
-        function handleFiles(files) {
-            if (files.length > 0) {
-                let formData = new FormData();
-                formData.append('file', files[0]);
-
-                $.ajax({
-                    url: '/upload-file',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        fileNameDisplay.val(response.file);
-                        $('#uploaded-file-info').show().html(
-                            '<p>Feltöltött fájl: ' +
-                            '<a href="/download-file/' + response.file + '" target="_blank" class="download-link">' +
-                            response.file +
-                            '</a></p>'
-                        );
-                        alert('Fájl sikeresen feltöltve!');
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Hiba történt:', error);
-                    }
-                });
-            }
-        }
-    });
-
-</script>

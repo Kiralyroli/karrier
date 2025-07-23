@@ -72,6 +72,11 @@ header {
               &:hover {
                 transform: scale(1.05);
               }
+
+              &.light-nav-item {
+                background-color: white;
+                color: $base-color-light;
+              }
             }
           }
         }

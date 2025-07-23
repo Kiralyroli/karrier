@@ -1,0 +1,44 @@
+<div id="working" class="container">
+    <div class="row align-items-center">
+        <h2 class="main-title">Hogyan működik?</h2>
+        <div class="col-md-4 work">
+            <div class="image">
+                <img src="{{ asset('images/cv_analysis/working1.webp') }}" alt="Feltöltés" loading="lazy">
+            </div>
+            <h3 class="sub-title">
+                Feltöltés
+            </h3>
+            <p class="sub-description">
+                Add meg az önéletrajzod és az e-mail címed, valamint lehetőség szerint a megpályázott pozíciót.
+            </p>
+        </div>
+
+        <div class="col-md-4 work">
+            <div class="image">
+                <img src="{{ asset('images/cv_analysis/working2.webp') }}" alt="Elemzés" loading="lazy">
+            </div>
+            <h3 class="sub-title">
+                Elemzés
+            </h3>
+            <p class="sub-description">
+                Szakértőnk átnézi önéletrajzodat, pontozza, részletes elemzést és tanácsokat ír számodra.
+            </p>
+        </div>
+
+        <div class="col-md-4 work">
+            <div class="image">
+                <img src="{{ asset('images/cv_analysis/working3.webp') }}" alt="Visszajelzés" loading="lazy">
+            </div>
+            <h3 class="sub-title">
+                Visszajelzés
+            </h3>
+            <p class="sub-description">
+                24 órán belül e-mailben visszakapod az elemzést PDF-ben.
+            </p>
+        </div>
+    </div>
+
+    <div class="working-button">
+        <a href="{{ path('cv_analysis_data_page') }}" class="btn btn-primary button-hover">Elemzés kérése</a>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="analysis_data_sheet" class="container">
+        <h1>Önéletrajz-elemzés</h1>
+
+        <form action="{{ path('analysis_data_post') }}" method="POST" id="analysis-form" class="needs-validation" novalidate>
+            <div class="row justify-content-around section">
+                <div class="col-12 col-lg-5">
+                    <div class="sub-title">Személyes adatok</div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="mb-3">
+                        <input type="text" name="lastname" class="form-control {% if validations.lastname is defined %}{{ validations.lastname.class }}{% endif %}" placeholder="Vezetéknév" aria-label="Vezetéknév" value="{% if formData.lastname is defined %}{{ formData.lastname }}{% endif %}" required>
+                        <div class="invalid-feedback">{{ validations.lastname.message|default(null) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="firstname" class="form-control {% if validations.firstname is defined %}{{ validations.firstname.class }}{% endif %}" placeholder="Keresztnév" aria-label="Keresztnév" value="{% if formData.firstname is defined %}{{ formData.firstname }}{% endif %}" required>
+                        <div class="invalid-feedback">{{ validations.firstname.message|default(null) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control {% if validations.email is defined %}{{ validations.email.class }}{% endif %}" placeholder="Email cím" aria-label="Email cím" value="{% if formData.email is defined %}{{ formData.email }}{% endif %}" required>
+                        <div class="invalid-feedback">{{ validations.email.message|default(null) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="tel" name="phone" class="form-control {% if validations.phone is defined %}{{ validations.phone.class }}{% endif %}" placeholder="Telefonszám (opcionális)" aria-label="Telefonszám" value="{% if formData.phone is defined %}{{ formData.phone }}{% endif %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-around section">
+                <div class="col-12 col-lg-5">
+                    <div class="sub-title">Önéletrajz feltöltése</div>
+                    <div class="sub-desc">Töltsd fel meglévő önéletrajzodat PDF vagy Word formátumban.<br>Ez lesz az alapja a részletes tanácsainknak, hogy a legjobb eredményt érhesd el.</div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    {% include 'components/drop_area.html.twig' with {
+                        'uploaded_file': formData.uploaded_cv_file|default(null),
+                        'uploadedFileSelector': '#uploaded-cv-file',
+                        'areaType': 'doc'
+                    } %}
+                    <input type="hidden" id="uploaded-cv-file" name="uploaded_cv_file" value="{% if formData.uploaded_cv_file is defined %}{{ formData.uploaded_cv_file }}{% endif %}">
+                    {% if validations.uploaded_cv_file is defined and validations.uploaded_cv_file.class == 'is-invalid' %}
+                        <div class="text-danger fw-bold text-center mt-3 fs-4">Önéletrajz feltöltése kötelező!</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row justify-content-around section">
+                <div class="col-12 col-lg-5">
+                    <div class="sub-title">Célok és álláshirdetés</div>
+                    <div class="sub-desc">Mondd el, milyen pozícióra vagy iparágba szeretnél pályázni, és ha van konkrét álláshirdetés, másold be a linkjét is, hogy még pontosabb tanácsokat adhassunk neked!<br>
+                        Mondd el, milyen pozícióra vagy iparágba szeretnél pályázni, és ha van konkrét álláshirdetés, másold be a linkjét is, hogy még pontosabb tanácsokat adhassunk neked!</div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="mb-3">
+                        <input type="text" name="position" class="form-control {% if validations.position is defined %}{{ validations.position.class }}{% endif %}" placeholder="Pozíció" aria-label="Pozíció" value="{% if formData.position is defined %}{{ formData.position }}{% endif %}" required>
+                        <div class="invalid-feedback">{{ validations.position.message|default(null) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="industry" class="form-control {% if validations.industry is defined %}{{ validations.industry.class }}{% endif %}" placeholder="Iparág" aria-label="Iparág" value="{% if formData.industry is defined %}{{ formData.industry }}{% endif %}" required>
+                        <div class="invalid-feedback">{{ validations.industry.message|default(null) }}</div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="link" class="form-control {% if validations.link is defined %}{{ validations.link.class }}{% endif %}" placeholder="Álláshirdetés link (opcionális)" aria-label="Álláshirdetés link" value="{% if formData.link is defined %}{{ formData.link }}{% endif %}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-button">
+                <button class="btn g-recaptcha"
+                        data-sitekey="{{ recaptcha_site_key }}"
+                        data-callback='onSubmit'
+                        data-action='submit'>Elemzés kérése
+                </button>
+            </div>
+
+            {% if validations.recaptcha is defined and validations.recaptcha == 'is-invalid' %}
+                <div class="col-12">
+                    <div class="invalid-feedback d-block">reCAPTCHA ellenőrzés szükséges!</div>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("analysis-form").submit();
+        }
+    </script>
+{% endblock %}

@@ -12,6 +12,8 @@
 @import "components/contact";
 @import "components/consent";
 @import "components/agree";
+@import "components/faq";
+@import "components/drop_area";
 
 // Sites
 @import "components/home";
@@ -22,3 +24,8 @@
 
 @import "data_sheet/data_sheet";
 @import "data_sheet/success";
+
+@import "cv_analysis/main";
+@import "cv_analysis/working";
+@import "cv_analysis/analysis";
+@import "cv_analysis/data_sheet";

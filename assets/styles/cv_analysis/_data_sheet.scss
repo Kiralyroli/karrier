@@ -1,0 +1,58 @@
+#analysis_data_sheet {
+  padding-top: 130px;
+  padding-bottom: 60px;
+  color: $base-color-dark;
+
+  h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+  }
+
+  .section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .sub-title {
+      font-size: 28px;
+      font-weight: bolder;
+
+      @media (max-width: 991px) {
+        padding-bottom: 10px;
+      }
+    }
+
+    .sub-desc {
+      @media (max-width: 991px) {
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .analysis-button {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+
+    button {
+      transition: all 0.3s ease-in-out;
+      text-decoration: none;
+      color: $base-color-dark;
+      background-color: white;
+      border-radius: 20px;
+      padding: 15px 20px;
+      margin-right: 35px;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+
+      &:first-of-type {
+        background-color: $base-color-dark;
+        color: white;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+<div id="upload-form" class="file-upload-form">
+    <div id="drop-area" class="drop-area">
+        <p class="drop-text">Húzd ide a fájlt</p>
+        <p class="or-text">vagy</p>
+        <label for="file-input" class="browse-button">Tallózás</label>
+        <input type="file" id="file-input" accept="{% if areaType == 'image' %}.jpeg,.png,.jpg,.webp{% else %}.pdf,.docx{% endif %}" hidden>
+    </div>
+    <div id="uploaded-file-info" class="uploaded-file-info" {% if not uploaded_file %}style="display: none;"{% endif %}>
+        {% if uploaded_file %}
+            <p>Feltöltött fájl:
+                <a href="/download-file/{{ uploaded_file }}" target="_blank" class="download-link">
+                    {{ uploaded_file }}
+                </a>
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let dropArea = $('#drop-area');
+        let fileInput = $('#file-input');
+        let fileNameDisplay = $('{{ uploadedFileSelector }}');
+
+        $('.browse-button').off('click').on('click', function (e) {
+            e.preventDefault();
+            fileInput.click();
+        });
+
+        fileInput.off('change').on('change', function () {
+            if (this.files.length > 0) {
+                let file = this.files[0];
+
+                if (!isValidFileType(file)) {
+                    {% if areaType == 'image' %}
+                        alert('Csak képeket tölthetsz fel!');
+                    {% else %}
+                        alert('Csak PDF és DOCX fájlokat tölthetsz fel!');
+                    {% endif %}
+                    fileInput.val('');
+                    return;
+                }
+
+                handleFiles(this.files);
+                $(this).val('');
+            }
+        });
+
+        dropArea.on('dragover', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).addClass('dragover');
+        });
+
+        dropArea.on('dragleave', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('dragover');
+        });
+
+        dropArea.on('drop', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('dragover');
+
+            let files = e.originalEvent.dataTransfer.files;
+            if (files.length > 0 && isValidFileType(files[0])) {
+                handleFiles(files);
+            } else {
+                {% if areaType == 'image' %}
+                    alert('Csak képeket tölthetsz fel!');
+                {% else %}
+                    alert('Csak PDF és DOCX fájlokat tölthetsz fel!');
+                {% endif %}
+            }
+        });
+
+        function isValidFileType(file) {
+            let allowedTypes =
+            {% if areaType == 'image' %}
+                ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+            {% else %}
+                ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            {% endif %}
+            return allowedTypes.includes(file.type);
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                let formData = new FormData();
+                formData.append('file', files[0]);
+
+                $.ajax({
+                    url: '/upload-file',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        fileNameDisplay.val(response.file);
+                        $('#uploaded-file-info').show().html(
+                            '<p>Feltöltött fájl: ' +
+                            '<a href="/download-file/' + response.file + '" target="_blank" class="download-link">' +
+                            response.file +
+                            '</a></p>'
+                        );
+                        alert('Fájl sikeresen feltöltve!');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Hiba történt:', error);
+                    }
+                });
+            }
+        }
+    });
+
+</script>
