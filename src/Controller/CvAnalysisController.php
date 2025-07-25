@@ -40,7 +40,11 @@ class CvAnalysisController extends AbstractController
     public function analysisDataPost(SessionInterface $session, Request $request, ValidatorInterface $validator, ReCaptchaService $reCaptchaService, SettingsRepository $settingsRepository): Response
     {
         $data = $request->request->all();
-        $session->set('analysisFormData', $data);
+        $sessionData = $data;
+        if (array_key_exists('g-recaptcha-response', $sessionData)) {
+            unset($sessionData['g-recaptcha-response']);
+        }
+        $session->set('analysisFormData', $sessionData);
         $isFormValid = true;
 
         $constraints = new Assert\Collection([

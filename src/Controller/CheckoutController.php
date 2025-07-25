@@ -175,6 +175,7 @@ class CheckoutController extends AbstractController
         }
         $session->set('email_sent', true);
         $session->remove('product');
+        $session->remove('analysisFormData');
         return $this->render('cart/success.html.twig', [
             'uniqueId' => $uniqueId,
             'barion_success' => true,
