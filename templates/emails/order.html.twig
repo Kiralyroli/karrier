@@ -39,6 +39,15 @@
             font-weight: bold;
             color: #003954;
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
         .button {
             display: inline-block;
             font-size: 16px;
@@ -63,18 +72,11 @@
         <h1>Köszönjük a vásárlást!</h1>
     </div>
     <div class="content">
-        <p>Kedves {{ firstname }},</p>
-        <p>Köszönjük, hogy megrendelted az önéletrajzodat! Az alábbi csomagot választottad:</p>
-        <p>{{ packageLevel }} {{ packageTitle }}</p>
-        <p><span class="highlight">Ár:</span> {{ price|price }}</p>
-        <p>A következő lépésként kérjük, töltsd ki az adatlapon a szükséges információkat, hogy személyre szabott és professzionális önéletrajzot készíthessünk neked.</p>
-        <p>Az alábbi gombra kattintva ki tudod tölteni az adatlapot:</p>
-        <a href="{{ url('data_sheet', { 'uniqueId': uniqueId }) }}" class="button">Adatlap kitöltése</a>
-        <p>Ha bármilyen kérdésed van, szívesen segítünk. Fordulj hozzánk bizalommal!</p>
-        <p>Üdvözlettel,</p>
-        <p>primecv.hu csapata</p>
-        <p><a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
-        <p><a href="tel:{{ contactPhone|replace({' ': ''}) }}">{{ contactPhone }}</a></p>
+        {% if productType == 'package' %}
+            {% include 'emails/order_package_content.html.twig' %}
+        {% elseif productType == 'analysis' %}
+            {% include 'emails/order_analysis_content.html.twig' %}
+        {% endif%}
     </div>
     <div class="footer">
         <p>&copy; 2025, primecv.hu. Minden jog fenntartva.</p>

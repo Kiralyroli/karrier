@@ -37,7 +37,7 @@ class CvAnalysisController extends AbstractController
     }
 
     #[Route('/analysis-data-post', name: 'analysis_data_post', methods: ['POST'])]
-    public function analysisDataPost(SessionInterface $session, Request $request, ValidatorInterface $validator, ReCaptchaService $reCaptchaService): Response
+    public function analysisDataPost(SessionInterface $session, Request $request, ValidatorInterface $validator, ReCaptchaService $reCaptchaService, SettingsRepository $settingsRepository): Response
     {
         $data = $request->request->all();
         $session->set('analysisFormData', $data);
@@ -107,6 +107,37 @@ class CvAnalysisController extends AbstractController
             return $this->redirectToRoute('cv_analysis_data_page');
         }
 
+        return $this->cart($session, $settingsRepository, $data);
+    }
+
+    /**
+     * @param SessionInterface $session
+     * @param SettingsRepository $settingsRepository
+     * @param array $formData
+     * @return Response
+     */
+    private function cart(SessionInterface $session, SettingsRepository $settingsRepository, array $formData): Response
+    {
+        $analysisPrice = $settingsRepository->findValueByKey('analysis_price');
+        $product = [
+            'sku' => 'cv_analysis',
+            'name' => 'Önéletrajz-elemzés',
+            'type' => 'analysis',
+            'id' => 1,
+            'discountPrice' => $analysisPrice,
+            'price' => $analysisPrice,
+            'features' => [
+                'Vezetéknév: ' . $formData['lastname'],
+                'Keresztnév: ' . $formData['firstname'],
+                'Email cím: ' . $formData['email'],
+                'Telefonszám: ' . (empty($formData['phone']) ? '-' : $formData['phone']),
+                'Pozíció: ' . (empty($formData['position']) ? '-' : $formData['position']),
+                'Iparág: ' . (empty( $formData['industry']) ? '-' : $formData['industry']),
+                'Álláshirdetés: ' . (empty($formData['link']) ? '-' : $formData['link']),
+                'Feltöltött önéletrajz: ' . $formData['uploaded_cv_file'],
+            ]
+        ];
+        $session->set('product', $product);
         return $this->redirectToRoute('checkout');
     }
 

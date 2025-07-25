@@ -10,6 +10,7 @@ use App\Model\Email\EmailSender;
 use App\Repository\CouponRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\PackagesRepository;
+use App\Repository\SettingsRepository;
 use Barion\BarionClient;
 use Barion\Enumerations\BarionEnvironment;
 use Barion\Enumerations\Currency;
@@ -33,28 +34,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CheckoutController extends AbstractController
 {
-    #[Route('/cart', name: 'cart_add', methods: ['POST'])]
-    public function index(Request $request, SessionInterface $session): Response
-    {
-        $packageId = $request->get('package_id', $request->request->get('package_id'));
-        if ($packageId) {
-            $session->set('package_id', $packageId);
-        }
-        return $this->redirectToRoute('checkout');
-    }
-
     /**
      * @throws BarionException
      */
     #[Route('/checkout', name: 'checkout', methods: ['GET', 'POST'])]
-    public function checkout(
+    public function index(
         Request                $request,
         ValidatorInterface     $validator,
         PackagesRepository     $packagesRepository,
         SessionInterface       $session,
         EntityManagerInterface $entityManager,
         ReCaptchaService       $reCaptchaService,
-        CouponRepository       $couponRepository
+        CouponRepository       $couponRepository,
+        SettingsRepository     $settingsRepository
     ): Response
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -107,45 +99,58 @@ class CheckoutController extends AbstractController
             }
 
             if (!$isFormValid) {
-                return $this->getCartTwig($packagesRepository, $session, $data, $validations);
+                return $this->getCartTwig($session, $data, $validations);
             }
 
             $session->set('checkout_data', $data);
             $session->remove('email_sent');
-            $order = $this->createOrder($session, $packagesRepository, $entityManager, $couponRepository);
-            $gatewayUrl = $this->callBarion($order, $session->get('package_id'));
+            $order = $this->createOrder($session, $packagesRepository, $entityManager, $couponRepository, $settingsRepository);
+            if ($order === null) {
+                return $this->redirectToRoute('home_page');
+            }
+            $product = $session->get('product');
+            $gatewayUrl = $this->callBarion($order, $product['sku']);
             if ($gatewayUrl) {
                 return $this->redirect($gatewayUrl);
             }
             //todo: sikertelen azonosítás lekezelés, mondjuk sikertelen kártyás fizetés oldalra vigyen
         } else {
             $session->remove('coupon');
-            return $this->getCartTwig($packagesRepository, $session);
+            return $this->getCartTwig($session);
         }
     }
 
     #[Route('/checkout/coupon', name: 'checkout_coupon', methods: ['POST'])]
-    public function coupon(Request $request, SessionInterface $session, PackagesRepository $packagesRepository, CouponRepository $couponRepository): JsonResponse
-    {
+    public function coupon(
+        Request            $request,
+        SessionInterface   $session,
+        PackagesRepository $packagesRepository,
+        CouponRepository   $couponRepository,
+        SettingsRepository $settingsRepository
+    ): JsonResponse {
         $couponCode = $request->request->get('coupon');
-        $packageId = $session->get('package_id');
-        if (empty($packageId)) {
+        $sessionProduct = $session->get('product');
+        $productId = $sessionProduct['id'];
+
+        $originalPrice = null;
+        if ($sessionProduct['type'] === 'package') {
+            $package = $packagesRepository->find($productId);
+            $packagePrice = $package->getPrice();
+            if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $packagePrice) {
+                $packagePrice = $package->getDiscountPrice();
+            }
+            $originalPrice = $packagePrice;
+        } elseif ($sessionProduct['type'] === 'analysis') {
+            $originalPrice = $settingsRepository->findValueByKey('analysis_price');
+        }
+
+        if ($originalPrice === null) {
             return new JsonResponse([
                 'valid' => false,
                 'message' => 'Hiányzó csomag.'
             ]);
         }
-        $package = $packagesRepository->find($packageId);
-        if ($package === null) {
-            return new JsonResponse([
-                'valid' => false,
-                'message' => 'Hiányzó csomag.'
-            ]);
-        }
-        $originalPrice = $package->getPrice();
-        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $originalPrice) {
-            $originalPrice = $package->getDiscountPrice();
-        }
+
         $processedCoupon = CouponProcessor::calculatePrices($couponCode, $originalPrice, $couponRepository);
         if ($processedCoupon['valid']) {
             $session->set('coupon', $couponCode);
@@ -154,9 +159,8 @@ class CheckoutController extends AbstractController
     }
 
     #[Route('/checkout/success', name: 'checkout_success', methods: ['GET'])]
-    public function success(SessionInterface $session, OrdersRepository $ordersRepository, PackagesRepository $packagesRepository, EmailSender $emailSender)
+    public function success(SessionInterface $session, OrdersRepository $ordersRepository, EmailSender $emailSender)
     {
-        $packageId = $session->get('package_id');
         $checkoutData = $session->get('checkout_data');
         $uniqueId = $session->get('order_custom_id');
         $barionPaymentId = $session->get('barion_payment_id');
@@ -165,17 +169,18 @@ class CheckoutController extends AbstractController
 
         $ordersRepository->setOrderSuccessWith($uniqueId);
         $order = $ordersRepository->findByUniqueId($uniqueId);
-        $package = $packagesRepository->find($packageId);
 
         if (!$emailSent) {
-            $result = $this->sendEmail($emailSender, $checkoutData, $package, $order, $uniqueId);
+            $result = $this->sendEmail($emailSender, $checkoutData, $order, $uniqueId);
         }
         $session->set('email_sent', true);
+        $session->remove('product');
         return $this->render('cart/success.html.twig', [
             'uniqueId' => $uniqueId,
             'barion_success' => true,
             'barion_payment_id' => $barionPaymentId,
-            'barion_payment_price' => $barionPaymentPrice
+            'barion_payment_price' => $barionPaymentPrice,
+            'product_type' => $order->getProductType()
         ]);
     }
 
@@ -197,7 +202,8 @@ class CheckoutController extends AbstractController
         $uniqueId = $session->get('order_custom_id');
 
         $order = $ordersRepository->findByUniqueId($uniqueId);
-        $gatewayUrl = $this->callBarion($order, $session->get('package_id'));
+        $product = $session->get('product');
+        $gatewayUrl = $this->callBarion($order, $product['sku']);
         if ($gatewayUrl) {
             return $this->redirect($gatewayUrl);
         }
@@ -228,28 +234,19 @@ class CheckoutController extends AbstractController
     }
 
     /**
-     * @param PackagesRepository $packagesRepository
      * @param SessionInterface $session
      * @param array $data
      * @param array $validations
      * @return Response
      */
-    private function getCartTwig(PackagesRepository $packagesRepository, SessionInterface $session, array $data = [], array $validations = []): Response
+    private function getCartTwig(SessionInterface $session, array $data = [], array $validations = []): Response
     {
-        $packageId = $session->get('package_id');
-        if (empty($packageId)) {
-            return $this->redirectToRoute('cv_making_page');
+        $product = $session->get('product');
+        if (empty($product)) {
+            return $this->redirectToRoute('home_page');
         }
-        $package = $packagesRepository->find($packageId);
-        match ($package->getLevel()) {
-            'beginner' => $package->setLevel('Pályakezdő'),
-            'junior' => $package->setLevel('Junior'),
-            'medior' => $package->setLevel('Medior'),
-            'senior' => $package->setLevel('Senior'),
-            'leader' => $package->setLevel('Vezető'),
-        };
         return $this->render('cart/cart.html.twig', [
-            'package' => $package,
+            'product' => $product,
             'data' => $data,
             'validations' => $validations,
         ]);
@@ -258,20 +255,12 @@ class CheckoutController extends AbstractController
     /**
      * @param EmailSender $emailSender
      * @param array $values
-     * @param Packages $package
      * @param Orders $order
      * @param string $uniqueId
      * @return bool
      */
-    private function sendEmail(EmailSender $emailSender, array $values, Packages $package, Orders $order, string $uniqueId): bool
+    private function sendEmail(EmailSender $emailSender, array $values, Orders $order, string $uniqueId): bool
     {
-        match ($package->getLevel()) {
-            'beginner' => $package->setLevel('Pályakezdő'),
-            'junior' => $package->setLevel('Junior'),
-            'medior' => $package->setLevel('Medior'),
-            'senior' => $package->setLevel('Senior'),
-            'leader' => $package->setLevel('Vezető'),
-        };
         $contactEmails = explode(';', $_ENV['CONTACT_EMAIL']);
         $secretEmails = explode(';', $_ENV['SECRET_EMAIL']);
         $price = $order->getPrice();
@@ -281,12 +270,13 @@ class CheckoutController extends AbstractController
             'emails/order.html.twig',
             [
                 'firstname' => $values['firstname'],
-                'packageLevel' => $package->getLevel(),
-                'packageTitle' => $package->getTitle(),
+                'productName' => $order->getProductName(),
                 'price' => $price,
                 'uniqueId' => $uniqueId,
                 'contactEmail' => reset($contactEmails),
-                'contactPhone' => $_ENV['CONTACT_PHONE']
+                'contactPhone' => $_ENV['CONTACT_PHONE'],
+                'productType' => $order->getProductType(),
+                'formData' => $order->getDataSheet(),
             ]
         );
 
@@ -297,11 +287,12 @@ class CheckoutController extends AbstractController
             [
                 'values' => $values,
                 'createdDate' => new \DateTime(),
-                'packageLevel' => $package->getLevel(),
-                'packageTitle' => $package->getTitle(),
+                'productName' => $order->getProductName(),
                 'price' => $price,
                 'coupon' => $order->getCoupon(),
-                'uniqueId' => $uniqueId
+                'uniqueId' => $uniqueId,
+                'productType' => $order->getProductType(),
+                'formData' => $order->getDataSheet(),
             ],
             [],
             $secretEmails
@@ -315,25 +306,54 @@ class CheckoutController extends AbstractController
      * @param PackagesRepository $packagesRepository
      * @param EntityManagerInterface $entityManager
      * @param CouponRepository $couponRepository
-     * @return Orders
+     * @param SettingsRepository $settingsRepository
+     * @return Orders|null
      */
-    private function createOrder(SessionInterface $session, PackagesRepository $packagesRepository, EntityManagerInterface $entityManager, CouponRepository $couponRepository): Orders
+    private function createOrder(
+        SessionInterface       $session,
+        PackagesRepository     $packagesRepository,
+        EntityManagerInterface $entityManager,
+        CouponRepository       $couponRepository,
+        SettingsRepository     $settingsRepository
+    ): ?Orders
     {
         $checkoutData = $session->get('checkout_data');
-        $packageId = $session->get('package_id');
+        $sessionProduct = $session->get('product');
+        $productId = $sessionProduct['id'];
 
-        $package = $packagesRepository->find($packageId);
+        $productName = null;
+        $originalPrice = null;
+        if ($sessionProduct['type'] === 'package') {
+            $package = $packagesRepository->find($productId);
+            $packagePrice = $package->getPrice();
+            if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $packagePrice) {
+                $packagePrice = $package->getDiscountPrice();
+            }
+            $originalPrice = $packagePrice;
+
+            match ($package->getLevel()) {
+                'beginner' => $packageLevel = 'Pályakezdő',
+                'junior' => $packageLevel = 'Junior',
+                'medior' => $packageLevel = 'Medior',
+                'senior' => $packageLevel = 'Senior',
+                'leader' => $packageLevel = 'Vezető',
+            };
+            $productName = $package->getTitle() . ' ' . $packageLevel . ' önéletrajz készítés';
+        } elseif ($sessionProduct['type'] === 'analysis') {
+            $productName = $sessionProduct['name'];
+            $originalPrice = $settingsRepository->findValueByKey('analysis_price');
+        }
+
+        if ($productName === null || $originalPrice === null) {
+            return null;
+        }
 
         $uniqueId = uniqid();
-        $packagePrice = $package->getPrice();
-        if ($package->getDiscountPrice() !== null && $package->getDiscountPrice() < $packagePrice) {
-            $packagePrice = $package->getDiscountPrice();
-        }
         $couponCode = $session->get('coupon');
-        $price = $packagePrice;
         $couponText = null;
+        $price = $originalPrice;
         if (!empty($couponCode)) {
-            $processedCoupon = CouponProcessor::calculatePrices($couponCode, $packagePrice, $couponRepository);
+            $processedCoupon = CouponProcessor::calculatePrices($couponCode, $originalPrice, $couponRepository);
             if ($processedCoupon['valid']) {
                 $price = $processedCoupon['newPriceValue'];
                 $couponText = $processedCoupon['couponText'];
@@ -349,9 +369,9 @@ class CheckoutController extends AbstractController
             $checkoutData['zipcode'],
             $checkoutData['city'],
             $checkoutData['address'],
-            $package->getLevel(),
-            $package->getTitle(),
-            $packagePrice,
+            $productName,
+            $sessionProduct['type'],
+            $originalPrice,
             $price,
             new \DateTime(),
             new \DateTime(),
@@ -360,6 +380,10 @@ class CheckoutController extends AbstractController
 
         if ($couponText) {
             $order->setCoupon($couponText);
+        }
+
+        if ($sessionProduct['type'] === 'analysis') {
+            $order->setDataSheet($session->get('analysisFormData'));
         }
 
         $entityManager->persist($order);
@@ -371,28 +395,19 @@ class CheckoutController extends AbstractController
 
     /**
      * @param Orders $order
-     * @param int $packageId
+     * @param string $productSku
      * @return string|null
      * @throws BarionException
      */
-    private function callBarion(Orders $order, int $packageId): ?string
+    private function callBarion(Orders $order, string $productSku): ?string
     {
-        $packageLevel = $order->getPackageLevel();
-        match ($packageLevel) {
-            'beginner' => $packageLevel = 'Pályakezdő',
-            'junior' => $packageLevel = 'Junior',
-            'medior' => $packageLevel = 'Medior',
-            'senior' => $packageLevel = 'Senior',
-            'leader' => $packageLevel = 'Vezető',
-        };
-
         $item = new ItemModel();
-        $item->Name = $order->getPackageTitle() . ' ' . $packageLevel . ' önéletrajz készítés';
+        $item->Name = $order->getProductName();
         $item->Quantity = 1;
         $item->Unit = "db";
         $item->UnitPrice = $order->getPrice();
         $item->ItemTotal = $order->getPrice();
-        $item->SKU = $packageLevel . '_' . $packageId;
+        $item->SKU = $productSku;
         $item->Description = $item->Name;
 
         $transaction = new PaymentTransactionModel();

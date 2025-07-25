@@ -45,7 +45,7 @@
                                 <li><i class="bi bi-check2"></i> {{ feature }}</li>
                             {% endfor %}
                         </ul>
-                        <form action="{{ path('cart_add') }}" method="POST" class="w-100">
+                        <form action="{{ path('package_cart_add') }}" method="POST" class="w-100">
                             <input type="hidden" name="package_id" value="{{ package.id }}">
                             <button type="submit" class="btn order-btn w-100">Megrendelem</button>
                         </form>

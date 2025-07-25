@@ -42,13 +42,13 @@ class Orders
     private string $address;
 
     #[ORM\Column(length: 255)]
-    private string $package_level;
+    private string $product_name;
 
     #[ORM\Column(length: 255)]
-    private string $package_title;
+    private string $product_type;
 
     #[ORM\Column]
-    private int $package_price;
+    private int $product_price;
 
     #[ORM\Column]
     private int $price;
@@ -78,9 +78,9 @@ class Orders
      * @param string $zipcode
      * @param string $city
      * @param string $address
-     * @param string $package_level
-     * @param string $package_title
-     * @param int $package_price
+     * @param string $product_name
+     * @param string $product_type
+     * @param int $product_price
      * @param int $price
      * @param \DateTimeInterface $created
      * @param \DateTimeInterface $updated
@@ -96,13 +96,13 @@ class Orders
         string             $zipcode,
         string             $city,
         string             $address,
-        string             $package_level,
-        string             $package_title,
-        int                $package_price,
+        string             $product_name,
+        string             $product_type,
+        int                $product_price,
         int                $price,
         \DateTimeInterface $created,
         \DateTimeInterface $updated,
-        bool $success
+        bool               $success
     ) {
         $this->custom_id = $custom_id;
         $this->lastname = $lastname;
@@ -113,9 +113,9 @@ class Orders
         $this->zipcode = $zipcode;
         $this->city = $city;
         $this->address = $address;
-        $this->package_level = $package_level;
-        $this->package_title = $package_title;
-        $this->package_price = $package_price;
+        $this->product_name = $product_name;
+        $this->product_type = $product_type;
+        $this->product_price = $product_price;
         $this->price = $price;
         $this->created = $created;
         $this->updated = $updated;
@@ -174,19 +174,19 @@ class Orders
         return $this->address;
     }
 
-    public function getPackageLevel(): string
+    public function getProductName(): string
     {
-        return $this->package_level;
+        return $this->product_name;
     }
 
-    public function getPackageTitle(): string
+    public function getProductType(): string
     {
-        return $this->package_title;
+        return $this->product_type;
     }
 
-    public function getPackagePrice(): int
+    public function getProductPrice(): int
     {
-        return $this->package_price;
+        return $this->product_price;
     }
 
     public function getPrice(): int

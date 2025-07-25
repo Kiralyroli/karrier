@@ -1,0 +1,12 @@
+<p>Kedves {{ firstname }},</p>
+<p>Köszönjük, hogy megrendelted az önéletrajzodat! Az alábbi csomagot választottad:</p>
+<p>{{ productName }}</p>
+<p><span class="highlight">Ár:</span> {{ price|price }}</p>
+<p>A következő lépésként kérjük, töltsd ki az adatlapon a szükséges információkat, hogy személyre szabott és professzionális önéletrajzot készíthessünk neked.</p>
+<p>Az alábbi gombra kattintva ki tudod tölteni az adatlapot:</p>
+<a href="{{ url('data_sheet', { 'uniqueId': uniqueId }) }}" class="button">Adatlap kitöltése</a>
+<p>Ha bármilyen kérdésed van, szívesen segítünk. Fordulj hozzánk bizalommal!</p>
+<p>Üdvözlettel,</p>
+<p>primecv.hu csapata</p>
+<p><a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
+<p><a href="tel:{{ contactPhone|replace({' ': ''}) }}">{{ contactPhone }}</a></p>

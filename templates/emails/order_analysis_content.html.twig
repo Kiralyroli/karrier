@@ -1,0 +1,50 @@
+<p>Kedves {{ firstname }},</p>
+<p>Köszönjük, hogy megrendelted az önéletrajz-elemzést!</p>
+<p><span class="highlight">Ár:</span> {{ price|price }}</p>
+<p>Hamarosan felvesszük veled a kapcsolatot és elkészítjük az önéletrajz elemzésedet!</p>
+
+<h3>Megadott adatok</h3>
+<table>
+    <tr>
+        <th>Vezetéknév</th>
+        <td>{{ formData.lastname }}</td>
+    </tr>
+    <tr>
+        <th>Keresztnév</th>
+        <td>{{ formData.firstname }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ formData.email }}</td>
+    </tr>
+    <tr>
+        <th>Telefonszám</th>
+        <td>{{ formData.phone }}</td>
+    </tr>
+    <tr>
+        <th>Feltöltött önéletrajz</th>
+        <td>
+            <a href="{{ absolute_url('/download-file/' ~ formData.uploaded_cv_file) }}" target="_blank" class="download-link">
+                {{ formData.uploaded_cv_file }}
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th>Pozíció</th>
+        <td>{{ formData.position }}</td>
+    </tr>
+    <tr>
+        <th>Iparág</th>
+        <td>{{ formData.industry }}</td>
+    </tr>
+    <tr>
+        <th>Álláshirdetés link</th>
+        <td>{{ formData.link }}</td>
+    </tr>
+</table>
+
+<p>Ha bármilyen kérdésed van, szívesen segítünk. Fordulj hozzánk bizalommal!</p>
+<p>Üdvözlettel,</p>
+<p>primecv.hu csapata</p>
+<p><a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a></p>
+<p><a href="tel:{{ contactPhone|replace({' ': ''}) }}">{{ contactPhone }}</a></p>

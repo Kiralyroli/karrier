@@ -63,7 +63,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Új CV Maker rendelés érkezett!</h1>
+        <h1>Új {% if productType == 'package' %}Önéletrajz készítés{% elseif productType == 'analysis' %}Önéletrajz elemzés{% endif%} rendelés érkezett!</h1>
     </div>
     <div class="content">
         <table class="table">
@@ -100,12 +100,8 @@
                 <td>{{ values.address }}</td>
             </tr>
             <tr>
-                <td><strong>Önéletrajz szint</strong></td>
-                <td>{{ packageLevel }}</td>
-            </tr>
-            <tr>
-                <td><strong>Önéletrajz név</strong></td>
-                <td>{{ packageTitle }}</td>
+                <td><strong>Termék név</strong></td>
+                <td>{{ productName }}</td>
             </tr>
             <tr>
                 <td><strong>Ár</strong></td>
@@ -123,7 +119,53 @@
                 <td><strong>Egyedi azonosító</strong></td>
                 <td>{{ uniqueId }}</td>
             </tr>
+            <tr>
+                <td><strong>Típus</strong></td>
+                <td>{% if productType == 'package' %}Önéletrajz készítés{% elseif productType == 'analysis' %}Önéletrajz elemzés{% endif%}</td>
+            </tr>
         </table>
+
+        {% if productType == 'analysis' %}
+            <h3>Megadott adatok az elemzéshez</h3>
+            <table>
+                <tr>
+                    <th>Vezetéknév</th>
+                    <td>{{ formData.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Keresztnév</th>
+                    <td>{{ formData.firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ formData.email }}</td>
+                </tr>
+                <tr>
+                    <th>Telefonszám</th>
+                    <td>{{ formData.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Feltöltött önéletrajz</th>
+                    <td>
+                        <a href="{{ absolute_url('/download-file/' ~ formData.uploaded_cv_file) }}" target="_blank" class="download-link">
+                            {{ formData.uploaded_cv_file }}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Pozíció</th>
+                    <td>{{ formData.position }}</td>
+                </tr>
+                <tr>
+                    <th>Iparág</th>
+                    <td>{{ formData.industry }}</td>
+                </tr>
+                <tr>
+                    <th>Álláshirdetés link</th>
+                    <td>{{ formData.link }}</td>
+                </tr>
+            </table>
+        {% endif%}
     </div>
     <div class="footer">
         <p>&copy; 2025, primecv.hu. Minden jog fenntartva.</p>

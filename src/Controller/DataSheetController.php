@@ -27,6 +27,9 @@ class DataSheetController extends AbstractController
             if (!$order->isSuccess()) {
                 return $this->redirectToRoute('cv_making_page');
             }
+            if ($order->getProductType() === 'analysis') {
+                return $this->redirectToRoute('cv_analysis_page');
+            }
             $sessionFormData = $order->getDataSheet();
             $session->set('formData', $sessionFormData);
         }

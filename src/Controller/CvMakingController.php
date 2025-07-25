@@ -6,6 +6,7 @@ use App\Repository\PackagesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CvMakingController extends AbstractController
@@ -37,6 +38,33 @@ class CvMakingController extends AbstractController
             'level' => $level,
             'packages' => $packagesRepository->findByLevel($level)
         ]);
+    }
+
+    #[Route('/package-cart', name: 'package_cart_add', methods: ['POST'])]
+    public function cart(Request $request, SessionInterface $session, PackagesRepository $packagesRepository): Response
+    {
+        $packageId = $request->get('package_id', $request->request->get('package_id'));
+        if ($packageId) {
+            $package = $packagesRepository->find($packageId);
+            match ($package->getLevel()) {
+                'beginner' => $packageLevel = 'Pályakezdő',
+                'junior' => $packageLevel = 'Junior',
+                'medior' => $packageLevel = 'Medior',
+                'senior' => $packageLevel = 'Senior',
+                'leader' => $packageLevel = 'Vezető',
+            };
+            $product = [
+                'sku' => $package->getLevel() . '_' . $packageId,
+                'name' => $package->getTitle() . ' ' . $packageLevel . ' önéletrajz készítés',
+                'type' => 'package',
+                'id' => $packageId,
+                'discountPrice' => $package->getDiscountPrice(),
+                'price' => $package->getPrice(),
+                'features' => $package->getFeatures()
+            ];
+            $session->set('product', $product);
+        }
+        return $this->redirectToRoute('checkout');
     }
 
     /**

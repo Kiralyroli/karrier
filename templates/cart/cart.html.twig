@@ -51,16 +51,16 @@
                             <h3 class="fw-bold">Rendelés összesítő</h3>
 
                             <p class="mb-1">
-                                <strong>{{ package.level }} {{ package.title }}</strong>
-                                {% if package.discountPrice is defined and package.discountPrice is not null and package.discountPrice < package.price %}
-                                    <span class="float-end">{{ package.discountPrice|price }}</span>
+                                <strong>{{ product.name }}</strong>
+                                {% if product.discountPrice is defined and product.discountPrice is not null and product.discountPrice < product.price %}
+                                    <span class="float-end">{{ product.discountPrice|price }}</span>
                                 {% else %}
-                                    <span class="float-end">{{ package.price|price }}</span>
+                                    <span class="float-end">{{ product.price|price }}</span>
                                 {% endif %}
                             </p>
 
                             <ul class="list-unstyled">
-                                {% for feature in package.features %}
+                                {% for feature in product.features %}
                                     <li><i class="bi bi-check2"></i> {{ feature }}</li>
                                 {% endfor %}
                             </ul>
@@ -80,10 +80,10 @@
                             <hr class="hr"/>
                             <div>
                                 <h5 class="fw-bold">Teljes összeg</h5>
-                                {% if package.discountPrice is defined and package.discountPrice is not null and package.discountPrice < package.price %}
-                                    <div id="price-original" class="fs-5"><strong>{{ package.discountPrice|price }}</strong></div>
+                                {% if product.discountPrice is defined and product.discountPrice is not null and product.discountPrice < product.price %}
+                                    <div id="price-original" class="fs-5"><strong>{{ product.discountPrice|price }}</strong></div>
                                 {% else %}
-                                    <div id="price-original" class="fs-5"><strong>{{ package.price|price }}</strong></div>
+                                    <div id="price-original" class="fs-5"><strong>{{ product.price|price }}</strong></div>
                                 {% endif %}
                                 <div id="price-discounted" class="fs-5"><strong></strong></div>
                                 <div id="coupon-discount" class="text-success mt-3 mb-1"><strong></strong></div>
