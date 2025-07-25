@@ -54,11 +54,11 @@
                 </div>
                 <div class="col-12 col-lg-5">
                     <div class="mb-3">
-                        <input type="text" name="position" class="form-control {% if validations.position is defined %}{{ validations.position.class }}{% endif %}" placeholder="Pozíció" aria-label="Pozíció" value="{% if formData.position is defined %}{{ formData.position }}{% endif %}" required>
+                        <input type="text" name="position" class="form-control {% if validations.position is defined %}{{ validations.position.class }}{% endif %}" placeholder="Pozíció (opcionális)" aria-label="Pozíció" value="{% if formData.position is defined %}{{ formData.position }}{% endif %}">
                         <div class="invalid-feedback">{{ validations.position.message|default(null) }}</div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" name="industry" class="form-control {% if validations.industry is defined %}{{ validations.industry.class }}{% endif %}" placeholder="Iparág" aria-label="Iparág" value="{% if formData.industry is defined %}{{ formData.industry }}{% endif %}" required>
+                        <input type="text" name="industry" class="form-control {% if validations.industry is defined %}{{ validations.industry.class }}{% endif %}" placeholder="Iparág (opcionális)" aria-label="Iparág" value="{% if formData.industry is defined %}{{ formData.industry }}{% endif %}">
                         <div class="invalid-feedback">{{ validations.industry.message|default(null) }}</div>
                     </div>
                     <div class="mb-3">

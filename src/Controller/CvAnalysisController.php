@@ -53,8 +53,8 @@ class CvAnalysisController extends AbstractController
             'email' => [new Assert\NotBlank(), new Assert\Email()],
             'phone' => [],
             'uploaded_cv_file' => [new Assert\NotBlank()],
-            'position' => [new Assert\NotBlank()],
-            'industry' => [new Assert\NotBlank()],
+            'position' => [],
+            'industry' => [],
             'link' => [],
             'g-recaptcha-response' => [new Assert\NotBlank()],
         ]);
