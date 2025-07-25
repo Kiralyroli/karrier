@@ -53,16 +53,13 @@ class OrdersCrudController extends AbstractCrudController
             TextField::new('zipcode', 'Irányítószám')->onlyOnDetail(),
             TextField::new('city', 'Város')->onlyOnDetail(),
             TextField::new('address', 'Cím')->onlyOnDetail(),
-            ChoiceField::new('packageLevel', 'Csomag szint')
+            TextField::new('productName', 'Termék név'),
+            ChoiceField::new('productType', 'Termék típus')
                 ->setChoices([
-                    'Pályakezdő' => 'beginner',
-                    'Junior' => 'junior',
-                    'Medior' => 'medior',
-                    'Senior' => 'senior',
-                    'Vezető' => 'leader',
+                    'Elemzés' => 'analysis',
+                    'Készítés' => 'package',
                 ]),
-            TextField::new('packageTitle', 'Csomag név'),
-            IntegerField::new('packagePrice', 'Csomag ár'),
+            IntegerField::new('productPrice', 'Termék ár'),
             IntegerField::new('price', 'Végleges ár'),
             TextField::new('coupon', 'Kupon'),
             DateTimeField::new('created', 'Létrehozva'),
