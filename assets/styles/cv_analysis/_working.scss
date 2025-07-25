@@ -1,6 +1,7 @@
 #cv-analysis-page #working {
   padding-top: 50px;
   padding-bottom: 50px;
+  color: $base-color-dark;
 
   .main-title {
     text-align: center;
@@ -13,8 +14,11 @@
     padding-right: 80px;
 
     .image {
-      height: 64px;
       margin-bottom: 20px;
+
+      img {
+        height: 64px;
+      }
     }
 
     .sub-title {
