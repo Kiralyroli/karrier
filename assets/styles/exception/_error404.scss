@@ -1,0 +1,26 @@
+#error404 {
+  padding-top: 130px;
+  text-align: center;
+  color: $base-color-dark;
+
+  #error-button {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
+
+    a {
+      text-decoration: none;
+      background-color: $base-color-dark;
+      color: white;
+      border-radius: 20px;
+      padding: 15px 20px;
+      margin-right: 35px;
+      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
