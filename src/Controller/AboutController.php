@@ -11,6 +11,7 @@ class AboutController extends AbstractController
     #[Route('/about', name: 'about_page')]
     public function index(): Response
     {
+        throw $this->createNotFoundException();
         return $this->render('about/about.html.twig', [
         ]);
     }
