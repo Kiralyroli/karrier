@@ -1,21 +1,20 @@
 <div id="main" class="container-fluid">
     <div class="container">
-        <div class="row align-items-center">
-            <h1 class="main-title">Mennyire ütős az önéletrajzod?</h1>
-            <div class="col-md-6 order-md-1 order-2">
-                <p class="main-description">
-                    Töltsd fel az önéletrajzod, és 24 órán belül részletes, szakértői elemzést küldünk vissza.  Segítünk, hogy elérd a következő interjúmeghívást.
-                </p>
-                <div class="main-button">
-                    <a href="{{ path('cv_analysis_data_page') }}" class="btn btn-primary button-hover">Elemzés kérése</a>
-                </div>
-                <p class="main-price">
-                    Elemzés díja: {{ analysis_price|price }}
-                </p>
+        <div class="row content">
+            <h2 class="sub-title">Nem vagy biztos benne, hogy elég erős az önéletrajzod?</h2>
+            <h1 class="main-title">Kérj részletes szakértői elemzést az önéletrajzodról!</h1>
+            <div class="main-description">
+                <div class="listing"><i class="bi bi-check2"></i>Részletes szöveges értékelés 24 órán belül</div>
+                <div class="listing"><i class="bi bi-check2"></i>Szakértő által készített, személyre szabott tanácsok</div>
+                <div class="listing"><i class="bi bi-check2"></i>Elemzés PDF formátumban, konkrét javaslatokkal</div>
+                <div class="listing"><i class="bi bi-check2"></i>Segítünk, hogy közelebb kerülj a következő interjúhoz</div>
             </div>
-            <div class="col-md-6 order-md-2 order-1">
-                <img id="main-image" src="{{ asset('images/cv_analysis/main.webp') }}" alt="Személyre szabott önéletrajz sablon" loading="lazy">
+            <div class="main-button">
+                <a href="{{ path('cv_analysis_data_page') }}" class="btn btn-primary button-hover">Elemzés kérése</a>
             </div>
+            <p class="main-price">
+                Elemzés díja: {{ analysis_price|price }}
+            </p>
         </div>
     </div>
 </div>

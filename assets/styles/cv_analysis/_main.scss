@@ -4,43 +4,72 @@
   color: white;
   background: linear-gradient(90deg, $base-color-dark 0%, $base-color-light 100%);
 
-  .main-title {
-    text-align: center;
-    font-size: clamp(30px, 5vw, 60px);
-  }
+  .content {
+    display: flex;
+    justify-content: center;
 
-  .main-description {
-    font-size: clamp(16px, 3vw, 25px);
-  }
+    .sub-title {
+      text-align: center;
+      font-size: 35px;
+      border-bottom: 1px solid;
+      width: auto;
+      margin-bottom: 20px;
 
-  .main-button {
-    padding-top: 20px;
-
-    a {
-      text-decoration: none;
-      color: white;
-      background-color: $base-color-light;
-      border: none;
-      border-radius: 20px;
-      padding: 15px 20px;
-      display: inline-block;
-      box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
-      transition: all 0.3s ease;
-      font-size: 20px;
-
-      &:hover {
-        transform: scale(1.05);
+      @media (max-width: 768px) {
+        font-size: 20px;
       }
     }
-  }
 
-  .main-price {
-    padding-top: 10px;
-    font-size: clamp(16px, 3vw, 25px);
-  }
+    .main-title {
+      text-align: center;
+      font-size: clamp(30px, 5vw, 60px);
+      margin-bottom: 20px;
+    }
 
-  #main-image {
-    max-width: 100%;
-    height: auto;
+    .main-description {
+      font-size: clamp(16px, 3vw, 25px);
+      width: auto;
+
+      .listing {
+        border-bottom: 1px solid;
+        margin-bottom: 10px;
+
+        @media (min-width: 768px) {
+          justify-self: center;
+        }
+
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .main-button {
+      padding-top: 20px;
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        color: white;
+        background-color: $base-color-light;
+        border: none;
+        border-radius: 20px;
+        padding: 15px 20px;
+        display: inline-block;
+        box-shadow: 0 5px 5px rgba($base-color-dark, 0.5);
+        transition: all 0.3s ease;
+        font-size: 20px;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .main-price {
+      padding-top: 10px;
+      font-size: clamp(16px, 3vw, 25px);
+      text-align: center;
+    }
   }
 }
